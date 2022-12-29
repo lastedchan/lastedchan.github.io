@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Image from "next/image";
 import { Box, Typography } from "@mui/material";
+import { useCallback } from "react";
 
 const smallImgList = [
   "/midnight_chaser/s1.png",
@@ -21,6 +22,11 @@ type Props = {
 };
 
 export default function Popup({ opened, usedItem, selectItem }: Props) {
+  const checkUsed = useCallback(
+    (i: number) => usedItem.findIndex(_ => _ === i) !== -1,
+    [usedItem]
+  );
+
   return (
     <Container opened={opened}>
       <PopupContainer>
@@ -30,7 +36,7 @@ export default function Popup({ opened, usedItem, selectItem }: Props) {
           </Typography>
         </Box>
         {smallImgList.map((item, i) =>
-          usedItem.findIndex(_ => _ === i) !== -1 ? null : (
+          checkUsed(i) ? null : (
             <Box
               key={i}
               sx={{ width: 38, height: 38 }}
