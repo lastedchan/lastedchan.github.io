@@ -58,7 +58,7 @@ const Container = styled.div`
 
 const SlotContainer = styled.div`
   display: grid;
-  grid-template: repeat(3, calc(100vw / 3)) / repeat(3, calc(100vw / 3));
+  grid-template: repeat(3, calc(100% / 3)) / repeat(3, calc(100% / 3));
   width: 100%;
   height: 100%;
   border: 1px solid #ddd;
