@@ -5,9 +5,19 @@ import Head from "next/head";
 import Header from "../components/layouts/header";
 import { Box } from "@mui/material";
 import styled from "@emotion/styled";
+import { useRouter } from "next/router";
+import { tabList } from "../constants/common";
+import { useMemo } from "react";
+
+const mainTitle = "lastchan utils";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const title = "lastchan utils";
+  const router = useRouter();
+
+  const title = useMemo(() => {
+    const subtitle = tabList.find(_ => _.href === router.pathname)?.title;
+    return mainTitle + (subtitle ? " - " + subtitle : "");
+  }, [router.pathname]);
 
   return (
     <>
@@ -32,10 +42,13 @@ export default function App({ Component, pageProps }: AppProps) {
 const Container = styled(Box)`
   display: flex;
   flex-direction: column;
+  width: 100%;
+  height: 100%;
 `;
 
 const Wrapper = styled(Box)`
   display: flex;
   flex: 1;
   padding: 8px;
+  overflow: auto;
 `;

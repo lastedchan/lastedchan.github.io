@@ -6,12 +6,11 @@ import {
   Toolbar,
   Typography
 } from "@mui/material";
-import styled from "@emotion/styled";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import TabList from "./tabList";
 import { useRouter } from "next/router";
-import { tabs } from "../../constants/common";
+import { tabList } from "../../constants/common";
 
 export default function Header() {
   const router = useRouter();
@@ -33,23 +32,10 @@ export default function Header() {
           </Box>
           <Typography sx={{ flex: 1, p: 2 }}>LASTCHAN</Typography>
           <Drawer open={open} onClose={() => setOpen(false)}>
-            <TabList tabs={tabs} />
+            <TabList tabs={tabList} />
           </Drawer>
         </Toolbar>
       </AppBar>
     </>
   );
 }
-
-const Top = styled(Box)`
-  position: sticky;
-  top: 0;
-  display: flex;
-  flex-direction: row;
-  padding: 0 16px;
-  width: 100%;
-  height: 50px;
-  background-color: #f0f0f0;
-  justify-content: center;
-  align-items: center;
-`;

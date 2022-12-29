@@ -5,19 +5,26 @@ import {
   ListItemText,
   Typography
 } from "@mui/material";
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { TabListType } from "../../constants/types";
 
-export default function TabList({ tabs }: { tabs: any[] }) {
+type Props = {
+  tabs: TabListType;
+};
+
+export default function TabList({ tabs }: Props) {
+  const router = useRouter();
+
   return (
     <List sx={{ width: "100%" }}>
       {tabs.map((_, i) => (
-        <ListItem key={i}>
+        <ListItem key={i} sx={{ textAlign: "center" }}>
           {_.href ? (
-            <ListItemButton>
-              <Link href={_.href}>{_.title}</Link>
+            <ListItemButton onClick={() => router.push(_.href ?? "/")}>
+              {_.title}
             </ListItemButton>
           ) : (
-            <ListItemText sx={{ textAlign: "center" }}>
+            <ListItemText>
               <Typography sx={{ fontWeight: "bold" }}>{_.title}</Typography>
             </ListItemText>
           )}
