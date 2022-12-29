@@ -1,5 +1,5 @@
 import { SlotType } from "../../constants/types";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import Image from "next/image";
@@ -14,12 +14,6 @@ export default function MidnightChaser() {
 
   useEffect(() => setCurrSlot(-1), [slotList]);
   useEffect(() => setPopupOn(currSlot !== -1), [currSlot]);
-
-  const usedItem = useMemo(() => {
-    const arr: number[] = [];
-    slotList.map(_ => (_ !== -1 ? arr.push(_) : false));
-    return arr;
-  }, [slotList]);
 
   const openPopup = useCallback((item: number) => setCurrSlot(item), []);
 
@@ -51,7 +45,7 @@ export default function MidnightChaser() {
           </Wrapper>
         ))}
       </SlotContainer>
-      <Popup opened={popupOn} usedItem={usedItem} selectItem={selectItem} />
+      <Popup opened={popupOn} usedItem={slotList} selectItem={selectItem} />
     </Container>
   );
 }
