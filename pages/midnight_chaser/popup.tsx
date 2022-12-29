@@ -21,7 +21,6 @@ type Props = {
 };
 
 export default function Popup({ opened, usedItem, selectItem }: Props) {
-  console.log(usedItem);
   return (
     <Container opened={opened}>
       <PopupContainer>
@@ -31,7 +30,7 @@ export default function Popup({ opened, usedItem, selectItem }: Props) {
           </Typography>
         </Box>
         {smallImgList.map((item, i) =>
-          usedItem.find(_ => _ === i) !== undefined ? null : (
+          usedItem.findIndex(_ => _ === i) !== -1 ? null : (
             <Box
               key={i}
               sx={{ width: 38, height: 38 }}

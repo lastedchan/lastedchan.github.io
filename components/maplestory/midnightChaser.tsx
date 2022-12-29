@@ -12,8 +12,8 @@ export default function MidnightChaser() {
   const [popupOn, setPopupOn] = useState(false);
   const [currSlot, setCurrSlot] = useState(-1);
 
-  useEffect(() => setPopupOn(currSlot !== -1), [currSlot]);
   useEffect(() => setCurrSlot(-1), [slotList]);
+  useEffect(() => setPopupOn(currSlot !== -1), [currSlot]);
 
   const usedItem = useMemo(() => {
     const arr: number[] = [];
