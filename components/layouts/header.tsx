@@ -12,7 +12,11 @@ import TabList from "./tabList";
 import { useRouter } from "next/router";
 import { tabList } from "../../constants/common";
 
-export default function Header() {
+type Props = {
+  title?: string;
+};
+
+export default function Header({ title }: Props) {
   const router = useRouter();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -30,7 +34,7 @@ export default function Header() {
               <MenuIcon />
             </IconButton>
           </Box>
-          <Typography sx={{ flex: 1, p: 2 }}>LASTCHAN</Typography>
+          <Typography sx={{ flex: 1, p: 2 }}>{title}</Typography>
           <Drawer open={open} onClose={() => setOpen(false)}>
             <TabList tabs={tabList} />
           </Drawer>

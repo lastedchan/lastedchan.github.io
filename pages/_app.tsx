@@ -9,15 +9,14 @@ import { useRouter } from "next/router";
 import { tabList } from "../constants/common";
 import { useMemo } from "react";
 
-const mainTitle = "lastchan utils";
-
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  const title = useMemo(() => {
-    const subtitle = tabList.find(_ => _.href === router.pathname)?.title;
-    return mainTitle + (subtitle ? " - " + subtitle : "");
-  }, [router.pathname]);
+  const title = "LASTEDCHAN";
+  const subtitle = useMemo(
+    () => tabList.find(_ => _.href === router.pathname)?.title,
+    [router.pathname]
+  );
 
   return (
     <>
@@ -26,11 +25,11 @@ export default function App({ Component, pageProps }: AppProps) {
           name={"viewport"}
           content={"width=device-width,initial-scale=1"}
         />
-        <meta name={"title"} content={title} />
-        <title>{title}</title>
+        <meta name={"title"} content={title + " - " + subtitle} />
+        <title>{title + " - " + subtitle}</title>
       </Head>
       <Container>
-        <Header />
+        <Header title={subtitle} />
         <Wrapper>
           <Component {...pageProps} />
         </Wrapper>
