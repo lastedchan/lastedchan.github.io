@@ -30,7 +30,7 @@ export default function Popup({ opened, usedItem, selectItem }: Props) {
           </Typography>
         </Box>
         {smallImgList.map((item, i) =>
-          usedItem.findIndex(_ => _ === i) !== -1 ? null : (
+          usedItem?.findIndex(_ => _ === i) !== -1 ? null : (
             <Box
               key={i}
               sx={{ width: 38, height: 38 }}
