@@ -49,5 +49,7 @@ const Wrapper = styled(Box)`
   display: flex;
   flex: 1;
   padding: 8px;
+  width: 100%;
+  height: 100%;
   overflow: auto;
 `;
