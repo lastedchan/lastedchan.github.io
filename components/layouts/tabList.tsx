@@ -1,35 +1,43 @@
 import {
+  Divider,
   List,
-  ListItem,
   ListItemButton,
   ListItemText,
-  Typography
+  Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { TabListType } from "../../constants/types";
 
 type Props = {
-  tabs: TabListType;
+  tabList: TabListType;
 };
 
-export default function TabList({ tabs }: Props) {
+export default function TabList({ tabList }: Props) {
   const router = useRouter();
 
   return (
     <List sx={{ width: "100%" }}>
-      {tabs.map((_, i) => (
-        <ListItem key={i} sx={{ textAlign: "center" }}>
-          {_.href ? (
-            <ListItemButton onClick={() => router.push(_.href ?? "/")}>
-              {_.title}
+      {tabList.map((item, i) =>
+        item.title ? (
+          item.href ? (
+            <ListItemButton
+              key={i}
+              sx={{ justifyContent: "center" }}
+              onClick={() => router.push(item.href ?? "/")}
+            >
+              {item.title}
             </ListItemButton>
           ) : (
-            <ListItemText>
-              <Typography sx={{ fontWeight: "bold" }}>{_.title}</Typography>
+            <ListItemText key={i} sx={{ m: 0, p: 1 }}>
+              <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>
+                {item.title}
+              </Typography>
             </ListItemText>
-          )}
-        </ListItem>
-      ))}
+          )
+        ) : (
+          <Divider key={i} />
+        )
+      )}
     </List>
   );
 }

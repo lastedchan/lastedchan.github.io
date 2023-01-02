@@ -60,7 +60,7 @@ export default function Header({ title, mode, setMode }: Props) {
           />
         </Toolbar>
         <Drawer open={open} onClose={() => setOpen(false)}>
-          <TabList tabs={tabList} />
+          <TabList tabList={tabList} />
         </Drawer>
       </AppBar>
     </>
