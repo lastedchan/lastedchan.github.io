@@ -2,11 +2,20 @@ import {
   AppBar,
   Box,
   Drawer,
+  FormControlLabel,
   IconButton,
+  Switch,
   Toolbar,
-  Typography
+  Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import TabList from "./tabList";
 import { useRouter } from "next/router";
@@ -14,9 +23,11 @@ import { tabList } from "../../constants/common";
 
 type Props = {
   title?: string;
+  mode: "light" | "dark";
+  setMode: Dispatch<SetStateAction<"light" | "dark">>;
 };
 
-export default function Header({ title }: Props) {
+export default function Header({ title, mode, setMode }: Props) {
   const router = useRouter();
 
   const [open, setOpen] = useState<boolean>(false);
@@ -24,6 +35,12 @@ export default function Header({ title }: Props) {
   useEffect(() => {
     setOpen(false);
   }, [router.pathname]);
+
+  const onModeChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) =>
+      setMode(event.target.checked ? "dark" : "light"),
+    [setMode]
+  );
 
   return (
     <>
@@ -35,10 +52,16 @@ export default function Header({ title }: Props) {
             </IconButton>
           </Box>
           <Typography sx={{ flex: 1, p: 2 }}>{title}</Typography>
-          <Drawer open={open} onClose={() => setOpen(false)}>
-            <TabList tabs={tabList} />
-          </Drawer>
+          <FormControlLabel
+            control={
+              <Switch checked={mode === "dark"} onChange={onModeChange} />
+            }
+            label={mode}
+          />
         </Toolbar>
+        <Drawer open={open} onClose={() => setOpen(false)}>
+          <TabList tabs={tabList} />
+        </Drawer>
       </AppBar>
     </>
   );

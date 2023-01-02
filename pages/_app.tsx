@@ -3,23 +3,45 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import Header from "../components/layouts/header";
-import { Box } from "@mui/material";
+import {
+  Box,
+  createTheme,
+  CssBaseline,
+  PaletteMode,
+  ThemeProvider,
+} from "@mui/material";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { tabList } from "../constants/common";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { Cookies } from "react-cookie";
+import { RecoilRoot } from "recoil";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
-  const title = "LASTEDCHAN";
+  const [loaded, setLoaded] = useState<boolean>(false);
+  const [mode, setMode] = useState<PaletteMode>("light");
+  useEffect(() => {
+    setMode(new Cookies().get("mode"));
+    setLoaded(true);
+  }, []);
+  useEffect(() => {
+    loaded && new Cookies().set("mode", mode);
+  }, [loaded, mode]);
+
+  const theme = useMemo(() => createTheme({ palette: { mode: mode } }), [mode]);
+
+  const title = "LASTCHAN";
   const subtitle = useMemo(
     () => tabList.find(_ => _.href === router.pathname)?.title,
     [router.pathname]
   );
 
+  if (!loaded) return null;
+
   return (
-    <>
+    <RecoilRoot>
       <Head>
         <meta
           name={"viewport"}
@@ -28,13 +50,16 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name={"title"} content={title + " - " + subtitle} />
         <title>{title + " - " + subtitle}</title>
       </Head>
-      <Container>
-        <Header title={subtitle} />
-        <Wrapper>
-          <Component {...pageProps} />
-        </Wrapper>
-      </Container>
-    </>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Container>
+          <Header title={subtitle} mode={mode} setMode={setMode} />
+          <Wrapper>
+            <Component {...pageProps} />
+          </Wrapper>
+        </Container>
+      </ThemeProvider>
+    </RecoilRoot>
   );
 }
 
