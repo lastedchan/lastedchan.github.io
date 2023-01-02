@@ -38,5 +38,5 @@ export default function SelectJob({ job, setJob, jobList }: Props) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 0 auto;
+  flex: 0;
 `;

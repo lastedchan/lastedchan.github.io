@@ -77,7 +77,7 @@ export default function CoreStackList({
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 0;
 `;
 
 const List = styled(FormGroup)`

@@ -4,13 +4,16 @@ import { Cookies } from "react-cookie";
 import { CoreStackListType, JobListType } from "../../../constants/types";
 import SelectJob from "./selectJob";
 import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
+import MyCoreGenerator from "./myCoreGenerator";
 import MyCoreList from "./myCoreList";
+import { Button } from "@mui/material";
 
 export default function VMatrixCalculator() {
   const [job, setJob] = useState<string>(
     new Cookies().get(COOKIE_PREFIX_V_MATRIX_CALCULATOR + "job") ?? ""
   );
   const [coreStackList, setCoreStackList] = useState<CoreStackListType>({});
+  const [myCoreList, setMyCoreList] = useState<string[][]>([]);
 
   useEffect(() => {
     if (!job.length) return;
@@ -42,7 +45,18 @@ export default function VMatrixCalculator() {
         setCoreStackList={setCoreStackList}
         job={job}
       />
-      <MyCoreList coreList={jobList[job]} />
+      <MyCoreGenerator
+        coreList={jobList[job] ?? []}
+        setMyCoreList={setMyCoreList}
+      />
+      <MyCoreList
+        job={job}
+        myCoreList={myCoreList}
+        setMyCoreList={setMyCoreList}
+      />
+      <Button variant={"contained"} color={"secondary"} sx={{ flex: 0 }}>
+        계산
+      </Button>
     </>
   );
 }
@@ -76,9 +90,9 @@ const jobList: JobListType = {
     "데들리 차지",
     "파이널 어택",
     "샤이닝 체이스/버티컬 샤이닝 체이스",
+    "샤이닝 피어스",
     "소울 어썰트",
-    "잡1",
-    "잡2",
+    "소울 릴리즈",
   ],
   바이퍼: [],
   배틀메이지: [],
@@ -98,7 +112,23 @@ const jobList: JobListType = {
   엔젤릭버스터: [],
   와일드헌터: [],
   윈드브레이커: [],
-  은월: [],
+  은월: [
+    "폭류권",
+    "귀참과 진 귀참",
+    "소혼 장막",
+    "여우령/불여우령",
+    "정령의 화신",
+    "섬권",
+    "파력권",
+    "파쇄철조-하",
+    "파쇄철조-전",
+    "통백권",
+    "파쇄철조-회",
+    "속박술",
+    "환령 강신",
+    "사혼 각인",
+    "분혼 격참",
+  ],
   일리움: [],
   제논: [],
   제로: [],
