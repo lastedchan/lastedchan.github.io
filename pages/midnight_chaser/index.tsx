@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Box } from "@mui/material";
-import MidnightChaser from "../../components/maplestory/midnightChaser";
+import MidnightChaser from "../../src/components/maplestory/midnightChaser";
 
 export default function MidnightChaserIndex() {
   return (

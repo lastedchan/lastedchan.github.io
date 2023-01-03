@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
-import VMatrixCalculator from "../../components/maplestory/vMatrixCalculator/vMatrixCalculator";
-import { JobListType } from "../../constants/types";
+import VMatrixCalculator from "../../src/components/maplestory/vMatrixCalculator/vMatrixCalculator";
+import { JobListType } from "../../src/constants/types";
 
 export default function VMatrixCalculatorIndex() {
   return (

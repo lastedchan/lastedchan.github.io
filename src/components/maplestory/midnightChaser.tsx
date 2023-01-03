@@ -3,11 +3,11 @@ import { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import Image from "next/image";
-import Popup from "../../pages/midnight_chaser/popup";
+import Popup from "../../../pages/midnight_chaser/popup";
 
 export default function MidnightChaser() {
   const [slotList, setSlotList] = useState<SlotType>([
-    -1, -1, -1, -1, -1, -1, -1, -1, -1
+    -1, -1, -1, -1, -1, -1, -1, -1, -1,
   ]);
   const [popupOn, setPopupOn] = useState(false);
   const [currSlot, setCurrSlot] = useState(-1);
@@ -22,7 +22,7 @@ export default function MidnightChaser() {
       setSlotList(prev => [
         ...prev.slice(0, currSlot),
         item,
-        ...prev.slice(currSlot + 1)
+        ...prev.slice(currSlot + 1),
       ]),
     [currSlot]
   );
@@ -83,5 +83,5 @@ const largeImgList = [
   "/midnight_chaser/l6.png",
   "/midnight_chaser/l7.png",
   "/midnight_chaser/l8.png",
-  "/midnight_chaser/l9.png"
+  "/midnight_chaser/l9.png",
 ];

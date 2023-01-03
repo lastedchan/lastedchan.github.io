@@ -2,7 +2,7 @@ import { MenuItem, Select } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import styled from "@emotion/styled";
 import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
-import { jobList } from "../../../pages/v_matrix_calculator";
+import { jobList } from "../../../../pages/v_matrix_calculator";
 
 type Props = {
   job: string;

@@ -14,7 +14,7 @@ import {
   Typography,
 } from "@mui/material";
 import Popup from "../../popup";
-import { jobList } from "../../../pages/v_matrix_calculator";
+import { jobList } from "../../../../pages/v_matrix_calculator";
 import { sum } from "lodash";
 import styled from "@emotion/styled";
 

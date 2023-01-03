@@ -1,8 +1,8 @@
 import "normalize.css";
-import "../styles/globals.css";
+import "../src/styles/globals.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import Header from "../components/layouts/header";
+import Header from "../src/components/layouts/header";
 import {
   Box,
   createTheme,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { tabList } from "../constants/common";
+import { tabList } from "../src/constants/common";
 import { useEffect, useMemo, useState } from "react";
 import { Cookies } from "react-cookie";
 import { RecoilRoot } from "recoil";
