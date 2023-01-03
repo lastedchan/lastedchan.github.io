@@ -4,7 +4,6 @@ import { FormControlLabel, FormGroup } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { CoreStackListType } from "../../../constants/types";
 import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
-import { jobList } from "../../../pages/v_matrix_calculator";
 
 type Props = {
   job: string;
@@ -17,21 +16,6 @@ export default function CoreStackList({
   coreStackList,
   setCoreStackList,
 }: Props) {
-  // 중첩 코어 횟수 로드
-  useEffect(() => {
-    if (!job.length) return;
-    const stacks = JSON.parse(
-      localStorage.getItem(
-        COOKIE_PREFIX_V_MATRIX_CALCULATOR + "core_stack_" + job
-      ) ?? "[]"
-    );
-    setCoreStackList(
-      jobList[job]?.reduce((prev: { [p: string]: number }, item) => {
-        prev[item] = stacks?.[item] ?? 0;
-        return prev;
-      }, {}) ?? {}
-    );
-  }, [job, setCoreStackList]);
   // 중첩 코어 횟수 저장
   useEffect(() => {
     if (job && Object.values(coreStackList).length) {

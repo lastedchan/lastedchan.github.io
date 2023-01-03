@@ -46,7 +46,7 @@ export default function MyCoreGenerator({ coreList, setMyCoreList }: Props) {
   );
 
   const addMyCoreList = useCallback(() => {
-    if (selectedCoreList.length === 3) {
+    if (selectedCoreList.filter(_ => _).length === 3) {
       setMyCoreList(prev => [...prev, selectedCoreList]);
       setSelectedCoreList([]);
     } else alert("스킬을 3개 선택해주세요.");

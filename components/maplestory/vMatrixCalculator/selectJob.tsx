@@ -24,7 +24,7 @@ export default function SelectJob({ job, setJob }: Props) {
       >
         <MenuItem value={""}>직업 선택</MenuItem>
         {Object.keys(jobList).map((job, i) => (
-          <MenuItem key={i} value={job}>
+          <MenuItem key={i} value={job} disabled={!jobList[job].length}>
             {job}
           </MenuItem>
         ))}
