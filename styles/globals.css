@@ -1,5 +1,19 @@
+@charset "utf-8";
+
+@font-face {
+    font-family: "maplestory";
+    src: url("/fonts/Maplestory Light.ttf");
+    font-weight: normal;
+}
+@font-face {
+    font-family: "maplestory";
+    src: url("/fonts/Maplestory Bold.ttf");
+    font-weight: bold;
+}
+
 * {
     box-sizing: border-box;
+    font-family: 'maplestory', sans-serif !important;
 }
 
 ::-webkit-scrollbar {
