@@ -4,6 +4,7 @@ import {
   Drawer,
   FormControlLabel,
   IconButton,
+  PaletteMode,
   Switch,
   Toolbar,
   Typography,
@@ -24,7 +25,7 @@ import { tabList } from "../../constants/common";
 type Props = {
   title?: string;
   mode: "light" | "dark";
-  setMode: Dispatch<SetStateAction<"light" | "dark">>;
+  setMode: Dispatch<SetStateAction<PaletteMode>>;
 };
 
 export default function Header({ title, mode, setMode }: Props) {
