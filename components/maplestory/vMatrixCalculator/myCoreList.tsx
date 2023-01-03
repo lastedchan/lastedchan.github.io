@@ -1,7 +1,12 @@
 import styled from "@emotion/styled";
 import { Button, Card, Divider, Typography } from "@mui/material";
-import { Dispatch, SetStateAction, useCallback, useEffect } from "react";
-import { Cookies } from "react-cookie";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
 
 type Props = {
@@ -13,13 +18,19 @@ type Props = {
 const COOKIE_NAME = COOKIE_PREFIX_V_MATRIX_CALCULATOR + "my_core_list_";
 
 export default function MyCoreList({ job, myCoreList, setMyCoreList }: Props) {
+  const list = useRef<HTMLDivElement>(null);
   useEffect(
-    () => setMyCoreList(new Cookies().get(COOKIE_NAME + encodeURI(job)) ?? []),
+    () =>
+      setMyCoreList(
+        JSON.parse(localStorage.getItem(COOKIE_NAME + job) ?? "[]")
+      ),
     [job, setMyCoreList]
   );
   useEffect(() => {
-    if (job && myCoreList.length)
-      new Cookies().set(COOKIE_NAME + encodeURI(job), myCoreList);
+    if (job && myCoreList.length) {
+      localStorage.setItem(COOKIE_NAME + job, JSON.stringify(myCoreList));
+      list.current?.scrollTo(0, list.current.scrollHeight);
+    }
   }, [job, myCoreList]);
 
   const deleteMyCore = useCallback(
@@ -30,7 +41,7 @@ export default function MyCoreList({ job, myCoreList, setMyCoreList }: Props) {
   );
 
   return (
-    <Container>
+    <Container ref={list}>
       {myCoreList.map((skills, i) => (
         <Wrapper key={i}>
           <Item variant={"outlined"}>
@@ -62,7 +73,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-  flex: 0 0 33.3333%;
+  flex: 0 0 50%;
   padding: 4px;
   overflow: hidden;
 `;

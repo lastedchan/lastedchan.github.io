@@ -11,7 +11,7 @@ export default function NumberField({ idx, value, onChange }: Props) {
     Number(value) + n >= 0 && onChange(idx, Number(value) + n);
 
   return (
-    <Container variant={"contained"} size={"small"}>
+    <Container variant={"contained"}>
       <Button size={"small"} onClick={() => change(-1)}>
         -
       </Button>
@@ -19,7 +19,6 @@ export default function NumberField({ idx, value, onChange }: Props) {
         variant={"standard"}
         value={value}
         sx={{ textAlign: "center" }}
-        size={"small"}
         onChange={e => onChange(idx, Number(e.target.value))}
       />
       <Button size={"small"} onClick={() => change(1)} color={"error"}>

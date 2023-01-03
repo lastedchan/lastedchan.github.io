@@ -1,6 +1,14 @@
 import styled from "@emotion/styled";
-import { Button, Typography } from "@mui/material";
-import { Dispatch, SetStateAction, useCallback, useState } from "react";
+import { Box, Button, IconButton, Paper, Typography } from "@mui/material";
+import {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
+import _ from "lodash";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 
 type Props = {
   coreList: string[];
@@ -9,20 +17,33 @@ type Props = {
 
 export default function MyCoreGenerator({ coreList, setMyCoreList }: Props) {
   const [selectedCoreList, setSelectedCoreList] = useState<string[]>([]);
+  const [idx, setIdx] = useState<number>(0);
 
-  const toggleSelectCore = (item: string) => {
-    const idx = selectedCoreList.findIndex(_ => _ == item);
-    if (idx !== -1) {
-      setSelectedCoreList(prev =>
-        prev.reduce(
-          (prev: string[], item, i) => (i !== idx ? [...prev, item] : prev),
-          []
-        )
-      );
-    } else if (selectedCoreList.length < 3) {
-      setSelectedCoreList(prev => [...prev, item]);
-    }
-  };
+  useEffect(() => setSelectedCoreList([]), [coreList]);
+  useEffect(
+    () => setIdx(prev => (selectedCoreList.length ? (prev + 1) % 3 : 0)),
+    [selectedCoreList]
+  );
+
+  const selectCore = useCallback(
+    (item: string) => {
+      setSelectedCoreList(prev => [
+        ...(prev.length ? prev : ["", "", ""]).slice(0, idx),
+        item,
+        ...(prev.length ? prev : ["", "", ""]).slice(idx + 1),
+      ]);
+    },
+    [idx]
+  );
+  const unselectCore = useCallback(
+    (i: number) =>
+      setSelectedCoreList(prev => [
+        ...prev.slice(0, i),
+        "",
+        ...prev.slice(i + 1),
+      ]),
+    []
+  );
 
   const addMyCoreList = useCallback(() => {
     if (selectedCoreList.length === 3) {
@@ -37,21 +58,30 @@ export default function MyCoreGenerator({ coreList, setMyCoreList }: Props) {
         {coreList.map(item => (
           <Button
             key={item}
-            variant={
-              selectedCoreList.find(_ => _ === item) ? "contained" : "outlined"
-            }
-            color={
-              !selectedCoreList.findIndex(_ => _ === item) ? "info" : "primary"
-            }
-            onClick={() => toggleSelectCore(item)}
+            variant={"outlined"}
+            onClick={() => selectCore(item)}
+            disabled={!!selectedCoreList.find(_ => _ === item)}
           >
-            <Typography>
-              {!selectedCoreList.findIndex(_ => _ == item) ? "[1]" : ""}
-              {item}
-            </Typography>
+            <Typography>{item}</Typography>
           </Button>
         ))}
       </ButtonContainer>
+      <Box display={"flex"} flexDirection={"row"} gap={1}>
+        {_.range(0, 3).map(i => (
+          <CoreItem key={i} elevation={i === idx ? 12 : 1}>
+            <IconButton
+              size={"small"}
+              color={"error"}
+              onClick={() => unselectCore(i)}
+            >
+              <HighlightOffIcon />
+            </IconButton>
+            <Typography onClick={() => setIdx(i)}>
+              {selectedCoreList[i]}
+            </Typography>
+          </CoreItem>
+        ))}
+      </Box>
       <Button variant={"contained"} onClick={addMyCoreList}>
         추가
       </Button>
@@ -62,17 +92,36 @@ export default function MyCoreGenerator({ coreList, setMyCoreList }: Props) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 0;
-  gap: 4px;
+  flex: 0 0 auto;
+  gap: 8px;
 `;
 
 const ButtonContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 4px;
+  max-height: 210px;
+  overflow: auto;
   & p {
     white-space: nowrap;
     text-overflow: ellipsis;
+    overflow: hidden;
+  }
+`;
+
+const CoreItem = styled(Paper)`
+  display: flex;
+  flex: 1 100%;
+  gap: 4px;
+  padding: 8px 4px;
+  align-items: center;
+  overflow: hidden;
+  & p {
+    flex: 1;
+    height: 1.5rem;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     overflow: hidden;
   }
 `;

@@ -1,19 +1,17 @@
 import { MenuItem, Select } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { JobListType } from "../../../constants/types";
 import styled from "@emotion/styled";
-import { Cookies } from "react-cookie";
 import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
+import { jobList } from "../../../pages/v_matrix_calculator";
 
 type Props = {
   job: string;
   setJob: Dispatch<SetStateAction<string>>;
-  jobList: JobListType;
 };
 
-export default function SelectJob({ job, setJob, jobList }: Props) {
+export default function SelectJob({ job, setJob }: Props) {
   useEffect(
-    () => new Cookies().set(COOKIE_PREFIX_V_MATRIX_CALCULATOR + "job", job),
+    () => localStorage.setItem(COOKIE_PREFIX_V_MATRIX_CALCULATOR + "job", job),
     [job]
   );
 
@@ -38,5 +36,5 @@ export default function SelectJob({ job, setJob, jobList }: Props) {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 0;
+  flex: 1;
 `;
