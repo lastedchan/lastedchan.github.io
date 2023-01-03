@@ -21,7 +21,11 @@ export default function MyCoreGenerator({ coreList, setMyCoreList }: Props) {
 
   useEffect(() => setSelectedCoreList([]), [coreList]);
   useEffect(
-    () => setIdx(prev => (selectedCoreList.length ? (prev + 1) % 3 : 0)),
+    () =>
+      setIdx(prev => {
+        const empty = selectedCoreList.findIndex(_ => _ === "");
+        return empty !== -1 ? empty : (prev + 1) % 3;
+      }),
     [selectedCoreList]
   );
 
