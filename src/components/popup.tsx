@@ -11,12 +11,11 @@ import { useState } from "react";
 
 type Props = {
   title: string;
-  hasButton?: boolean;
   sx?: SxProps<Theme>;
   children?: JSX.Element;
 };
 
-export default function Popup({ title, hasButton, sx, children }: Props) {
+export default function Popup({ title, sx, children }: Props) {
   const [open, setOpen] = useState(false);
   const onClose = () => setOpen(false);
   return (
@@ -30,11 +29,9 @@ export default function Popup({ title, hasButton, sx, children }: Props) {
           </Button>
         </DialogActions>
       </Dialog>
-      {hasButton ? (
-        <Button variant={"contained"} onClick={() => setOpen(true)} sx={sx}>
-          {title} 열기
-        </Button>
-      ) : null}
+      <Button variant={"contained"} onClick={() => setOpen(true)} sx={sx}>
+        {title} 열기
+      </Button>
     </>
   );
 }
