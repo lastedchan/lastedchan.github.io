@@ -23,11 +23,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [mode, setMode] = useState<PaletteMode>("light");
   useEffect(() => {
-    setMode(new Cookies().get("mode"));
+    setMode(new Cookies().get("mode") ?? "light");
     setLoaded(true);
   }, []);
   useEffect(() => {
-    loaded && new Cookies().set("mode", mode);
+    loaded && mode && new Cookies().set("mode", mode);
   }, [loaded, mode]);
 
   const theme = useMemo(() => createTheme({ palette: { mode: mode } }), [mode]);
