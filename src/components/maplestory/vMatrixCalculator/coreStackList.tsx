@@ -2,13 +2,13 @@ import NumberField from "./numberField";
 import styled from "@emotion/styled";
 import { FormControlLabel, FormGroup } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect } from "react";
-import { CoreStackListType } from "../../../constants/types";
+import { stackListType } from "../../../constants/types";
 import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
 
 type Props = {
   job: string;
-  coreStackList: CoreStackListType;
-  setCoreStackList: Dispatch<SetStateAction<CoreStackListType>>;
+  coreStackList: stackListType;
+  setCoreStackList: Dispatch<SetStateAction<stackListType>>;
 };
 
 export default function CoreStackList({

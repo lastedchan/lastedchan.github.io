@@ -10,5 +10,7 @@ export type SlotType = number[];
 
 //#region vMatrixCalculator
 export type JobListType = { [p: string]: string[] };
-export type CoreStackListType = { [p: string]: number };
+export type stackListType = { [p: string]: number };
+export type CoreType = string[];
+export type CoreListType = CoreType[];
 //#endregion
