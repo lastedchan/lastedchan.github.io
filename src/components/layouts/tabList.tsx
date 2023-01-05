@@ -17,27 +17,29 @@ export default function TabList({ tabList }: Props) {
 
   return (
     <List sx={{ width: "100%" }}>
-      {tabList.map((item, i) =>
-        item.title ? (
-          item.href ? (
-            <ListItemButton
-              key={i}
-              sx={{ justifyContent: "center" }}
-              onClick={() => router.push(item.href ?? "/")}
-            >
-              {item.title}
-            </ListItemButton>
-          ) : (
-            <ListItemText key={i} sx={{ m: 0, p: 1 }}>
-              <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>
+      {tabList
+        .filter(_ => _ === null || _.show)
+        .map((item, i) =>
+          item ? (
+            item.href ? (
+              <ListItemButton
+                key={i}
+                sx={{ justifyContent: "center" }}
+                onClick={() => router.push(item.href ?? "/")}
+              >
                 {item.title}
-              </Typography>
-            </ListItemText>
+              </ListItemButton>
+            ) : (
+              <ListItemText key={i} sx={{ m: 0, p: 1 }}>
+                <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>
+                  {item.title}
+                </Typography>
+              </ListItemText>
+            )
+          ) : (
+            <Divider key={i} />
           )
-        ) : (
-          <Divider key={i} />
-        )
-      )}
+        )}
     </List>
   );
 }

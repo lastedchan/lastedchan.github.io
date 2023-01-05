@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const title = "LASTCHAN";
   const subtitle = useMemo(
-    () => tabList.find(_ => _.href === router.pathname)?.title,
+    () => tabList.find(_ => _?.href === router.pathname)?.title,
     [router.pathname]
   );
 
