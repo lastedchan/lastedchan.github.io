@@ -1,6 +1,6 @@
 import NumberField from "./numberField";
 import styled from "@emotion/styled";
-import { FormControlLabel, FormGroup } from "@mui/material";
+import { Box, FormControlLabel, FormGroup, SxProps } from "@mui/material";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import { stackListType } from "../../../constants/types";
 import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
@@ -9,12 +9,14 @@ type Props = {
   job: string;
   coreStackList: stackListType;
   setCoreStackList: Dispatch<SetStateAction<stackListType>>;
+  sx?: SxProps;
 };
 
 export default function CoreStackList({
   job,
   coreStackList,
   setCoreStackList,
+  sx,
 }: Props) {
   // 중첩 코어 횟수 저장
   useEffect(() => {
@@ -32,7 +34,7 @@ export default function CoreStackList({
   };
 
   return (
-    <Container>
+    <Container sx={sx}>
       <List>
         {Object.entries(coreStackList).map(([i, value]) => (
           <Item
@@ -48,13 +50,15 @@ export default function CoreStackList({
   );
 }
 
-const Container = styled.div`
+const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   flex: 0;
 `;
 
 const List = styled(FormGroup)`
+  display: grid;
+  grid-template-columns: 1fr;
   flex-direction: column;
   transition: height 0.4s;
   overflow: auto;
@@ -62,7 +66,6 @@ const List = styled(FormGroup)`
 
 const Item = styled(FormControlLabel)`
   flex-direction: column;
-  flex: 1;
   margin: 0;
   padding: 8px;
   width: 100%;

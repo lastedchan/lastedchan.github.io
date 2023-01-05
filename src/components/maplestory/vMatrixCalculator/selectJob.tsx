@@ -21,6 +21,7 @@ export default function SelectJob({ job, setJob }: Props) {
         displayEmpty
         value={job}
         onChange={e => setJob(e.target.value.trim())}
+        sx={{ height: "100%" }}
       >
         <MenuItem value={""}>직업 선택</MenuItem>
         {Object.keys(jobList).map((job, i) => (

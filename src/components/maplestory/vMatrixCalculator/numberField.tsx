@@ -12,16 +12,14 @@ export default function NumberField({ idx, value, onChange }: Props) {
 
   return (
     <Container variant={"contained"}>
-      <Button size={"small"} onClick={() => change(-1)}>
-        -
-      </Button>
+      <Button onClick={() => change(-1)}>-</Button>
       <TextField
         variant={"standard"}
         value={value}
         sx={{ textAlign: "center" }}
         onChange={e => onChange(idx, Number(e.target.value))}
       />
-      <Button size={"small"} onClick={() => change(1)} color={"error"}>
+      <Button onClick={() => change(1)} color={"error"}>
         +
       </Button>
     </Container>
