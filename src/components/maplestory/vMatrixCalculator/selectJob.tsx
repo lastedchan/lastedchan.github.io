@@ -1,20 +1,11 @@
 import { MenuItem, Select } from "@mui/material";
-import { Dispatch, SetStateAction, useEffect } from "react";
 import styled from "@emotion/styled";
-import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
 import { jobList } from "../../../../pages/v_matrix_calculator";
+import { useRecoilState } from "recoil";
+import { jobRecoil } from "../../../constants/recoil";
 
-type Props = {
-  job: string;
-  setJob: Dispatch<SetStateAction<string>>;
-};
-
-export default function SelectJob({ job, setJob }: Props) {
-  useEffect(
-    () => localStorage.setItem(COOKIE_PREFIX_V_MATRIX_CALCULATOR + "job", job),
-    [job]
-  );
-
+export default function SelectJob() {
+  const [job, setJob] = useRecoilState(jobRecoil);
   return (
     <Container>
       <Select

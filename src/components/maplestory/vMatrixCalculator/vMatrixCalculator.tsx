@@ -1,112 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useMemo, useState } from "react";
 import CoreStackList from "./coreStackList";
-import { stackListType } from "../../../constants/types";
 import SelectJob from "./selectJob";
-import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
 import MyCoreGenerator from "./myCoreGenerator";
 import MyCoreList from "./myCoreList";
-import { Box, Tab, Tabs, TextField } from "@mui/material";
-import Popup from "../../popup";
-import { jobList } from "../../../../pages/v_matrix_calculator";
+import { Box, Card, SxProps, Tab, Tabs, TextField } from "@mui/material";
 import Calculator from "./calculator";
 import { sum } from "lodash";
 import styled from "@emotion/styled";
+import { jobRecoil, stackListRecoil } from "../../../constants/recoil";
+import { useRecoilValue } from "recoil";
 
 export default function VMatrixCalculator() {
   const [tab, setTab] = useState<number>(0);
 
-  const [job, setJob] = useState<string>(
-    localStorage.getItem(COOKIE_PREFIX_V_MATRIX_CALCULATOR + "job") ?? ""
-  );
-  const [coreStackList, setCoreStackList] = useState<stackListType>({});
-  const [coreCount, setCoreCount] = useState<number>(0);
-  const [myCoreList, setMyCoreList] = useState<string[][]>([]);
-
-  //#region 중첩 코어 횟수 로드
-  useEffect(() => {
-    if (!job.length) return;
-    const stacks = JSON.parse(
-      localStorage.getItem(
-        COOKIE_PREFIX_V_MATRIX_CALCULATOR + "core_stack_" + job
-      ) ?? "[]"
-    );
-    setCoreStackList(
-      jobList[job]?.reduce((prev: { [p: string]: number }, item) => {
-        prev[item] = stacks?.[item] ?? 0;
-        return prev;
-      }, {}) ?? {}
-    );
-  }, [job, setCoreStackList]);
-  //#endregion
-
-  useEffect(
-    () => setCoreCount(Math.ceil(sum(Object.values(coreStackList)) / 3)),
-    [coreStackList]
+  const job = useRecoilValue(jobRecoil);
+  const stackList = useRecoilValue(stackListRecoil(job));
+  const coreCount = useMemo<number>(
+    () => Math.ceil(sum(Object.values(stackList)) / 3),
+    [stackList]
   );
 
   return (
     <Box display={"flex"} flexDirection={"column"} height={"100%"}>
       <Tabs variant={"fullWidth"} value={tab} onChange={(e, v) => setTab(v)}>
-        <Tab label={"직업 / 코어 중첩"} />
+        <Tab label={"직업/스킬"} />
         <Tab label={"내 코어"} disabled={!job} />
         <Tab label={"결과"} disabled={!job} />
       </Tabs>
       <Box flex={1} overflow={"auto"}>
         <TabPanel index={0} value={tab}>
           <Box display={"flex"} flexDirection={"row"} gap={1} flex={0}>
-            <SelectJob job={job} setJob={setJob} />
+            <SelectJob />
             <TextField
               label={"코어 수"}
               value={coreCount}
               sx={{ input: { textAlign: "right" } }}
             />
           </Box>
-          <CoreStackList
-            job={job}
-            coreStackList={coreStackList}
-            setCoreStackList={setCoreStackList}
-            sx={{ flex: 1, overflow: "auto" }}
-          />
+          <CoreStackList />
         </TabPanel>
-        <TabPanel index={1} value={tab}></TabPanel>
-        <TabPanel index={2} value={tab}></TabPanel>
-        <TabPanel index={3} value={tab}></TabPanel>
+        <TabPanel index={1} value={tab}>
+          <Card sx={{ p: 1, mb: 1 }} elevation={4}>
+            <MyCoreGenerator />
+          </Card>
+          <MyCoreList />
+        </TabPanel>
+        <TabPanel index={2} value={tab}>
+          <Calculator coreCount={coreCount} />
+        </TabPanel>
       </Box>
-      {false && (
-        <>
-          <Box display={"flex"} flexDirection={"row"} gap={1}>
-            <SelectJob job={job} setJob={setJob} />
-            <TextField
-              type={"number"}
-              inputMode={"numeric"}
-              label={"코어 수"}
-              value={coreCount ?? ""}
-              sx={{ flex: "0 0 120px", input: { textAlign: "right" } }}
-            />
-          </Box>
-          <Popup title={job + " 코어 중첩 설정"}>
-            <CoreStackList
-              job={job}
-              coreStackList={coreStackList}
-              setCoreStackList={setCoreStackList}
-            />
-          </Popup>
-          <MyCoreGenerator
-            coreList={jobList[job] ?? []}
-            setMyCoreList={setMyCoreList}
-          />
-          <MyCoreList
-            job={job}
-            myCoreList={myCoreList}
-            setMyCoreList={setMyCoreList}
-          />
-          <Calculator
-            coreStackList={coreStackList}
-            myCoreList={myCoreList}
-            coreCount={coreCount}
-          />
-        </>
-      )}
     </Box>
   );
 }
@@ -115,19 +57,21 @@ type TabPanelProps = {
   children?: React.ReactNode;
   index: number;
   value: number;
+  sx?: SxProps;
 };
-function TabPanel({ children, index, value }: TabPanelProps) {
+function TabPanel({ children, index, value, sx }: TabPanelProps) {
   return (
-    <div role={"tabpanel"} hidden={value !== index}>
-      <Container>{children}</Container>
+    <div role={"tab-panel"} hidden={value !== index}>
+      <Container sx={sx}>{children}</Container>
     </div>
   );
 }
 
-const Container = styled.div`
+const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   flex: 1;
-  gap: 16px;
-  padding: 12px;
+  gap: 8px;
+  padding: 8px;
+  overflow: auto;
 `;

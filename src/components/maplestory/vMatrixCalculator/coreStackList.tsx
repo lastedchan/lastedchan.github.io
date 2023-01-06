@@ -1,40 +1,21 @@
 import NumberField from "./numberField";
 import styled from "@emotion/styled";
-import { Box, FormControlLabel, FormGroup, SxProps } from "@mui/material";
-import { Dispatch, SetStateAction, useEffect } from "react";
-import { stackListType } from "../../../constants/types";
-import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
+import { Box, FormControlLabel, FormGroup } from "@mui/material";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { jobRecoil, stackListRecoil } from "../../../constants/recoil";
 
-type Props = {
-  job: string;
-  coreStackList: stackListType;
-  setCoreStackList: Dispatch<SetStateAction<stackListType>>;
-  sx?: SxProps;
-};
-
-export default function CoreStackList({
-  job,
-  coreStackList,
-  setCoreStackList,
-  sx,
-}: Props) {
-  // 중첩 코어 횟수 저장
-  useEffect(() => {
-    if (job && Object.values(coreStackList).length) {
-      localStorage.setItem(
-        COOKIE_PREFIX_V_MATRIX_CALCULATOR + "core_stack_" + job,
-        JSON.stringify(coreStackList)
-      );
-    }
-  }, [coreStackList, job]);
-
+export default function CoreStackList() {
+  const job = useRecoilValue(jobRecoil);
+  const [coreStackList, setCoreStackList] = useRecoilState(
+    stackListRecoil(job)
+  );
   const onCoreChange = (idx: string, value: number) => {
     if (isNaN(value)) return false;
     setCoreStackList(prev => ({ ...prev, [idx]: value }));
   };
 
   return (
-    <Container sx={sx}>
+    <Container>
       <List>
         {Object.entries(coreStackList).map(([i, value]) => (
           <Item
@@ -54,12 +35,13 @@ const Container = styled(Box)`
   display: flex;
   flex-direction: column;
   flex: 0;
+  overflow: auto;
 `;
 
 const List = styled(FormGroup)`
   display: grid;
   grid-template-columns: 1fr;
-  flex-direction: column;
+  gap: 8px;
   transition: height 0.4s;
   overflow: auto;
 `;
@@ -67,7 +49,6 @@ const List = styled(FormGroup)`
 const Item = styled(FormControlLabel)`
   flex-direction: column;
   margin: 0;
-  padding: 8px;
   width: 100%;
   overflow: hidden;
 

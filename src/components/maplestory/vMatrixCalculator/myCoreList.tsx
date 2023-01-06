@@ -1,37 +1,13 @@
 import styled from "@emotion/styled";
 import { Button, Card, Divider, Typography } from "@mui/material";
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useRef,
-} from "react";
-import { COOKIE_PREFIX_V_MATRIX_CALCULATOR } from "../../../constants/common";
+import { useCallback, useRef } from "react";
+import { coreListRecoil, jobRecoil } from "../../../constants/recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
-type Props = {
-  job: string;
-  myCoreList: string[][];
-  setMyCoreList: Dispatch<SetStateAction<string[][]>>;
-};
-
-const COOKIE_NAME = COOKIE_PREFIX_V_MATRIX_CALCULATOR + "my_core_list_";
-
-export default function MyCoreList({ job, myCoreList, setMyCoreList }: Props) {
+export default function MyCoreList() {
+  const job = useRecoilValue(jobRecoil);
+  const [myCoreList, setMyCoreList] = useRecoilState(coreListRecoil(job));
   const list = useRef<HTMLDivElement>(null);
-  useEffect(
-    () =>
-      setMyCoreList(
-        JSON.parse(localStorage.getItem(COOKIE_NAME + job) ?? "[]")
-      ),
-    [job, setMyCoreList]
-  );
-  useEffect(() => {
-    if (job && myCoreList.length) {
-      localStorage.setItem(COOKIE_NAME + job, JSON.stringify(myCoreList));
-      list.current?.scrollTo(0, list.current.scrollHeight);
-    }
-  }, [job, myCoreList]);
 
   const deleteMyCore = useCallback(
     (idx: number) =>
