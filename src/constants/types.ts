@@ -1,7 +1,8 @@
 export type TabType = {
-  title?: string;
+  title: string;
   href?: string;
-};
+  show: boolean;
+} | null;
 
 //#region midnightChaser
 export type TabListType = TabType[];
