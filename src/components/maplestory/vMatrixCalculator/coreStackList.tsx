@@ -34,7 +34,7 @@ export default function CoreStackList() {
 const Container = styled(Box)`
   display: flex;
   flex-direction: column;
-  flex: 0;
+  flex: 1;
   overflow: auto;
 `;
 
@@ -43,7 +43,6 @@ const List = styled(FormGroup)`
   grid-template-columns: 1fr;
   gap: 8px;
   transition: height 0.4s;
-  overflow: auto;
 `;
 
 const Item = styled(FormControlLabel)`
@@ -58,9 +57,6 @@ const Item = styled(FormControlLabel)`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    //display: -webkit-box;
-    //-webkit-line-clamp: 2;
-    //-webkit-box-orient: vertical;
   }
 
   & input {

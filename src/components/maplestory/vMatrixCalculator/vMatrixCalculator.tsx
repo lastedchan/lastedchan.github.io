@@ -27,7 +27,7 @@ export default function VMatrixCalculator() {
         <Tab label={"내 코어"} disabled={!job} />
         <Tab label={"결과"} disabled={!job} />
       </Tabs>
-      <Box flex={1} overflow={"auto"}>
+      <Box flex={1} overflow={"hidden"}>
         <TabPanel index={0} value={tab}>
           <Box display={"flex"} flexDirection={"row"} gap={1} flex={0}>
             <SelectJob />
@@ -40,10 +40,12 @@ export default function VMatrixCalculator() {
           <CoreStackList />
         </TabPanel>
         <TabPanel index={1} value={tab}>
-          <Card sx={{ p: 1, mb: 1 }} elevation={4}>
-            <MyCoreGenerator />
-          </Card>
-          <MyCoreList />
+          <Box overflow={"auto"}>
+            <Card sx={{ p: 1, mb: 1 }} elevation={4}>
+              <MyCoreGenerator />
+            </Card>
+            <MyCoreList />
+          </Box>
         </TabPanel>
         <TabPanel index={2} value={tab}>
           <Calculator coreCount={coreCount} />
@@ -61,17 +63,23 @@ type TabPanelProps = {
 };
 function TabPanel({ children, index, value, sx }: TabPanelProps) {
   return (
-    <div role={"tab-panel"} hidden={value !== index}>
-      <Container sx={sx}>{children}</Container>
-    </div>
+    <Container role={"tab-panel"} hidden={value !== index}>
+      <Wrapper sx={sx}>{children}</Wrapper>
+    </Container>
   );
 }
 
-const Container = styled(Box)`
+const Container = styled.div`
+  height: 100%;
+  overflow: hidden;
+`;
+
+const Wrapper = styled(Box)`
   display: flex;
   flex-direction: column;
   flex: 1;
   gap: 8px;
   padding: 8px;
-  overflow: auto;
+  height: 100%;
+  overflow: hidden;
 `;

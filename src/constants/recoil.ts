@@ -1,5 +1,6 @@
 import { atom, AtomEffect, atomFamily } from "recoil";
 import { CoreListType, StackListType } from "./types";
+import { jobList } from "../../pages/v_matrix_calculator";
 
 const localStorageEffect: <T>(key: string) => AtomEffect<T> =
   (key: string) =>
@@ -26,7 +27,8 @@ export const jobRecoil = atom<string>({
 
 export const stackListRecoil = atomFamily<StackListType, string>({
   key: "stackListRecoil",
-  default: {},
+  default: job =>
+    jobList[job].reduce((prev, item) => ({ ...prev, [item]: 0 }), {}),
   effects: job => [
     localStorageEffect<StackListType>(
       V_MATRIX_CALCULATOR_PREFIX + "core_stack_" + job

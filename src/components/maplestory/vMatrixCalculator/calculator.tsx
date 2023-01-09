@@ -90,10 +90,10 @@ export default function Calculator({ coreCount }: Props) {
       </Typography>
       <Container>
         {resultList.length
-          ? resultList.slice(50).map((result, i) => (
+          ? resultList.slice(0, 50).map((result, i) => (
               <ResultContainer key={i}>
                 <Divider>코어 {i + 1}</Divider>
-                <ResultWrapper elevation={12}>
+                <ResultWrapper elevation={8}>
                   {Object.entries(resultList2[i]).map(([skill, lv]) => (
                     <Typography key={skill}>{`${skill} : ${lv}`}</Typography>
                   ))}
@@ -132,12 +132,13 @@ const Container = styled.div`
 const ResultContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 8px;
   width: 100%;
 `;
 
 const ResultWrapper = styled(Card)`
   flex: 1;
-  padding: 8px 4px;
+  padding: 8px;
 `;
 
 const ResultContent = styled.div`
