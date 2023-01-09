@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import CoreStackList from "./coreStackList";
 import SelectJob from "./selectJob";
 import MyCoreGenerator from "./myCoreGenerator";
@@ -9,8 +9,10 @@ import { sum } from "lodash";
 import styled from "@emotion/styled";
 import { jobRecoil, stackListRecoil } from "../../../constants/recoil";
 import { useRecoilValue } from "recoil";
+import Slider from "react-slick";
 
 export default function VMatrixCalculator() {
+  const slider = useRef<Slider>(null);
   const [tab, setTab] = useState<number>(0);
 
   const job = useRecoilValue(jobRecoil);
@@ -20,15 +22,33 @@ export default function VMatrixCalculator() {
     [stackList]
   );
 
+  useEffect(() => slider.current?.slickGoTo(tab), [tab]);
+  const onSlide = (prev: number, curr: number) => setTab(curr);
+
   return (
-    <Box display={"flex"} flexDirection={"column"} height={"100%"}>
+    <Box
+      display={"flex"}
+      flexDirection={"column"}
+      height={"100%"}
+      overflow={"hidden"}
+    >
       <Tabs variant={"fullWidth"} value={tab} onChange={(e, v) => setTab(v)}>
         <Tab label={"직업/스킬"} />
         <Tab label={"내 코어"} disabled={!job} />
         <Tab label={"결과"} disabled={!job} />
       </Tabs>
-      <Box flex={1} overflow={"hidden"}>
-        <TabPanel index={0} value={tab}>
+      <Slider
+        ref={slider}
+        dots={false}
+        infinite={false}
+        autoplay={false}
+        arrows={false}
+        swipe={false}
+        beforeChange={onSlide}
+        speed={100}
+        adaptiveHeight={true}
+      >
+        <TabPanel>
           <Box display={"flex"} flexDirection={"row"} gap={1} flex={0}>
             <SelectJob />
             <TextField
@@ -39,7 +59,7 @@ export default function VMatrixCalculator() {
           </Box>
           <CoreStackList />
         </TabPanel>
-        <TabPanel index={1} value={tab}>
+        <TabPanel>
           <Box overflow={"auto"}>
             <Card sx={{ p: 1, mb: 1 }} elevation={4}>
               <MyCoreGenerator />
@@ -47,23 +67,21 @@ export default function VMatrixCalculator() {
             <MyCoreList />
           </Box>
         </TabPanel>
-        <TabPanel index={2} value={tab}>
+        <TabPanel>
           <Calculator coreCount={coreCount} />
         </TabPanel>
-      </Box>
+      </Slider>
     </Box>
   );
 }
 
 type TabPanelProps = {
   children?: React.ReactNode;
-  index: number;
-  value: number;
   sx?: SxProps;
 };
-function TabPanel({ children, index, value, sx }: TabPanelProps) {
+function TabPanel({ children, sx }: TabPanelProps) {
   return (
-    <Container role={"tab-panel"} hidden={value !== index}>
+    <Container role={"tab-panel"}>
       <Wrapper sx={sx}>{children}</Wrapper>
     </Container>
   );

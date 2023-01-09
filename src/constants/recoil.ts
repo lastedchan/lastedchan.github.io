@@ -28,7 +28,7 @@ export const jobRecoil = atom<string>({
 export const stackListRecoil = atomFamily<StackListType, string>({
   key: "stackListRecoil",
   default: job =>
-    jobList[job].reduce((prev, item) => ({ ...prev, [item]: 0 }), {}),
+    jobList[job]?.reduce((prev, item) => ({ ...prev, [item]: 0 }), {}) ?? {},
   effects: job => [
     localStorageEffect<StackListType>(
       V_MATRIX_CALCULATOR_PREFIX + "core_stack_" + job

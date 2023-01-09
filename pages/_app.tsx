@@ -1,5 +1,7 @@
 import "normalize.css";
 import "../src/styles/globals.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import Header from "../src/components/layouts/header";

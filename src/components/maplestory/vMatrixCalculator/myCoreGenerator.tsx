@@ -47,7 +47,7 @@ export default function MyCoreGenerator() {
   return (
     <Container>
       <ButtonContainer>
-        {coreList.map(item => (
+        {coreList?.map(item => (
           <Button
             key={item}
             variant={"outlined"}
