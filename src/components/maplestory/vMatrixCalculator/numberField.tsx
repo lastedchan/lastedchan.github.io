@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { Button, ButtonGroup, TextField } from "@mui/material";
+import { Button, ButtonGroup, Typography } from "@mui/material";
 
 type Props = {
   idx: string;
@@ -13,12 +13,7 @@ export default function NumberField({ idx, value, onChange }: Props) {
   return (
     <Container variant={"contained"}>
       <Button onClick={() => change(-1)}>-</Button>
-      <TextField
-        variant={"standard"}
-        value={value}
-        sx={{ textAlign: "center" }}
-        onChange={e => onChange(idx, Number(e.target.value))}
-      />
+      <Typography sx={{ textAlign: "center" }}>{value}</Typography>
       <Button onClick={() => change(1)} color={"error"}>
         +
       </Button>
@@ -31,7 +26,11 @@ const Container = styled(ButtonGroup)`
   flex-direction: row;
   gap: 4px;
   width: 100%;
-  & * {
-    flex: 1;
+  align-items: center;
+  & button {
+    flex: 2;
+  }
+  & p {
+    flex: 0 0 50px;
   }
 `;

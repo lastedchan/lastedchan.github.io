@@ -92,7 +92,13 @@ export default function Calculator({ coreCount }: Props) {
         {resultList.length
           ? resultList.slice(0, 50).map((result, i) => (
               <ResultContainer key={i}>
-                <Divider sx={{ position: "sticky", top: 0 }}>
+                <Divider
+                  sx={{
+                    position: "sticky",
+                    top: 0,
+                    bgcolor: "rgba(18,18,18,.7)",
+                  }}
+                >
                   코어 {i + 1}
                 </Divider>
                 <ResultWrapper elevation={8}>
