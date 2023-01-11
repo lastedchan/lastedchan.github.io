@@ -3,7 +3,6 @@ import "../src/styles/globals.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import type { AppProps } from "next/app";
-import Head from "next/head";
 import Header from "../src/components/layouts/header";
 import {
   Box,
@@ -18,6 +17,8 @@ import { tabList } from "../src/constants/common";
 import { useEffect, useMemo, useState } from "react";
 import { Cookies } from "react-cookie";
 import { RecoilRoot } from "recoil";
+import Script from "next/script";
+import Head from "next/head";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -52,6 +53,22 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name={"title"} content={title + " - " + subtitle} />
         <title>{title + " - " + subtitle}</title>
       </Head>
+      {/*Google tag (gtag.js)*/}
+      <Script
+        strategy={"afterInteractive"}
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-LZLFJGKZJT"
+      />
+      <Script
+        id={"gtag-init"}
+        dangerouslySetInnerHTML={{
+          __html: `window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-LZLFJGKZJT');`,
+        }}
+      />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container>
