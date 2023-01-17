@@ -78,6 +78,11 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       />
       {/* GA 설정 끝 */}
+      <Script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8583770780355894"
+        crossOrigin="anonymous"
+      />
       <Head>
         <meta
           name={"viewport"}
