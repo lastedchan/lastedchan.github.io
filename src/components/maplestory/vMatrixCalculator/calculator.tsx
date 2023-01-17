@@ -80,12 +80,20 @@ export default function Calculator({ coreCount }: Props) {
         sx={{ flex: 0 }}
         onClick={() => {
           const res = calc(stackList, coreList);
-          gtag.event({
-            category: "vMatrixCalculator",
-            action: "calculate",
-            label: "resultCount",
-            value: (res ? res : []).length,
-          });
+          if (res) {
+            gtag.event({
+              action: "calculate",
+              category: "v_matrix_calculator",
+              label: "job",
+              value: job,
+            });
+            gtag.event({
+              action: "calculate",
+              category: "v_matrix_calculator",
+              label: "config",
+              value: JSON.stringify({ job: job, stack: stackList }),
+            });
+          }
           setResultList(res ? res : []);
         }}
       >

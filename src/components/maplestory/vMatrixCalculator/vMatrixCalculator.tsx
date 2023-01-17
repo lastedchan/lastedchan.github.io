@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import CoreStackList from "./coreStackList";
+import StackList from "./stackList";
 import SelectJob from "./selectJob";
-import MyCoreGenerator from "./myCoreGenerator";
-import MyCoreList from "./myCoreList";
+import CoreGenerator from "./coreGenerator";
+import CoreList from "./coreList";
 import {
   Box,
   Card,
@@ -49,15 +49,15 @@ export default function VMatrixCalculator() {
           {coreCount}
         </Typography>
       </Box>
-      <CoreStackList />
+      <StackList />
     </>
   );
   const Group2 = () => (
     <Box overflow={"auto"}>
       <Card sx={{ p: 1, mb: 1 }} elevation={4}>
-        <MyCoreGenerator />
+        <CoreGenerator />
       </Card>
-      <MyCoreList />
+      <CoreList />
     </Box>
   );
   const Group3 = () => <Calculator coreCount={coreCount} />;

@@ -3,17 +3,26 @@ import { Button, Card, Divider, Typography } from "@mui/material";
 import { useCallback, useRef } from "react";
 import { coreListRecoil, jobRecoil } from "../../../constants/recoil";
 import { useRecoilState, useRecoilValue } from "recoil";
+import * as gtag from "../../../lib/gtag";
 
-export default function MyCoreList() {
+export default function CoreList() {
   const job = useRecoilValue(jobRecoil);
   const [coreList, setCoreList] = useRecoilState(coreListRecoil(job));
   const list = useRef<HTMLDivElement>(null);
 
   const deleteMyCore = useCallback(
-    (idx: number) =>
-      confirm("해당 코어를 삭제하시겠습니까?") &&
-      setCoreList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]),
-    [setCoreList]
+    (idx: number) => {
+      if (confirm("해당 코어를 삭제하시겠습니까?")) {
+        gtag.event({
+          action: "remove_core",
+          category: "v_matrix_calculator",
+          label: "job",
+          value: job,
+        });
+        setCoreList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
+      }
+    },
+    [job, setCoreList]
   );
 
   return (

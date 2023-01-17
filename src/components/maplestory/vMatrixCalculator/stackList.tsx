@@ -4,7 +4,7 @@ import { Box, FormControlLabel, FormGroup } from "@mui/material";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { jobRecoil, stackListRecoil } from "../../../constants/recoil";
 
-export default function CoreStackList() {
+export default function StackList() {
   const job = useRecoilValue(jobRecoil);
   const [stackList, setCoreStackList] = useRecoilState(stackListRecoil(job));
   const onCoreChange = (idx: string, value: number) => {

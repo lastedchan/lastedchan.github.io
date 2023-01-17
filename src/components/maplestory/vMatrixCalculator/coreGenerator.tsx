@@ -6,8 +6,9 @@ import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { coreListRecoil, jobRecoil } from "../../../constants/recoil";
 import { jobList } from "../../../../pages/v_matrix_calculator";
+import * as gtag from "../../../lib/gtag";
 
-export default function MyCoreGenerator() {
+export default function CoreGenerator() {
   const job = useRecoilValue(jobRecoil);
   const setCoreList = useSetRecoilState(coreListRecoil(job));
   const [selectedCoreList, setSelectedCoreList] = useState(["", "", ""]);
@@ -37,8 +38,14 @@ export default function MyCoreGenerator() {
       ...prev.slice(i + 1),
     ]);
 
-  const addMyCoreList = () => {
+  const addCoreList = () => {
     if (selectedCoreList.filter(_ => _).length === 3) {
+      gtag.event({
+        action: "add_core",
+        category: "v_matrix_calculator",
+        label: "job",
+        value: job,
+      });
       setSelectedCoreList(["", "", ""]);
       setCoreList(prev => [...prev, selectedCoreList]);
     } else alert("스킬을 3개 선택해주세요.");
@@ -74,7 +81,7 @@ export default function MyCoreGenerator() {
           </CoreItem>
         ))}
       </Box>
-      <Button variant={"contained"} onClick={addMyCoreList}>
+      <Button variant={"contained"} onClick={addCoreList}>
         추가
       </Button>
     </Container>
