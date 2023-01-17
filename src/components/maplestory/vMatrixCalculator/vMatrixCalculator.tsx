@@ -3,7 +3,15 @@ import CoreStackList from "./coreStackList";
 import SelectJob from "./selectJob";
 import MyCoreGenerator from "./myCoreGenerator";
 import MyCoreList from "./myCoreList";
-import { Box, Card, SxProps, Tab, Tabs, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  SxProps,
+  Tab,
+  Tabs,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import Calculator from "./calculator";
 import { sum } from "lodash";
 import styled from "@emotion/styled";
@@ -24,6 +32,9 @@ export default function VMatrixCalculator() {
 
   useEffect(() => slider.current?.slickGoTo(tab), [tab]);
 
+  // useMediaQuery()
+  const isMobile = useMediaQuery("(max-width:959px)");
+
   return (
     <Box
       display={"flex"}
@@ -32,25 +43,60 @@ export default function VMatrixCalculator() {
       height={"100%"}
       overflow={"hidden"}
     >
-      <Tabs
-        variant={"fullWidth"}
-        value={tab}
-        onChange={(e, v) => setTab(v)}
-        sx={{ flex: "0" }}
-      >
-        <Tab label={"직업/스킬"} />
-        <Tab label={"내 코어"} disabled={!job} />
-        <Tab label={"결과"} disabled={!job} />
-      </Tabs>
-      <Box flex={"1"} overflow={"hidden"}>
-        <Slider
-          ref={slider}
-          arrows={false}
-          swipe={false}
-          speed={200}
-          adaptiveHeight={true}
-        >
+      {isMobile ? (
+        <>
+          <Tabs
+            variant={"fullWidth"}
+            value={tab}
+            onChange={(e, v) => setTab(v)}
+            sx={{ flex: "0" }}
+          >
+            <Tab label={"직업/스킬"} />
+            <Tab label={"내 코어"} disabled={!job} />
+            <Tab label={"결과"} disabled={!job} />
+          </Tabs>
+          <Box flex={"1"} overflow={"hidden"}>
+            <Slider
+              ref={slider}
+              arrows={false}
+              swipe={false}
+              speed={200}
+              adaptiveHeight={true}
+            >
+              <TabPanel>
+                <Box
+                  display={"flex"}
+                  flexDirection={"row"}
+                  gap={1}
+                  flex={0}
+                  alignItems={"center"}
+                >
+                  <SelectJob />
+                  <Typography sx={{ flex: "0 100px", textAlign: "center" }}>
+                    필요 코어 수<br />
+                    {coreCount}
+                  </Typography>
+                </Box>
+                <CoreStackList />
+              </TabPanel>
+              <TabPanel>
+                <Box overflow={"auto"}>
+                  <Card sx={{ p: 1, mb: 1 }} elevation={4}>
+                    <MyCoreGenerator />
+                  </Card>
+                  <MyCoreList />
+                </Box>
+              </TabPanel>
+              <TabPanel>
+                <Calculator coreCount={coreCount} />
+              </TabPanel>
+            </Slider>
+          </Box>
+        </>
+      ) : (
+        <Box display={"flex"} flexDirection={"row"} overflow={"hidden"}>
           <TabPanel>
+            <Typography textAlign={"center"}>직업/스킬</Typography>
             <Box
               display={"flex"}
               flexDirection={"row"}
@@ -67,6 +113,7 @@ export default function VMatrixCalculator() {
             <CoreStackList />
           </TabPanel>
           <TabPanel>
+            <Typography textAlign={"center"}>내 코어</Typography>
             <Box overflow={"auto"}>
               <Card sx={{ p: 1, mb: 1 }} elevation={4}>
                 <MyCoreGenerator />
@@ -75,10 +122,11 @@ export default function VMatrixCalculator() {
             </Box>
           </TabPanel>
           <TabPanel>
+            <Typography textAlign={"center"}>결과</Typography>
             <Calculator coreCount={coreCount} />
           </TabPanel>
-        </Slider>
-      </Box>
+        </Box>
+      )}
     </Box>
   );
 }
@@ -96,6 +144,7 @@ function TabPanel({ children, sx }: TabPanelProps) {
 }
 
 const Container = styled.div`
+  flex: 1;
   height: 100%;
   overflow: hidden;
 `;

@@ -1,7 +1,11 @@
 import { Button, Card, Divider, Typography } from "@mui/material";
 import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
-import { CoreListType, StackListType } from "../../../constants/types";
+import {
+  CalcType,
+  CoreListType,
+  StackListType,
+} from "../../../constants/types";
 import { useRecoilValue } from "recoil";
 import {
   coreListRecoil,
@@ -29,8 +33,6 @@ export default function Calculator({ coreCount }: Props) {
       ),
     [resultList]
   );
-
-  type CalcType = CoreListType[] | false | null;
 
   function calc(
     stackList: StackListType,
