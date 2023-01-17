@@ -41,7 +41,7 @@ export default function CoreGenerator() {
   const addCoreList = () => {
     if (selectedCoreList.filter(_ => _).length === 3) {
       gtag.event({
-        action: "add_core",
+        action: "v_matrix_calculator_add_core",
         category: "v_matrix_calculator",
         label: job,
         value: JSON.stringify(selectedCoreList),

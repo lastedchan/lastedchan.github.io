@@ -14,7 +14,7 @@ export default function CoreList() {
     (idx: number) => {
       if (confirm("해당 코어를 삭제하시겠습니까?")) {
         gtag.event({
-          action: "remove_core",
+          action: "v_matrix_calculator_remove_core",
           category: "v_matrix_calculator",
           label: job,
           value: JSON.stringify(coreList[idx]),
