@@ -8,9 +8,9 @@ export const tabList: TabListType = [
   { title: "MapleStory", show: true },
   { title: "미드나잇 체이서", href: "/midnight_chaser", show: true },
   {
-    title: "V 매트릭스 계산기 (BETA)",
+    title: "V 매트릭스 계산기",
     href: "/v_matrix_calculator",
-    show: false,
+    show: true,
   },
 ];
 
