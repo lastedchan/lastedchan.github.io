@@ -17,14 +17,34 @@ import { tabList, topTitle } from "../src/constants/common";
 import { useEffect, useMemo, useState } from "react";
 import { Cookies } from "react-cookie";
 import { RecoilRoot } from "recoil";
-import Script from "next/script";
 import Head from "next/head";
+import * as gtag from "../src/lib/gtag";
+import Script from "next/script";
 
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
 
   const [loaded, setLoaded] = useState<boolean>(false);
   const [mode, setMode] = useState<PaletteMode>("light");
+
+  const theme = useMemo(() => createTheme({ palette: { mode: mode } }), [mode]);
+  const subtitle = useMemo(
+    () => tabList.find(_ => _?.href === router.pathname)?.title,
+    [router.pathname]
+  );
+
+  useEffect(() => {
+    const handleRouteChange = (url: any) => {
+      gtag.pageview(url);
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
+    router.events.on("hashChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+      router.events.off("hashChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
+
   useEffect(() => {
     setMode(new Cookies().get("mode") ?? "light");
     setLoaded(true);
@@ -33,17 +53,31 @@ export default function App({ Component, pageProps }: AppProps) {
     loaded && mode && new Cookies().set("mode", mode);
   }, [loaded, mode]);
 
-  const theme = useMemo(() => createTheme({ palette: { mode: mode } }), [mode]);
-
-  const subtitle = useMemo(
-    () => tabList.find(_ => _?.href === router.pathname)?.title,
-    [router.pathname]
-  );
-
   if (!loaded) return null;
 
   return (
     <RecoilRoot>
+      {/* GA 설정 시작 */}
+      {/* Global Site Tag (gtag.js) - Google Analytics */}
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+      />
+      <Script
+        id="gtag-init"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${gtag.GA_TRACKING_ID}', {
+          page_path: window.location.pathname,
+        });
+      `,
+        }}
+      />
+      {/* GA 설정 끝 */}
       <Head>
         <meta
           name={"viewport"}
@@ -52,22 +86,6 @@ export default function App({ Component, pageProps }: AppProps) {
         <meta name={"title"} content={topTitle + " - " + subtitle} />
         <title>{topTitle + " - " + subtitle}</title>
       </Head>
-      {/*Google tag (gtag.js)*/}
-      <Script
-        strategy={"afterInteractive"}
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=G-LZLFJGKZJT"
-      />
-      <Script
-        id={"gtag-init"}
-        dangerouslySetInnerHTML={{
-          __html: `window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-
-          gtag('config', 'G-LZLFJGKZJT');`,
-        }}
-      />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container>

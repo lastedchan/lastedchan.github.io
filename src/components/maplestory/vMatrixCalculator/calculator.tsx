@@ -12,6 +12,7 @@ import {
   jobRecoil,
   stackListRecoil,
 } from "../../../constants/recoil";
+import * as gtag from "../../../lib/gtag";
 
 type Props = {
   coreCount: number;
@@ -79,6 +80,12 @@ export default function Calculator({ coreCount }: Props) {
         sx={{ flex: 0 }}
         onClick={() => {
           const res = calc(stackList, coreList);
+          gtag.event({
+            category: "vMatrixCalculator",
+            action: "calculate",
+            label: "resultCount",
+            value: (res ? res : []).length,
+          });
           setResultList(res ? res : []);
         }}
       >
