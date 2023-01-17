@@ -16,13 +16,13 @@ export default function CoreList() {
         gtag.event({
           action: "remove_core",
           category: "v_matrix_calculator",
-          label: "job",
-          value: job,
+          label: job,
+          value: JSON.stringify(coreList[idx]),
         });
         setCoreList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
       }
     },
-    [job, setCoreList]
+    [coreList, job, setCoreList]
   );
 
   return (

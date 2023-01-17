@@ -43,8 +43,8 @@ export default function CoreGenerator() {
       gtag.event({
         action: "add_core",
         category: "v_matrix_calculator",
-        label: "job",
-        value: job,
+        label: job,
+        value: JSON.stringify(selectedCoreList),
       });
       setSelectedCoreList(["", "", ""]);
       setCoreList(prev => [...prev, selectedCoreList]);
