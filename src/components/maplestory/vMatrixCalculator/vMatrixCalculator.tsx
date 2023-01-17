@@ -35,6 +35,34 @@ export default function VMatrixCalculator() {
   // useMediaQuery()
   const isMobile = useMediaQuery("(max-width:959px)");
 
+  const Group1 = () => (
+    <>
+      <Box
+        display={"flex"}
+        flexDirection={"row"}
+        gap={1}
+        flex={0}
+        alignItems={"center"}
+      >
+        <SelectJob />
+        <Typography sx={{ flex: "0 100px", textAlign: "center" }}>
+          필요 코어 수<br />
+          {coreCount}
+        </Typography>
+      </Box>
+      <CoreStackList />
+    </>
+  );
+  const Group2 = () => (
+    <Box overflow={"auto"}>
+      <Card sx={{ p: 1, mb: 1 }} elevation={4}>
+        <MyCoreGenerator />
+      </Card>
+      <MyCoreList />
+    </Box>
+  );
+  const Group3 = () => <Calculator coreCount={coreCount} />;
+
   return (
     <Box
       display={"flex"}
@@ -64,31 +92,13 @@ export default function VMatrixCalculator() {
               adaptiveHeight={true}
             >
               <TabPanel>
-                <Box
-                  display={"flex"}
-                  flexDirection={"row"}
-                  gap={1}
-                  flex={0}
-                  alignItems={"center"}
-                >
-                  <SelectJob />
-                  <Typography sx={{ flex: "0 100px", textAlign: "center" }}>
-                    필요 코어 수<br />
-                    {coreCount}
-                  </Typography>
-                </Box>
-                <CoreStackList />
+                <Group1 />
               </TabPanel>
               <TabPanel>
-                <Box overflow={"auto"}>
-                  <Card sx={{ p: 1, mb: 1 }} elevation={4}>
-                    <MyCoreGenerator />
-                  </Card>
-                  <MyCoreList />
-                </Box>
+                <Group2 />
               </TabPanel>
               <TabPanel>
-                <Calculator coreCount={coreCount} />
+                <Group3 />
               </TabPanel>
             </Slider>
           </Box>
@@ -97,33 +107,15 @@ export default function VMatrixCalculator() {
         <Box display={"flex"} flexDirection={"row"} overflow={"hidden"}>
           <TabPanel>
             <Typography textAlign={"center"}>직업/스킬</Typography>
-            <Box
-              display={"flex"}
-              flexDirection={"row"}
-              gap={1}
-              flex={0}
-              alignItems={"center"}
-            >
-              <SelectJob />
-              <Typography sx={{ flex: "0 100px", textAlign: "center" }}>
-                필요 코어 수<br />
-                {coreCount}
-              </Typography>
-            </Box>
-            <CoreStackList />
+            <Group1 />
           </TabPanel>
           <TabPanel>
             <Typography textAlign={"center"}>내 코어</Typography>
-            <Box overflow={"auto"}>
-              <Card sx={{ p: 1, mb: 1 }} elevation={4}>
-                <MyCoreGenerator />
-              </Card>
-              <MyCoreList />
-            </Box>
+            <Group2 />
           </TabPanel>
           <TabPanel>
             <Typography textAlign={"center"}>결과</Typography>
-            <Calculator coreCount={coreCount} />
+            <Group3 />
           </TabPanel>
         </Box>
       )}
