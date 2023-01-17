@@ -6,9 +6,7 @@ import { jobRecoil, stackListRecoil } from "../../../constants/recoil";
 
 export default function CoreStackList() {
   const job = useRecoilValue(jobRecoil);
-  const [coreStackList, setCoreStackList] = useRecoilState(
-    stackListRecoil(job)
-  );
+  const [stackList, setCoreStackList] = useRecoilState(stackListRecoil(job));
   const onCoreChange = (idx: string, value: number) => {
     if (isNaN(value)) return false;
     setCoreStackList(prev => ({ ...prev, [idx]: value }));
@@ -17,7 +15,7 @@ export default function CoreStackList() {
   return (
     <Container>
       <List>
-        {Object.entries(coreStackList).map(([i, value]) => (
+        {Object.entries(stackList).map(([i, value]) => (
           <Item
             key={i}
             control={

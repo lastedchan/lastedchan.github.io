@@ -15,8 +15,8 @@ type Props = {
 
 export default function Calculator({ coreCount }: Props) {
   const job = useRecoilValue(jobRecoil);
-  const coreStackList = useRecoilValue(stackListRecoil(job));
-  const myCoreList = useRecoilValue(coreListRecoil(job));
+  const stackList = useRecoilValue(stackListRecoil(job));
+  const coreList = useRecoilValue(coreListRecoil(job));
   const [resultList, setResultList] = useState<CoreListType[]>([]);
 
   const resultList2 = useMemo(
@@ -76,7 +76,7 @@ export default function Calculator({ coreCount }: Props) {
         color={"secondary"}
         sx={{ flex: 0 }}
         onClick={() => {
-          const res = calc(coreStackList, myCoreList);
+          const res = calc(stackList, coreList);
           setResultList(res ? res : []);
         }}
       >

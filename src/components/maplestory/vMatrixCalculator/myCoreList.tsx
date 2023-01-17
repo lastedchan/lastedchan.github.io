@@ -6,19 +6,19 @@ import { useRecoilState, useRecoilValue } from "recoil";
 
 export default function MyCoreList() {
   const job = useRecoilValue(jobRecoil);
-  const [myCoreList, setMyCoreList] = useRecoilState(coreListRecoil(job));
+  const [coreList, setCoreList] = useRecoilState(coreListRecoil(job));
   const list = useRef<HTMLDivElement>(null);
 
   const deleteMyCore = useCallback(
     (idx: number) =>
       confirm("해당 코어를 삭제하시겠습니까?") &&
-      setMyCoreList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]),
-    [setMyCoreList]
+      setCoreList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]),
+    [setCoreList]
   );
 
   return (
     <Container ref={list}>
-      {myCoreList.map((skills, i) => (
+      {coreList.map((skills, i) => (
         <Wrapper key={i}>
           <Item variant={"outlined"}>
             {skills.map((skill, i) => (

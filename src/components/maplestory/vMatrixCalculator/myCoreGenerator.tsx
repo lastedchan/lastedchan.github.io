@@ -9,7 +9,7 @@ import { jobList } from "../../../../pages/v_matrix_calculator";
 
 export default function MyCoreGenerator() {
   const job = useRecoilValue(jobRecoil);
-  const setMyCoreList = useSetRecoilState(coreListRecoil(job));
+  const setCoreList = useSetRecoilState(coreListRecoil(job));
   const [selectedCoreList, setSelectedCoreList] = useState(["", "", ""]);
   const [idx, setIdx] = useState<number>(0);
   const coreList = useMemo(() => jobList[job], [job]);
@@ -40,7 +40,7 @@ export default function MyCoreGenerator() {
   const addMyCoreList = () => {
     if (selectedCoreList.filter(_ => _).length === 3) {
       setSelectedCoreList(["", "", ""]);
-      setMyCoreList(prev => [...prev, selectedCoreList]);
+      setCoreList(prev => [...prev, selectedCoreList]);
     } else alert("스킬을 3개 선택해주세요.");
   };
 
