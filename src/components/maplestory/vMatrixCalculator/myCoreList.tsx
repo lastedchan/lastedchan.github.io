@@ -18,23 +18,29 @@ export default function MyCoreList() {
 
   return (
     <Container ref={list}>
-      {coreList.map((skills, i) => (
-        <Wrapper key={i}>
-          <Item variant={"outlined"}>
-            {skills.map((skill, i) => (
-              <Typography key={i}>{skill}</Typography>
-            ))}
-            <Divider />
-            <Button
-              size={"small"}
-              color={"error"}
-              onClick={() => deleteMyCore(i)}
-            >
-              삭제
-            </Button>
-          </Item>
-        </Wrapper>
-      ))}
+      {coreList.length ? (
+        coreList.map((skills, i) => (
+          <Wrapper key={i}>
+            <Item variant={"outlined"}>
+              {skills.map((skill, i) => (
+                <Typography key={i}>{skill}</Typography>
+              ))}
+              <Divider />
+              <Button
+                size={"small"}
+                color={"error"}
+                onClick={() => deleteMyCore(i)}
+              >
+                삭제
+              </Button>
+            </Item>
+          </Wrapper>
+        ))
+      ) : (
+        <Typography flex={1} textAlign={"center"}>
+          코어를 추가해주세요.
+        </Typography>
+      )}
     </Container>
   );
 }

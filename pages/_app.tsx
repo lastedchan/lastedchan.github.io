@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { tabList } from "../src/constants/common";
+import { tabList, topTitle } from "../src/constants/common";
 import { useEffect, useMemo, useState } from "react";
 import { Cookies } from "react-cookie";
 import { RecoilRoot } from "recoil";
@@ -35,7 +35,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const theme = useMemo(() => createTheme({ palette: { mode: mode } }), [mode]);
 
-  const title = "LASTCHAN";
   const subtitle = useMemo(
     () => tabList.find(_ => _?.href === router.pathname)?.title,
     [router.pathname]
@@ -50,8 +49,8 @@ export default function App({ Component, pageProps }: AppProps) {
           name={"viewport"}
           content={"width=device-width,initial-scale=1"}
         />
-        <meta name={"title"} content={title + " - " + subtitle} />
-        <title>{title + " - " + subtitle}</title>
+        <meta name={"title"} content={topTitle + " - " + subtitle} />
+        <title>{topTitle + " - " + subtitle}</title>
       </Head>
       {/*Google tag (gtag.js)*/}
       <Script

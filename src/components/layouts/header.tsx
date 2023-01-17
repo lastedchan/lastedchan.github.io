@@ -57,7 +57,7 @@ export default function Header({ title, mode, setMode }: Props) {
             control={
               <Switch checked={mode === "dark"} onChange={onModeChange} />
             }
-            label={mode}
+            label={"다크모드"}
           />
         </Toolbar>
         <Drawer open={open} onClose={() => setOpen(false)}>

@@ -32,7 +32,6 @@ export default function VMatrixCalculator() {
 
   useEffect(() => slider.current?.slickGoTo(tab), [tab]);
 
-  // useMediaQuery()
   const isMobile = useMediaQuery("(max-width:959px)");
 
   const Group1 = () => (

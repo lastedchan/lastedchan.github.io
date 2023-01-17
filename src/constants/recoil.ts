@@ -1,6 +1,7 @@
 import { atom, AtomEffect, atomFamily } from "recoil";
 import { CoreListType, StackListType } from "./types";
 import { jobList } from "../../pages/v_matrix_calculator";
+import { topTitle, V_MATRIX_CALCULATOR_PREFIX } from "./common";
 
 const localStorageEffect: <T>(key: string) => AtomEffect<T> =
   (key: string) =>
@@ -16,8 +17,10 @@ const localStorageEffect: <T>(key: string) => AtomEffect<T> =
     });
   };
 
-//#region v matrix calc
-export const V_MATRIX_CALCULATOR_PREFIX = "v_matrix_calculator_";
+export const titleRecoil = atom<string>({
+  key: "titleRecoil",
+  default: topTitle,
+});
 
 export const jobRecoil = atom<string>({
   key: "jobRecoil",

@@ -40,7 +40,7 @@ export default function MidnightChaser() {
                 height={450}
               />
             ) : (
-              <Typography>O</Typography>
+              <Typography>-</Typography>
             )}
           </Wrapper>
         ))}
