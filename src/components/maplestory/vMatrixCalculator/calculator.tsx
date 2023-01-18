@@ -85,7 +85,10 @@ export default function Calculator({ coreCount }: Props) {
               action: "vmc_calculate",
               category: job,
               label: JSON.stringify(stackList),
-              value: String((res ? res : []).length),
+              value: JSON.stringify({
+                coreCount: coreList.length,
+                resCount: (res ? res : []).length,
+              }),
             });
           }
           setResultList(res ? res : []);
