@@ -82,9 +82,10 @@ export default function Calculator({ coreCount }: Props) {
           const res = calc(stackList, coreList);
           if (res) {
             gtag.event({
-              action: "v_matrix_calculator_calculate",
-              label: job,
-              value: JSON.stringify(stackList),
+              action: "vmc_calculate",
+              category: job,
+              label: JSON.stringify(stackList),
+              value: String((res ? res : []).length),
             });
           }
           setResultList(res ? res : []);

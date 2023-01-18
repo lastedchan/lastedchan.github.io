@@ -14,10 +14,10 @@ export default function CoreList() {
     (idx: number) => {
       if (confirm("해당 코어를 삭제하시겠습니까?")) {
         gtag.event({
-          action: "v_matrix_calculator_remove_core",
-          category: "v_matrix_calculator",
-          label: job,
-          value: JSON.stringify(coreList[idx]),
+          action: "vmc_remove_core",
+          category: job,
+          label: JSON.stringify(coreList[idx]),
+          value: String(coreList.length - 1),
         });
         setCoreList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
       }
