@@ -80,18 +80,21 @@ export default function Calculator({ coreCount }: Props) {
         sx={{ flex: 0 }}
         onClick={() => {
           const res = calc(stackList, coreList);
+          gtag.event({
+            action: "vmc_calculate",
+            category: job,
+            label: JSON.stringify(stackList),
+            value: JSON.stringify({
+              coreCount: coreList.length,
+              resCount: (res ? res : []).length,
+            }),
+          });
           if (res) {
-            gtag.event({
-              action: "vmc_calculate",
-              category: job,
-              label: JSON.stringify(stackList),
-              value: JSON.stringify({
-                coreCount: coreList.length,
-                resCount: (res ? res : []).length,
-              }),
-            });
+            setResultList(res);
+          } else {
+            alert("조건에 해당하는 코어 조합이 없습니다.");
+            setResultList([]);
           }
-          setResultList(res ? res : []);
         }}
       >
         계산
