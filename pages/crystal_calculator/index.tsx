@@ -100,3 +100,13 @@ export const crystalPriceList: crystalPriceListType = [
     price: 5675239428,
   },
 ];
+
+export const colors = [
+  { str: "일일", bgcolor: "#ffffff", color: "#000000" },
+  { str: "주간", bgcolor: "#ffffff", color: "#000000" },
+  { str: "월간", bgcolor: "#ffffff", color: "#000000" },
+  { str: "이지", bgcolor: "#909090", color: "#ffffff" },
+  { str: "노멀", bgcolor: "#80ffff", color: "#000000" },
+  { str: "하드", bgcolor: "#ff4080", color: "#ffffff" },
+  { str: "카오스", bgcolor: "#000000", color: "#ffffff" },
+];

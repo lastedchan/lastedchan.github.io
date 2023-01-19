@@ -1,19 +1,22 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import { range } from "lodash";
 import { Character } from "./character";
 import { Button } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { characterListRecoil } from "../../../constants/recoil";
 
 export default function CrystalCalculator() {
-  const [characterCount, setCharacterCount] = useState(0);
+  const [characterList, setCharacterList] = useRecoilState(characterListRecoil);
+
+  const addCharacter = () =>
+    setCharacterList(prev => ({ ...prev, [+new Date()]: [] }));
+
+  console.log(characterList);
 
   return (
     <Container>
-      <Button onClick={() => setCharacterCount(prev => prev + 1)}>
-        캐릭터 추가
-      </Button>
-      {range(0, characterCount).map(idx => (
-        <Character key={idx} idx={idx} />
+      <Button onClick={addCharacter}>캐릭터 추가</Button>
+      {Object.keys(characterList).map((idx, i) => (
+        <Character key={idx} idx={idx} number={i} />
       ))}
     </Container>
   );

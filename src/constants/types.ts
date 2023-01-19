@@ -18,10 +18,15 @@ export type crystalPriceType = {
   difficulty: "이지" | "노멀" | "하드" | "카오스" | "익스트림";
   boss: string;
   price: number;
-  amount?: 0;
-  headcount?: 1;
 };
 export type crystalPriceListType = crystalPriceType[];
+export type characterType = {
+  difficulty: "이지" | "노멀" | "하드" | "카오스" | "익스트림";
+  boss: string;
+  amount?: number;
+  headcount?: number;
+}[];
+export type characterListType = { [p: string]: characterType };
 //#endregion
 
 //#region midnightChaser

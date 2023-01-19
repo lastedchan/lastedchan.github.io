@@ -1,8 +1,12 @@
-import { atom, AtomEffect, atomFamily } from "recoil";
-import { CoreListType, crystalPriceListType, StackListType } from "./types";
+import { atom, AtomEffect, atomFamily, selectorFamily } from "recoil";
+import {
+  characterListType,
+  characterType,
+  CoreListType,
+  StackListType,
+} from "./types";
 import { jobList } from "../../pages/v_matrix_calculator";
 import { topTitle } from "./common";
-import { crystalPriceList } from "../../pages/crystal_calculator";
 
 const localStorageEffect: <T>(key: string) => AtomEffect<T> =
   (key: string) =>
@@ -47,13 +51,19 @@ export const coreListRecoil = atomFamily<CoreListType, string>({
 //#endregion
 
 //#region crystalCalculator
-export const sellCrystalListRecoil = atomFamily<crystalPriceListType, number>({
-  key: "sellCrystalListRecoil",
-  default: crystalPriceList,
-  effects: idx => [
-    localStorageEffect<crystalPriceListType>(
-      "crystal_calculator_character" + idx
-    ),
-  ],
+export const characterListRecoil = atom<characterListType>({
+  key: "characterListRecoil",
+  default: {},
+  /*effects: [
+    localStorageEffect<characterListType>("crystal_calculator_characters"),
+  ],*/
+});
+
+export const characterSelector = selectorFamily<characterType, string>({
+  key: "sellCrystalListSelector",
+  get:
+    idx =>
+    ({ get }) =>
+      get(characterListRecoil)[idx],
 });
 //#endregion
