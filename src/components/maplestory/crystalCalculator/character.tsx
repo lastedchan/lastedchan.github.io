@@ -4,55 +4,54 @@ import {
   characterListRecoil,
   characterSelector,
 } from "../../../constants/recoil";
-import { Box, Card, IconButton, Typography } from "@mui/material";
+import { Grid, IconButton, Paper, Typography } from "@mui/material";
 import { colors, crystalPriceList } from "../../../../pages/crystal_calculator";
 import DeleteIcon from "@mui/icons-material/Delete";
 
 type Props = {
-  idx: string;
-  number: number;
+  idx: number;
 };
 
-export function Character({ idx, number }: Props) {
+export function Character({ idx }: Props) {
   const character = useRecoilValue(characterSelector(idx));
   const setCharacterList = useSetRecoilState(characterListRecoil);
   const removeCharacter = () =>
-    setCharacterList(prev =>
-      Object.entries(prev)
-        .filter(([key]) => key !== idx)
-        .reduce((prev, [key, value]) => ({ ...prev, [key]: value }), {})
-    );
+    setCharacterList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
 
   const findMatch = (a: any, b: any) =>
     a.difficulty === b.difficulty && a.boss === b.boss;
 
   return (
     <Container>
-      <Wrapper sx={{ justifyContent: "space-between" }}>
-        <Typography>{number + 1}</Typography>
+      <HeadWrapper>
+        <Typography>{character[0]}</Typography>
         <IconButton color={"error"} onClick={removeCharacter}>
           <DeleteIcon />
         </IconButton>
-      </Wrapper>
-      <Wrapper>
+      </HeadWrapper>
+      <Grid container spacing={1} overflow={"auto"}>
         {crystalPriceList
           .filter(item => item.type !== "일일")
           .map((item, i) => (
-            <Item key={i}>
-              <Typography
-                textAlign={"center"}
-                bgcolor={colors.find(_ => _.str === item.difficulty)?.bgcolor}
-                color={colors.find(_ => _.str === item.difficulty)?.color}
-              >
-                {item.difficulty} {item.boss}
-              </Typography>
-              <Typography>{item.price.toLocaleString("ko-KR")}</Typography>
-              <Typography>
-                {character.find(_ => findMatch(_, item))?.amount}
-              </Typography>
-            </Item>
+            <Grid key={i} item xs={12} sm={6} md={4} lg={3} xl={2} pt={1}>
+              <Item>
+                <Typography
+                  textAlign={"center"}
+                  bgcolor={colors.find(_ => _.str === item.difficulty)?.bgcolor}
+                  color={colors.find(_ => _.str === item.difficulty)?.color}
+                >
+                  {item.difficulty} {item.boss}
+                </Typography>
+                <Typography textAlign={"right"}>
+                  {item.price.toLocaleString("ko-KR")}
+                </Typography>
+                <Typography>
+                  {character[1].find(_ => findMatch(_, item))?.amount}
+                </Typography>
+              </Item>
+            </Grid>
           ))}
-      </Wrapper>
+      </Grid>
     </Container>
   );
 }
@@ -61,19 +60,18 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 8px;
+  width: 100%;
+  height: 100%;
 `;
 
-const Wrapper = styled(Box)`
+const HeadWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  gap: 8px;
-  padding: 4px;
+  justify-content: space-between;
   align-items: center;
-  overflow-x: auto;
 `;
 
-const Item = styled(Card)`
-  flex: 1 0 240px;
+const Item = styled(Paper)`
+  //flex: 1 1 45%;
   padding: 8px;
+  width: 100%;
 `;
