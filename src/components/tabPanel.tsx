@@ -26,7 +26,6 @@ const Wrapper = styled(Box)`
   flex-direction: column;
   flex: 1;
   gap: 8px;
-  padding: 8px;
   height: 100%;
   overflow: hidden;
 `;

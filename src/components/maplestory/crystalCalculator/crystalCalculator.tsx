@@ -1,67 +1,42 @@
 import styled from "@emotion/styled";
 import { Character } from "./character";
-import { Box, Tab, Tabs } from "@mui/material";
-import { useRecoilState, useRecoilValue } from "recoil";
-import { characterListRecoil } from "../../../constants/recoil";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
-import Slider from "react-slick";
-import TabPanel from "../../tabPanel";
+import { Box, FormControlLabel, Switch } from "@mui/material";
+import { useRecoilState } from "recoil";
+import { isRebootRecoil } from "../../../constants/recoil";
+import React, { useState } from "react";
+import { bossType, huntedBossType } from "../../../constants/types";
+import TabList from "./tabList";
+import { bossList } from "../../../../pages/crystal_calculator";
+import Summary from "./summary";
 
 export default function CrystalCalculator() {
-  const characterList = useRecoilValue(characterListRecoil);
+  const [isReboot, setIsReboot] = useRecoilState(isRebootRecoil);
   const [tab, setTab] = useState<number>(0);
-  const slider = useRef<Slider>(null);
-
-  useEffect(() => slider.current?.slickGoTo(tab), [tab]);
 
   return (
     <Container>
-      <TabList tab={tab} setTab={setTab} />
-      <Box flex={"1"} overflow={"hidden"}>
-        {characterList.map(([idx], i) => (
-          <TabPanel key={i} idx={i} value={tab}>
-            <Character idx={i} />
-          </TabPanel>
-        ))}
+      <Box display={"grid"} gridTemplateColumns={"auto 1fr"} gap={1}>
+        <FormControlLabel
+          control={
+            <Switch
+              checked={isReboot}
+              onChange={(e, v) => setIsReboot(v)}
+              size={"small"}
+            />
+          }
+          label={"리부트"}
+          labelPlacement={"start"}
+        />
+        <TabList tab={tab} setTab={setTab} />
       </Box>
+      {tab === 0 ? (
+        <Summary></Summary>
+      ) : (
+        <Box flex={"1"} overflow={"hidden"}>
+          <Character idx={tab - 1} />
+        </Box>
+      )}
     </Container>
-  );
-}
-
-type TabListProps = {
-  tab: number;
-  setTab: Dispatch<SetStateAction<number>>;
-};
-function TabList({ tab, setTab }: TabListProps) {
-  const [characterList, setCharacterList] = useRecoilState(characterListRecoil);
-  useEffect(() => {
-    characterList.length &&
-      tab >= characterList.length &&
-      setTab(characterList.length - 1);
-  }, [characterList, setTab, tab]);
-  const addCharacter = useCallback(
-    () =>
-      setCharacterList(prev => [
-        ...prev,
-        [`캐릭터 ${characterList.length + 1}`, []],
-      ]),
-    [characterList.length, setCharacterList]
-  );
-
-  return (
-    <Tabs variant={"scrollable"} value={tab} onChange={(e, v) => setTab(v)}>
-      {characterList.map(([idx], i) => (
-        <Tab key={i + idx} label={idx} />
-      ))}
-      <Tab label={"+"} onClick={addCharacter} />
-    </Tabs>
   );
 }
 
@@ -72,3 +47,17 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `;
+
+export const findMatch = (a: huntedBossType, b: bossType) =>
+  a.difficulty === b.difficulty && a.name === b.name;
+
+export const getTotalPrice = (
+  huntedBossList: huntedBossType[],
+  isReboot: boolean
+) =>
+  huntedBossList
+    .filter(_ => _.checked)
+    .reduce((prev: number, _) => {
+      const boss = bossList.find(__ => findMatch(_, __));
+      return boss ? prev + Math.floor(boss.price / (_.headcount ?? 1)) : prev;
+    }, 0) * (isReboot ? 5 : 1);

@@ -55,9 +55,14 @@ export default function Header({ title, mode, setMode }: Props) {
           <Typography sx={{ flex: 1, p: 2 }}>{title}</Typography>
           <FormControlLabel
             control={
-              <Switch checked={mode === "dark"} onChange={onModeChange} />
+              <Switch
+                checked={mode === "dark"}
+                onChange={onModeChange}
+                size={"small"}
+              />
             }
             label={"다크모드"}
+            labelPlacement={"start"}
           />
         </Toolbar>
         <Drawer open={open} onClose={() => setOpen(false)}>

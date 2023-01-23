@@ -51,19 +51,24 @@ export const coreListRecoil = atomFamily<CoreListType, string>({
 //#endregion
 
 //#region crystalCalculator
+export const isRebootRecoil = atom<boolean>({
+  key: "isRebootRecoil",
+  default: false,
+  effects: [localStorageEffect<boolean>("crystal_calculator_is_reboot")],
+});
 export const characterListRecoil = atom<characterListType>({
   key: "characterListRecoil",
   default: [],
-  /*effects: [
-    localStorageEffect<characterListType>("crystal_calculator_characters"),
-  ],*/
+  effects: [
+    localStorageEffect<characterListType>("crystal_calculator_character_list"),
+  ],
 });
 
 export const characterSelector = selectorFamily<characterType, number>({
-  key: "sellCrystalListSelector",
+  key: "characterSelector",
   get:
     idx =>
     ({ get }) =>
-      get(characterListRecoil)[idx] ?? [],
+      get(characterListRecoil)[idx],
 });
 //#endregion

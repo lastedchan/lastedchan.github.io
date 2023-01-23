@@ -13,22 +13,21 @@ export type CalcType = CoreListType[] | false | null;
 //#endregion
 
 //#region crystalCalculator
-export type crystalPriceType = {
+export type bossType = {
   type: "일일" | "주간" | "월간";
   difficulty: "이지" | "노멀" | "하드" | "카오스" | "익스트림";
-  boss: string;
+  name: string;
   price: number;
 };
-export type crystalPriceListType = crystalPriceType[];
-export type characterType = [
-  string,
-  {
-    difficulty: "이지" | "노멀" | "하드" | "카오스" | "익스트림";
-    boss: string;
-    amount?: number;
-    headcount?: number;
-  }[]
-];
+export type bossListType = bossType[];
+
+export type huntedBossType = {
+  difficulty: "이지" | "노멀" | "하드" | "카오스" | "익스트림";
+  name: string;
+  checked?: boolean;
+  headcount?: number;
+};
+export type characterType = [string, huntedBossType[]];
 export type characterListType = characterType[];
 //#endregion
 
