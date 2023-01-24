@@ -89,7 +89,7 @@ export default function Calculator({ coreCount }: Props) {
               resCount: (res ? res : []).length,
             }),
           });
-          if (res) {
+          if (res && res.length) {
             setResultList(res);
           } else {
             alert("조건에 해당하는 코어 조합이 없습니다.");
