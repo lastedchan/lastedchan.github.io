@@ -51,6 +51,9 @@ const Container = styled.div`
 export const findMatch = (a: huntedBossType, b: bossType) =>
   a.difficulty === b.difficulty && a.name === b.name;
 
+export const getTotalCrystal = (huntedBossList: huntedBossType[]) =>
+  huntedBossList?.filter(_ => _.checked).length;
+
 export const getTotalPrice = (
   huntedBossList: huntedBossType[],
   isReboot: boolean
