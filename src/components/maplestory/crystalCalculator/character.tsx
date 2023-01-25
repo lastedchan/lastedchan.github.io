@@ -5,8 +5,16 @@ import {
   characterSelector,
   isRebootRecoil,
 } from "../../../constants/recoil";
-import { Divider, Grid, IconButton, Typography } from "@mui/material";
+import {
+  ButtonGroup,
+  Divider,
+  Grid,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { bossList } from "../../../../pages/crystal_calculator";
+import EditIcon from "@mui/icons-material/Edit";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useCallback, useMemo } from "react";
 import { getTotalPrice } from "./crystalCalculator";
@@ -21,13 +29,30 @@ export function Character({ idx }: Props) {
   const character = useRecoilValue(characterSelector(idx));
   const setCharacterList = useSetRecoilState(characterListRecoil);
 
-  const characterName = useMemo(
-    () => "캐릭터 " + (idx + 1) /*character?.[0]*/,
-    [idx]
-  );
+  const characterName = useMemo(() => character?.[0], [character]);
   const totalPrice = useMemo(
     () => getTotalPrice(character?.[1], isReboot),
     [character, isReboot]
+  );
+
+  const updateCharacterName = useCallback(() => {
+    const value = prompt(
+      `캐릭터명을 입력해주세요.\n변경 전 : ${characterName}`
+    );
+    if (value) {
+      setCharacterList(prev => [
+        ...prev.slice(0, idx),
+        [value, character[1]],
+        ...prev.slice(idx + 1),
+      ]);
+    }
+  }, [character, characterName, idx, setCharacterList]);
+
+  const copyCharacter = useCallback(
+    () =>
+      confirm(`캐릭터를 복사하시겠습니까?\n복사할 캐릭터 : ${characterName}`) &&
+      setCharacterList(prev => [...prev, character]),
+    [character, characterName, setCharacterList]
   );
 
   const removeCharacter = useCallback(
@@ -42,7 +67,15 @@ export function Character({ idx }: Props) {
   return (
     <Container>
       <HeaderWrapper>
-        <Typography>{characterName}</Typography>
+        <ButtonGroup sx={{ gap: 0.5, alignItems: "center" }}>
+          <Typography pr={1}>{characterName}</Typography>
+          <IconButton onClick={updateCharacterName}>
+            <EditIcon />
+          </IconButton>
+          <IconButton onClick={copyCharacter}>
+            <ContentCopyIcon />
+          </IconButton>
+        </ButtonGroup>
         <IconButton color={"error"} onClick={removeCharacter}>
           <DeleteIcon />
         </IconButton>
