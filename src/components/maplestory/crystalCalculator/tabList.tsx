@@ -12,7 +12,7 @@ export default function TabList({ tab, setTab }: TabListProps) {
   useEffect(() => {
     characterList.length &&
       tab > characterList.length &&
-      setTab(characterList.length - 1);
+      setTab(characterList.length);
   }, [characterList, setTab, tab]);
   const addCharacter = useCallback(
     () =>

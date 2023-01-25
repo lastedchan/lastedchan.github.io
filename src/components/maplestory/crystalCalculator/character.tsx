@@ -8,7 +8,7 @@ import {
 import { Divider, Grid, IconButton, Typography } from "@mui/material";
 import { bossList } from "../../../../pages/crystal_calculator";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { getTotalPrice } from "./crystalCalculator";
 import Boss from "./boss";
 
@@ -21,7 +21,10 @@ export function Character({ idx }: Props) {
   const character = useRecoilValue(characterSelector(idx));
   const setCharacterList = useSetRecoilState(characterListRecoil);
 
-  const characterName = useMemo(() => character?.[0], [character]);
+  const characterName = useMemo(
+    () => "캐릭터 " + (idx + 1) /*character?.[0]*/,
+    [idx]
+  );
   const totalPrice = useMemo(
     () => getTotalPrice(character?.[1], isReboot),
     [character, isReboot]
@@ -33,8 +36,6 @@ export function Character({ idx }: Props) {
       setCharacterList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]),
     [characterName, idx, setCharacterList]
   );
-
-  useEffect(() => console.log(character?.[1]), [character]);
 
   if (!character) return null;
 

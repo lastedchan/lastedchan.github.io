@@ -56,7 +56,7 @@ export const getTotalPrice = (
   isReboot: boolean
 ) =>
   huntedBossList
-    .filter(_ => _.checked)
+    ?.filter(_ => _.checked)
     .reduce((prev: number, _) => {
       const boss = bossList.find(__ => findMatch(_, __));
       return boss ? prev + Math.floor(boss.price / (_.headcount ?? 1)) : prev;
