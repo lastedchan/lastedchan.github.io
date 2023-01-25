@@ -2,6 +2,7 @@ import React, { Dispatch, SetStateAction, useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { characterListRecoil } from "../../../constants/recoil";
 import { Tab, Tabs } from "@mui/material";
+import * as gtag from "../../../lib/gtag";
 
 type TabListProps = {
   tab: number;
@@ -14,14 +15,16 @@ export default function TabList({ tab, setTab }: TabListProps) {
       tab > characterList.length &&
       setTab(characterList.length);
   }, [characterList, setTab, tab]);
-  const addCharacter = useCallback(
-    () =>
-      setCharacterList(prev => [
-        ...prev,
-        [`캐릭터 ${characterList.length + 1}`, []],
-      ]),
-    [characterList.length, setCharacterList]
-  );
+  const addCharacter = useCallback(() => {
+    gtag.event({
+      action: "cc_add_character",
+      value: String(characterList.length + 1),
+    });
+    setCharacterList(prev => [
+      ...prev,
+      [`캐릭터 ${characterList.length + 1}`, []],
+    ]);
+  }, [characterList.length, setCharacterList]);
 
   return (
     <Tabs variant={"scrollable"} value={tab} onChange={(e, v) => setTab(v)}>
