@@ -22,7 +22,7 @@ export default function Summary() {
     <Container>
       {characterList.map((item, i) => (
         <Box key={i} display={"flex"} justifyContent={"space-between"}>
-          <Typography>캐릭터 {i + 1}</Typography>
+          <Typography>{item[0]}</Typography>
           <Typography role={"total-price"}>
             {getTotalPrice(item[1], isReboot).toLocaleString()}
           </Typography>
