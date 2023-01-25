@@ -19,6 +19,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useCallback, useMemo } from "react";
 import { getTotalPrice } from "./crystalCalculator";
 import Boss from "./boss";
+import * as gtag from "../../../lib/gtag";
 
 type Props = {
   idx: number;
@@ -35,11 +36,16 @@ export function Character({ idx }: Props) {
     [character, isReboot]
   );
 
-  const updateCharacterName = useCallback(() => {
+  const changeName = useCallback(() => {
     const value = prompt(
       `캐릭터명을 입력해주세요.\n변경 전 : ${characterName}`
     );
     if (value) {
+      gtag.event({
+        action: "cc_change_name",
+        label: characterName,
+        value: value,
+      });
       setCharacterList(prev => [
         ...prev.slice(0, idx),
         [value, character[1]],
@@ -48,19 +54,27 @@ export function Character({ idx }: Props) {
     }
   }, [character, characterName, idx, setCharacterList]);
 
-  const copyCharacter = useCallback(
-    () =>
-      confirm(`캐릭터를 복사하시겠습니까?\n복사할 캐릭터 : ${characterName}`) &&
-      setCharacterList(prev => [...prev, character]),
-    [character, characterName, setCharacterList]
-  );
+  const copyCharacter = useCallback(() => {
+    if (
+      confirm(`캐릭터를 복사하시겠습니까?\n복사할 캐릭터 : ${characterName}`)
+    ) {
+      gtag.event({
+        action: "cc_copy_character",
+        value: characterName,
+      });
+      setCharacterList(prev => [...prev, character]);
+    }
+  }, [character, characterName, setCharacterList]);
 
-  const removeCharacter = useCallback(
-    () =>
-      confirm(`정말로 삭제하시겠습니까?\n삭제될 캐릭터 : ${characterName}`) &&
-      setCharacterList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]),
-    [characterName, idx, setCharacterList]
-  );
+  const removeCharacter = useCallback(() => {
+    if (confirm(`정말로 삭제하시겠습니까?\n삭제될 캐릭터 : ${characterName}`)) {
+      gtag.event({
+        action: "cc_remove_character",
+        value: characterName,
+      });
+      setCharacterList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
+    }
+  }, [characterName, idx, setCharacterList]);
 
   if (!character) return null;
 
@@ -69,7 +83,7 @@ export function Character({ idx }: Props) {
       <HeaderWrapper>
         <ButtonGroup sx={{ gap: 0.5, alignItems: "center" }}>
           <Typography pr={1}>{characterName}</Typography>
-          <IconButton onClick={updateCharacterName}>
+          <IconButton onClick={changeName}>
             <EditIcon />
           </IconButton>
           <IconButton onClick={copyCharacter}>
