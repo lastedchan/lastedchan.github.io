@@ -53,7 +53,11 @@ export default function Summary() {
 }
 
 const Container = styled.div`
+  margin: 0 auto;
   padding: 8px 16px;
+  width: 480px;
+  max-width: 100%;
+  justify-content: center;
   & [role="number"] {
     font-family: Consolas, sans-serif !important;
     text-align: right;
