@@ -73,7 +73,13 @@ export default function Boss({ i, idx, item }: Props) {
                   : prev[idx][1].slice(idx2 + 1)),
               ]
             : [
-                ...prev[idx][1],
+                ...(same
+                  ? [
+                      ...prev[idx][1].slice(0, idx3),
+                      { ...prev[idx][1][idx3], checked: false },
+                      ...prev[idx][1].slice(idx3 + 1),
+                    ]
+                  : prev[idx][1]),
                 {
                   difficulty: bossList[i].difficulty,
                   name: bossList[i].name,
