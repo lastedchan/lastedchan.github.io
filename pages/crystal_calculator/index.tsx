@@ -92,13 +92,13 @@ export const bossList: bossListType = [
     name: "선택받은 세렌",
     price: 1071302484,
   },
-  { type: "월간", difficulty: "하드", name: "검은 마법사", price: 1418809857 },
-  {
+  // { type: "월간", difficulty: "하드", name: "검은 마법사", price: 1418809857 },
+  /*{
     type: "월간",
     difficulty: "익스트림",
     name: "검은 마법사",
     price: 5675239428,
-  },
+  },*/
 ];
 
 export const colors = [
