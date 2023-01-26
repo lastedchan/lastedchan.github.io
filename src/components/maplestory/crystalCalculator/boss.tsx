@@ -11,6 +11,7 @@ import {
 } from "../../../constants/recoil";
 import { bossType } from "../../../constants/types";
 import { useCallback } from "react";
+import * as gtag from "../../../lib/gtag";
 
 type Props = {
   i: number;
@@ -24,13 +25,29 @@ export default function Boss({ i, idx, item }: Props) {
 
   const modifyHuntedBoss = useCallback(
     (i: number, v: { headcount?: number; checked?: boolean }) => {
+      let same = false;
+
       const idx2 = character[1].findIndex(_ => findMatch(_, bossList[i]));
 
       const idx3 = character[1].findIndex(
         _ => _.name === bossList[i].name && _.checked
       );
-      if (idx3 !== -1 && idx3 !== idx2) {
-        return;
+      if (v.checked && idx3 !== -1 && idx3 !== idx2) {
+        const prev = `${character[1][idx3].difficulty} ${character[1][idx3].name}`;
+        const curr = `${bossList[i].difficulty} ${bossList[i].name}`;
+        if (
+          confirm(
+            `이미 ${prev}이(가) 선택되어있습니다.\n${curr}(으)로 변경하시겠습니까?`
+          )
+        ) {
+          gtag.event({
+            action: "cc_replace_same_boss",
+            value: JSON.stringify({ prev: prev, curr: curr }),
+          });
+          same = true;
+        } else {
+          return;
+        }
       }
 
       setCharacterList(prev => [
@@ -39,9 +56,21 @@ export default function Boss({ i, idx, item }: Props) {
           prev[idx][0],
           idx2 >= 0
             ? [
-                ...prev[idx][1].slice(0, idx2),
+                ...(same && idx2 > idx3
+                  ? [
+                      ...prev[idx][1].slice(0, idx3),
+                      { ...prev[idx][1][idx3], checked: false },
+                      ...prev[idx][1].slice(idx3 + 1, idx2),
+                    ]
+                  : prev[idx][1].slice(0, idx2)),
                 { ...prev[idx][1][idx2], ...v },
-                ...prev[idx][1].slice(idx2 + 1),
+                ...(same && idx3 > idx2
+                  ? [
+                      ...prev[idx][1].slice(idx2 + 1, idx3),
+                      { ...prev[idx][1][idx3], checked: false },
+                      ...prev[idx][1].slice(idx3 + 1),
+                    ]
+                  : prev[idx][1].slice(idx2 + 1)),
               ]
             : [
                 ...prev[idx][1],
