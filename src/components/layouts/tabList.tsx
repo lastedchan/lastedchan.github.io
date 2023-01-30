@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/router";
 import { TabListType } from "../../constants/types";
+import { isString } from "lodash";
 
 type Props = {
   tabList: TabListType;
@@ -31,9 +32,13 @@ export default function TabList({ tabList }: Props) {
               </ListItemButton>
             ) : (
               <ListItemText key={i} sx={{ m: 0, p: 1 }}>
-                <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>
-                  {item.title}
-                </Typography>
+                {isString(item.title) ? (
+                  <Typography sx={{ textAlign: "center", fontWeight: "bold" }}>
+                    {item.title}
+                  </Typography>
+                ) : (
+                  item.title
+                )}
               </ListItemText>
             )
           ) : (
