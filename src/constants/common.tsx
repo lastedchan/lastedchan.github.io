@@ -2,6 +2,7 @@ import { TabListType } from "./types";
 import Image from "next/image";
 import Link from "next/link";
 import VMatrixCalculatorHelp from "../components/maplestory/vMatrixCalculator/vMatrixCalculatorHelp";
+import * as gtag from "../lib/gtag";
 
 export const topTitle = "LASTCHAN";
 
@@ -22,7 +23,11 @@ export const tabList: TabListType = [
   {
     title: (
       <span style={{ display: "block", margin: "auto", width: 150 }}>
-        <Link href={"https://open.kakao.com/o/stON1QZe"} target={"_blank"}>
+        <Link
+          href={"https://open.kakao.com/o/stON1QZe"}
+          target={"_blank"}
+          onClick={() => gtag.event({ action: "kakaotalk_click" })}
+        >
           <Image src={"/qr.png"} alt={"QR code"} width={600} height={600} />
         </Link>
       </span>
