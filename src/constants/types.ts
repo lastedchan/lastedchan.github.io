@@ -1,8 +1,9 @@
 export type TabType = {
-  title: string;
+  title: string | JSX.Element;
   href?: string;
   show: boolean;
 } | null;
+export type TabListType = TabType[];
 
 //#region vMatrixCalculator
 export type JobListType = { [p: string]: string[] };
@@ -32,6 +33,5 @@ export type characterListType = characterType[];
 //#endregion
 
 //#region midnightChaser
-export type TabListType = TabType[];
 export type SlotType = number[];
 //#endregion
