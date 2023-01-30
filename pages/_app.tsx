@@ -74,7 +74,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container>
-          <Header title={subtitle} mode={mode} setMode={setMode} />
+          <Header mode={mode} setMode={setMode} />
           <Wrapper>
             <Component {...pageProps} />
           </Wrapper>

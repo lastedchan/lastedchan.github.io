@@ -1,7 +1,8 @@
 export type TabType = {
   title: string | JSX.Element;
-  href?: string;
   show: boolean;
+  href?: string;
+  help?: JSX.Element;
 } | null;
 export type TabListType = TabType[];
 

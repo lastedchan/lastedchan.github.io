@@ -15,23 +15,31 @@ import {
   SetStateAction,
   useCallback,
   useEffect,
+  useMemo,
   useState,
 } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import TabList from "./tabList";
 import { useRouter } from "next/router";
 import { tabList } from "../../constants/common";
+import Popup from "../popup";
+import VMatrixCalculatorHelp from "../maplestory/vMatrixCalculator/vMatrixCalculatorHelp";
+import HelpIcon from "@mui/icons-material/Help";
 
 type Props = {
-  title?: string;
   mode: "light" | "dark";
   setMode: Dispatch<SetStateAction<PaletteMode>>;
 };
 
-export default function Header({ title, mode, setMode }: Props) {
+export default function Header({ mode, setMode }: Props) {
   const router = useRouter();
 
   const [open, setOpen] = useState<boolean>(false);
+
+  const current = useMemo(
+    () => tabList.find(_ => _?.href === router.pathname),
+    [router.pathname]
+  );
 
   useEffect(() => {
     setOpen(false);
@@ -52,7 +60,19 @@ export default function Header({ title, mode, setMode }: Props) {
               <MenuIcon />
             </IconButton>
           </Box>
-          <Typography sx={{ flex: 1, p: 2 }}>{title}</Typography>
+          <Typography sx={{ flex: 1, p: 2 }}>{current?.title}</Typography>
+          {current?.help && (
+            <Popup
+              title={"가이드"}
+              opener={
+                <IconButton>
+                  <HelpIcon />
+                </IconButton>
+              }
+            >
+              <VMatrixCalculatorHelp />
+            </Popup>
+          )}
           <FormControlLabel
             control={
               <Switch

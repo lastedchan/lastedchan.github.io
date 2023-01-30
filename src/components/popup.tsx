@@ -4,20 +4,36 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  SxProps,
-  Theme,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type Props = {
   title: string;
-  sx?: SxProps<Theme>;
+  opener: JSX.Element;
   children?: JSX.Element;
 };
 
-export default function Popup({ title, sx, children }: Props) {
+export default function Popup({ title, opener, children }: Props) {
   const [open, setOpen] = useState(false);
-  const onClose = () => setOpen(false);
+  const onClose = (e?: any) => {
+    setOpen(false);
+    if (e) history.back();
+  };
+
+  useEffect(() => {
+    if (open) {
+      history.pushState(null, document.title, location.href);
+      window.onpopstate = e => {
+        e.preventDefault();
+        onClose();
+        return false;
+      };
+      return () => {
+        window.onpopstate = null;
+      };
+    }
+  }, [open]);
+
   return (
     <>
       <Dialog open={open} onClose={onClose}>
@@ -29,9 +45,7 @@ export default function Popup({ title, sx, children }: Props) {
           </Button>
         </DialogActions>
       </Dialog>
-      <Button variant={"contained"} onClick={() => setOpen(true)} sx={sx}>
-        {title} 열기
-      </Button>
+      <span onClick={() => setOpen(true)}>{opener}</span>
     </>
   );
 }
