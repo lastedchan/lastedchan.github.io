@@ -1,15 +1,5 @@
-import TabList from "../src/components/layouts/tabList";
-import { tabList } from "../src/constants/common";
-import styled from "@emotion/styled";
+import CrystalCalculatorIndex from "./crystal_calculator";
 
 export default function Home() {
-  return (
-    <Container>
-      <TabList tabList={tabList} />
-    </Container>
-  );
+  return <CrystalCalculatorIndex />;
 }
-
-const Container = styled.div`
-  width: 100%;
-`;

@@ -4,15 +4,14 @@ import VMatrixCalculatorHelp from "../components/maplestory/vMatrixCalculator/vM
 export const topTitle = "LASTCHAN";
 
 export const tabList: TabListType = [
-  { title: "HOME", show: false, href: "/" },
-  // null,
+  { title: "결정석 수익 계산기", show: false, href: "/" },
   { title: "MapleStory", show: true },
+  { title: "결정석 수익 계산기", show: true, href: "/crystal_calculator" },
   {
     title: "V 매트릭스 계산기",
     show: true,
     href: "/v_matrix_calculator",
     help: <VMatrixCalculatorHelp />,
   },
-  { title: "결정석 수익 계산기", show: true, href: "/crystal_calculator" },
   { title: "미드나잇 체이서 도우미", show: false, href: "/midnight_chaser" },
 ];
