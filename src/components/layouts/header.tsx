@@ -25,6 +25,7 @@ import { tabList } from "../../constants/common";
 import Popup from "../popup";
 import VMatrixCalculatorHelp from "../maplestory/vMatrixCalculator/vMatrixCalculatorHelp";
 import HelpIcon from "@mui/icons-material/Help";
+import * as gtag from "../../lib/gtag";
 
 type Props = {
   mode: "light" | "dark";
@@ -56,7 +57,12 @@ export default function Header({ mode, setMode }: Props) {
       <AppBar position={"sticky"}>
         <Toolbar variant={"dense"}>
           <Box sx={{ flex: "0 auto" }}>
-            <IconButton onClick={() => setOpen(true)}>
+            <IconButton
+              onClick={() => {
+                gtag.event({ action: "open_sidebar" });
+                setOpen(true);
+              }}
+            >
               <MenuIcon />
             </IconButton>
           </Box>
