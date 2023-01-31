@@ -1,5 +1,5 @@
 export type TabType = {
-  title: string | JSX.Element;
+  title: string;
   show: boolean;
   href?: string;
   help?: JSX.Element;

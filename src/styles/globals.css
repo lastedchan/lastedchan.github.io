@@ -23,6 +23,7 @@
 html, body, #__next {
     width: 100%;
     height: 100%;
+    font-size: 14px;
     overflow: hidden;
     -ms-overflow-style: none;
 }
@@ -32,11 +33,11 @@ a {
     text-decoration: none;
 }
 
-img {
+/*img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-}
+}*/
 
 .slick-slider {
     height: 100%;
