@@ -109,4 +109,5 @@ export const colors = [
   { str: "노멀", bgcolor: "#80ffff", color: "#000000" },
   { str: "하드", bgcolor: "#ff4080", color: "#ffffff" },
   { str: "카오스", bgcolor: "#000000", color: "#ffffff" },
+  { str: "익스트림", bgcolor: "#000000", color: "#ff0000" },
 ];
