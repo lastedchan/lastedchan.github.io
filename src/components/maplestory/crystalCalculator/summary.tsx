@@ -1,30 +1,19 @@
 import { useRecoilValue } from "recoil";
 import { characterListRecoil, isRebootRecoil } from "../../../constants/recoil";
-import { Fragment, useMemo } from "react";
-import { getTotalCrystal, getTotalPrice } from "./crystalCalculator";
+import { Dispatch, Fragment, SetStateAction } from "react";
+import { getTotalCount, getTotalPrice } from "./crystalCalculator";
 import { Divider, Typography } from "@mui/material";
 import styled from "@emotion/styled";
+import useCharacterList from "./useCharacterList";
 
-export default function Summary() {
+type Props = {
+  setTab: Dispatch<SetStateAction<number>>;
+};
+export default function Summary({ setTab }: Props) {
   const isReboot = useRecoilValue(isRebootRecoil);
   const characterList = useRecoilValue(characterListRecoil);
 
-  const totalPrice = useMemo(
-    () =>
-      characterList.reduce(
-        (prev, character) => prev + getTotalPrice(character[1], isReboot),
-        0
-      ),
-    [characterList, isReboot]
-  );
-  const totalCrystal = useMemo(
-    () =>
-      characterList.reduce(
-        (prev, character) => prev + getTotalCrystal(character[1]),
-        0
-      ),
-    [characterList]
-  );
+  const { totalPrice, totalCount } = useCharacterList();
 
   return (
     <Container>
@@ -34,8 +23,8 @@ export default function Summary() {
         <Typography textAlign={"center"}>메소</Typography>
         {characterList.map((item, i) => (
           <Fragment key={i}>
-            <Typography>{item[0]}</Typography>
-            <Typography role={"number"}>{getTotalCrystal(item[1])}</Typography>
+            <Typography onClick={() => setTab(i + 1)}>{item[0]}</Typography>
+            <Typography role={"number"}>{getTotalCount(item[1])}</Typography>
             <Typography role={"number"}>
               {getTotalPrice(item[1], isReboot).toLocaleString()}
             </Typography>
@@ -43,7 +32,7 @@ export default function Summary() {
         ))}
         <Divider sx={{ gridColumn: "1 / -1" }} />
         <Typography>총</Typography>
-        <Typography role={"number"}>{totalCrystal}</Typography>
+        <Typography role={"number"}>{totalCount}</Typography>
         <Typography textAlign={"right"} role={"number"}>
           {totalPrice.toLocaleString()}
         </Typography>
@@ -67,7 +56,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   display: grid;
   grid-auto-flow: row;
-  grid-template-columns: 90px auto auto;
+  grid-template-columns: 110px auto auto;
   justify-content: space-between;
   gap: 4px 8px;
 `;

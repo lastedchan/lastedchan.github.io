@@ -30,7 +30,7 @@ export default function CrystalCalculator() {
         <TabList tab={tab} setTab={setTab} />
       </Box>
       {tab === 0 ? (
-        <Summary></Summary>
+        <Summary setTab={setTab} />
       ) : (
         <Box flex={"1"} overflow={"hidden"}>
           <Character idx={tab - 1} />
@@ -51,7 +51,7 @@ const Container = styled.div`
 export const findMatch = (a: huntedBossType, b: bossType) =>
   a.difficulty === b.difficulty && a.name === b.name;
 
-export const getTotalCrystal = (huntedBossList: huntedBossType[]) =>
+export const getTotalCount = (huntedBossList: huntedBossType[]) =>
   huntedBossList?.filter(_ => _.checked).length;
 
 export const getTotalPrice = (

@@ -1,5 +1,11 @@
 import styled from "@emotion/styled";
-import { ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
+import {
+  Divider,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -8,6 +14,9 @@ import { useRecoilState } from "recoil";
 import { characterListRecoil } from "../../../constants/recoil";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { reorder } from "../../../helpers/helper";
+import useCharacterList from "./useCharacterList";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 type Props = {
   open: boolean;
@@ -25,6 +34,8 @@ export default function TabContextMenu({
   onClose,
 }: Props) {
   const [characterList, setCharacterList] = useRecoilState(characterListRecoil);
+
+  const { changeName, removeCharacter } = useCharacterList().character(idx);
 
   const goFirst = useCallback(() => {
     setCharacterList(prev => reorder(prev, idx, 0));
@@ -50,13 +61,36 @@ export default function TabContextMenu({
   return (
     <Container role={"tab-context-menu"}>
       <Menu open={open} anchorEl={anchorEl} onClose={onClose}>
-        <MenuItem onClick={goFirst} disabled={idx === 0}>
+        <MenuItem
+          onClick={() => {
+            onClose();
+            setTimeout(changeName, 1);
+          }}
+        >
+          <ListItemIcon>
+            <EditIcon />
+          </ListItemIcon>
+          <ListItemText primary={"이름 변경"} />
+        </MenuItem>
+        <MenuItem
+          onClick={() => {
+            onClose();
+            setTimeout(removeCharacter, 1);
+          }}
+        >
+          <ListItemIcon>
+            <DeleteIcon color={"error"} />
+          </ListItemIcon>
+          <ListItemText primary={"삭제"} />
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={goFirst} disabled={idx <= 0}>
           <ListItemIcon>
             <KeyboardDoubleArrowLeftIcon />
           </ListItemIcon>
           <ListItemText primary={"맨 앞으로"} />
         </MenuItem>
-        <MenuItem onClick={goLeft} disabled={idx === 0}>
+        <MenuItem onClick={goLeft} disabled={idx <= 0}>
           <ListItemIcon>
             <KeyboardArrowLeftIcon />
           </ListItemIcon>

@@ -1,10 +1,6 @@
 import styled from "@emotion/styled";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import {
-  characterListRecoil,
-  characterSelector,
-  isRebootRecoil,
-} from "../../../constants/recoil";
+import { useRecoilValue } from "recoil";
+import { characterSelector } from "../../../constants/recoil";
 import {
   ButtonGroup,
   Divider,
@@ -16,65 +12,23 @@ import { bossList } from "../../../../pages/crystal_calculator";
 import EditIcon from "@mui/icons-material/Edit";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useCallback, useMemo } from "react";
-import { getTotalPrice } from "./crystalCalculator";
 import Boss from "./boss";
-import * as gtag from "../../../lib/gtag";
+import useCharacterList from "./useCharacterList";
 
 type Props = {
   idx: number;
 };
 
 export function Character({ idx }: Props) {
-  const isReboot = useRecoilValue(isRebootRecoil);
   const character = useRecoilValue(characterSelector(idx));
-  const setCharacterList = useSetRecoilState(characterListRecoil);
 
-  const characterName = useMemo(() => character?.[0], [character]);
-  const totalPrice = useMemo(
-    () => getTotalPrice(character?.[1], isReboot),
-    [character, isReboot]
-  );
-
-  const changeName = useCallback(() => {
-    const value = prompt(
-      `캐릭터명을 입력해주세요.\n변경 전 : ${characterName}`
-    );
-    if (value) {
-      gtag.event({
-        action: "cc_change_name",
-        label: characterName,
-        value: value,
-      });
-      setCharacterList(prev => [
-        ...prev.slice(0, idx),
-        [value, character[1]],
-        ...prev.slice(idx + 1),
-      ]);
-    }
-  }, [character, characterName, idx, setCharacterList]);
-
-  const copyCharacter = useCallback(() => {
-    if (
-      confirm(`캐릭터를 복사하시겠습니까?\n복사할 캐릭터 : ${characterName}`)
-    ) {
-      gtag.event({
-        action: "cc_copy_character",
-        value: characterName,
-      });
-      setCharacterList(prev => [...prev, character]);
-    }
-  }, [character, characterName, setCharacterList]);
-
-  const removeCharacter = useCallback(() => {
-    if (confirm(`정말로 삭제하시겠습니까?\n삭제될 캐릭터 : ${characterName}`)) {
-      gtag.event({
-        action: "cc_remove_character",
-        value: characterName,
-      });
-      setCharacterList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
-    }
-  }, [characterName, idx, setCharacterList]);
+  const {
+    characterName,
+    totalPrice,
+    removeCharacter,
+    copyCharacter,
+    changeName,
+  } = useCharacterList().character(idx);
 
   if (!character) return null;
 
@@ -90,8 +44,8 @@ export function Character({ idx }: Props) {
             <ContentCopyIcon />
           </IconButton>
         </ButtonGroup>
-        <IconButton color={"error"} onClick={removeCharacter}>
-          <DeleteIcon />
+        <IconButton onClick={removeCharacter}>
+          <DeleteIcon color={"error"} />
         </IconButton>
       </HeaderWrapper>
       <Divider />
