@@ -1,8 +1,15 @@
-import React, { Dispatch, SetStateAction, useCallback, useEffect } from "react";
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from "react";
 import { useRecoilState } from "recoil";
 import { characterListRecoil } from "../../../constants/recoil";
 import { Tab, Tabs } from "@mui/material";
 import * as gtag from "../../../lib/gtag";
+import TabContextMenu from "./tabContextMenu";
 
 type TabListProps = {
   tab: number;
@@ -10,11 +17,9 @@ type TabListProps = {
 };
 export default function TabList({ tab, setTab }: TabListProps) {
   const [characterList, setCharacterList] = useRecoilState(characterListRecoil);
-  useEffect(() => {
-    characterList.length &&
-      tab > characterList.length &&
-      setTab(characterList.length);
-  }, [characterList, setTab, tab]);
+  const [contextMenuIdx, setContextMenuIdx] = useState<number>(-1);
+  const [contextMenuAnchor, setContextMenuAnchor] = useState<HTMLElement>();
+
   const addCharacter = useCallback(() => {
     gtag.event({
       action: "cc_add_character",
@@ -25,14 +30,39 @@ export default function TabList({ tab, setTab }: TabListProps) {
       [`캐릭터 ${characterList.length + 1}`, []],
     ]);
   }, [characterList.length, setCharacterList]);
+  const onContextMenu = useCallback((e: any, idx: number) => {
+    e.preventDefault();
+    setContextMenuAnchor(e.currentTarget);
+    setContextMenuIdx(idx);
+  }, []);
+  const onContextMenuClose = useCallback(() => setContextMenuIdx(-1), []);
+
+  useEffect(() => {
+    characterList.length &&
+      tab > characterList.length &&
+      setTab(characterList.length);
+  }, [characterList, setTab, tab]);
 
   return (
-    <Tabs variant={"scrollable"} value={tab} onChange={(e, v) => setTab(v)}>
-      <Tab label={"수익 결산"} />
-      {characterList.map(([idx], i) => (
-        <Tab key={i + idx} label={idx} />
-      ))}
-      <Tab label={"+"} onClick={addCharacter} />
-    </Tabs>
+    <>
+      <Tabs variant={"scrollable"} value={tab} onChange={(e, v) => setTab(v)}>
+        <Tab label={"수익 결산"} sx={{ position: "relative" }} />
+        {characterList.map(([idx], i) => (
+          <Tab
+            key={i + idx}
+            label={idx}
+            onContextMenu={e => onContextMenu(e, i)}
+          />
+        ))}
+        <Tab label={"+"} onClick={addCharacter} />
+      </Tabs>
+      <TabContextMenu
+        open={contextMenuIdx > -1}
+        idx={contextMenuIdx}
+        anchorEl={contextMenuAnchor}
+        setTab={setTab}
+        onClose={onContextMenuClose}
+      />
+    </>
   );
 }
