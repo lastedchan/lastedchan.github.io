@@ -1,9 +1,4 @@
-export type TabType = {
-  title: string;
-  show: boolean;
-  href?: string;
-  help?: JSX.Element;
-} | null;
+export type TabType = { title: string; show: boolean; href?: string; help?: JSX.Element } | null;
 export type TabListType = TabType[];
 
 //#region vMatrixCalculator
@@ -35,4 +30,22 @@ export type characterListType = characterType[];
 
 //#region midnightChaser
 export type SlotType = number[];
+//#endregion
+
+//#region equipment
+export type EquipItemType = {
+  type: string;
+  name?: string;
+  src?: string;
+  href?: string;
+};
+export type EquipItemListType = EquipItemType[];
+export type EquipmentResultType = {
+  characterImage?: string;
+  job?: string;
+  ability?: string[];
+  typeIndex?: (string | null)[];
+  items?: EquipItemListType;
+  [p: string]: any;
+};
 //#endregion
