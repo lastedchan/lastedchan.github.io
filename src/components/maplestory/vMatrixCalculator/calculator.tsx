@@ -1,5 +1,5 @@
 import { Button, Card, Divider, Typography } from "@mui/material";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import {
   CalcType,
@@ -13,6 +13,7 @@ import {
   stackListRecoil,
 } from "../../../constants/recoil";
 import * as gtag from "../../../lib/gtag";
+import { AdWrapper } from "../../../constants/common";
 
 type Props = {
   coreCount: number;
@@ -105,6 +106,17 @@ export default function Calculator({ coreCount }: Props) {
           <span style={{ float: "right" }}>(최대 50개까지 출력됩니다.)</span>
         )}
       </Typography>
+      <AdWrapper>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block", textAlign: "center" }}
+          data-ad-layout="in-article"
+          data-ad-format="fluid"
+          data-ad-client="ca-pub-8583770780355894"
+          data-ad-slot="4169298389"
+        />
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </AdWrapper>
       <Container>
         {resultList.length
           ? resultList.slice(0, 50).map((result, i) => (

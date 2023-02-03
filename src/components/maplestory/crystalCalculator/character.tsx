@@ -14,6 +14,7 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Boss from "./boss";
 import useCharacterList from "./useCharacterList";
+import { AdWrapper } from "../../../constants/common";
 
 type Props = {
   idx: number;
@@ -49,6 +50,17 @@ export function Character({ idx }: Props) {
         </IconButton>
       </HeaderWrapper>
       <Divider />
+      <AdWrapper>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block", textAlign: "center" }}
+          data-ad-layout="in-article"
+          data-ad-format="fluid"
+          data-ad-client="ca-pub-8583770780355894"
+          data-ad-slot="4169298389"
+        />
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </AdWrapper>
       <Grid container p={1} spacing={1} overflow={"auto"}>
         {bossList.map((item, i) => (
           <Grid key={i} item xs={12} sm={6} md={4} lg={3} xl={2} pt={1}>

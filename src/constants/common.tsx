@@ -1,5 +1,6 @@
 import { TabListType } from "./types";
 import VMatrixCalculatorHelp from "../components/maplestory/vMatrixCalculator/vMatrixCalculatorHelp";
+import styled from "@emotion/styled";
 
 export const topTitle = "LASTCHAN";
 
@@ -15,3 +16,9 @@ export const tabList: TabListType = [
   },
   { title: "미드나잇 체이서 도우미", show: false, href: "/midnight_chaser" },
 ];
+
+export const AdWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;

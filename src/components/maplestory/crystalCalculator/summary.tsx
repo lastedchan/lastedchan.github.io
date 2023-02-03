@@ -5,6 +5,7 @@ import { getTotalCount, getTotalPrice } from "./crystalCalculator";
 import { Divider, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 import useCharacterList from "./useCharacterList";
+import { AdWrapper } from "../../../constants/common";
 
 type Props = {
   setTab: Dispatch<SetStateAction<number>>;
@@ -17,6 +18,17 @@ export default function Summary({ setTab }: Props) {
 
   return (
     <Container>
+      <AdWrapper>
+        <ins
+          className="adsbygoogle"
+          style={{ display: "block", textAlign: "center" }}
+          data-ad-layout="in-article"
+          data-ad-format="fluid"
+          data-ad-client="ca-pub-8583770780355894"
+          data-ad-slot="4169298389"
+        />
+        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+      </AdWrapper>
       <Wrapper>
         <Typography textAlign={"center"}>닉네임</Typography>
         <Typography textAlign={"center"}>수량</Typography>
