@@ -8,10 +8,10 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { TabListType } from "../../constants/types";
 import Link from "next/link";
-import * as gtag from "../../lib/gtag";
+import * as gtag from "../../libs/gtag";
 import Image from "next/image";
+import { TabListType } from "../../types";
 
 type Props = {
   tabList: TabListType;

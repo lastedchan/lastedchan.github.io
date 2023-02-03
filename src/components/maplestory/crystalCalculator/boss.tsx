@@ -1,17 +1,20 @@
 import { Box, Paper, Switch, Typography } from "@mui/material";
-import { bossList, colors } from "../../../../pages/crystal_calculator";
-import { findMatch } from "./crystalCalculator";
 import NumberField from "./numberField";
 import styled from "@emotion/styled";
 import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useCallback } from "react";
+import * as gtag from "../../../libs/gtag";
+import { bossType } from "../../../types/crystal_calculator";
 import {
   characterListRecoil,
   characterSelector,
   isRebootRecoil,
-} from "../../../constants/recoil";
-import { bossType } from "../../../constants/types";
-import { useCallback } from "react";
-import * as gtag from "../../../lib/gtag";
+} from "../../../recoils/crystal_calculator";
+import {
+  bossList,
+  colors,
+  findMatch,
+} from "../../../constants/crystalCalculator";
 
 type Props = {
   i: number;

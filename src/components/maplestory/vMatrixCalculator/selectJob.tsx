@@ -1,8 +1,8 @@
 import { MenuItem, Select } from "@mui/material";
 import styled from "@emotion/styled";
-import { jobList } from "../../../../pages/v_matrix_calculator";
 import { useRecoilState } from "recoil";
-import { jobRecoil } from "../../../constants/recoil";
+import { jobRecoil } from "../../../recoils/v_matrix_calculator";
+import { jobList } from "../../../constants/v_matrix_calculator";
 
 export default function SelectJob() {
   const [job, setJob] = useRecoilState(jobRecoil);

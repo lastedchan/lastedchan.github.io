@@ -1,5 +1,17 @@
-import CrystalCalculatorIndex from "./crystal_calculator";
+import CrystalCalculator from "../src/components/maplestory/crystalCalculator/crystalCalculator";
+import styled from "@emotion/styled/dist/emotion-styled.cjs";
 
 export default function Home() {
-  return <CrystalCalculatorIndex />;
+  return (
+    <Container>
+      <CrystalCalculator />
+    </Container>
+  );
 }
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+`;

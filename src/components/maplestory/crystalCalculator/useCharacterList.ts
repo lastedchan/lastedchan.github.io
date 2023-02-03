@@ -1,8 +1,14 @@
 import { useRecoilState, useRecoilValue } from "recoil";
-import { characterListRecoil, isRebootRecoil } from "../../../constants/recoil";
 import { useCallback, useMemo } from "react";
-import { getTotalCount, getTotalPrice } from "./crystalCalculator";
-import * as gtag from "../../../lib/gtag";
+import * as gtag from "../../../libs/gtag";
+import {
+  characterListRecoil,
+  isRebootRecoil,
+} from "../../../recoils/crystal_calculator";
+import {
+  getTotalCount,
+  getTotalPrice,
+} from "../../../constants/crystalCalculator";
 
 export default function useCharacterList() {
   const isReboot = useRecoilValue(isRebootRecoil);

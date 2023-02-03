@@ -21,11 +21,11 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import TabList from "./tabList";
 import { useRouter } from "next/router";
-import { tabList } from "../../constants/common";
+import { TAB_LIST } from "../../constants/common";
 import Popup from "../popup";
 import VMatrixCalculatorHelp from "../maplestory/vMatrixCalculator/vMatrixCalculatorHelp";
 import HelpIcon from "@mui/icons-material/Help";
-import * as gtag from "../../lib/gtag";
+import * as gtag from "../../libs/gtag";
 
 type Props = {
   mode: "light" | "dark";
@@ -38,7 +38,7 @@ export default function Header({ mode, setMode }: Props) {
   const [open, setOpen] = useState<boolean>(false);
 
   const current = useMemo(
-    () => tabList.find(_ => _?.href === router.pathname),
+    () => TAB_LIST.find(_ => _?.href === router.pathname),
     [router.pathname]
   );
 
@@ -92,7 +92,7 @@ export default function Header({ mode, setMode }: Props) {
           />
         </Toolbar>
         <Drawer open={open} onClose={() => setOpen(false)}>
-          <TabList tabList={tabList} />
+          <TabList tabList={TAB_LIST} />
         </Drawer>
       </AppBar>
     </>

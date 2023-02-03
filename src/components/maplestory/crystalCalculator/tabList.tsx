@@ -6,10 +6,10 @@ import React, {
   useState,
 } from "react";
 import { useRecoilState } from "recoil";
-import { characterListRecoil } from "../../../constants/recoil";
 import { Tab, Tabs } from "@mui/material";
-import * as gtag from "../../../lib/gtag";
+import * as gtag from "../../../libs/gtag";
 import TabContextMenu from "./tabContextMenu";
+import { characterListRecoil } from "../../../recoils/crystal_calculator";
 
 type TabListProps = {
   tab: number;

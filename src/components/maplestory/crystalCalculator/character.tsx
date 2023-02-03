@@ -1,6 +1,5 @@
 import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
-import { characterSelector } from "../../../constants/recoil";
 import {
   ButtonGroup,
   Divider,
@@ -8,13 +7,14 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import { bossList } from "../../../../pages/crystal_calculator";
 import EditIcon from "@mui/icons-material/Edit";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Boss from "./boss";
 import useCharacterList from "./useCharacterList";
-import { AdWrapper } from "../../../constants/common";
+import { characterSelector } from "../../../recoils/crystal_calculator";
+import AdWrapper from "../../adWrapper";
+import { bossList } from "../../../constants/crystalCalculator";
 
 type Props = {
   idx: number;

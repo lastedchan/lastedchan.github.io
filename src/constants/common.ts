@@ -1,10 +1,9 @@
-import { TabListType } from "./types";
 import VMatrixCalculatorHelp from "../components/maplestory/vMatrixCalculator/vMatrixCalculatorHelp";
-import styled from "@emotion/styled";
+import { TabListType } from "../types";
 
-export const topTitle = "LASTCHAN";
+export const MAIN_TITLE = "LASTCHAN";
 
-export const tabList: TabListType = [
+export const TAB_LIST: TabListType = [
   { title: "결정석 수익 계산기", show: false, href: "/" },
   { title: "MapleStory", show: true },
   { title: "결정석 수익 계산기", show: true, href: "/crystal_calculator" },
@@ -12,13 +11,7 @@ export const tabList: TabListType = [
     title: "V 매트릭스 계산기",
     show: true,
     href: "/v_matrix_calculator",
-    help: <VMatrixCalculatorHelp />,
+    help: VMatrixCalculatorHelp(),
   },
   { title: "미드나잇 체이서 도우미", show: false, href: "/midnight_chaser" },
 ];
-
-export const AdWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;

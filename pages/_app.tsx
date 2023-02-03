@@ -13,12 +13,12 @@ import {
 } from "@mui/material";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { tabList, topTitle } from "../src/constants/common";
+import { MAIN_TITLE, TAB_LIST } from "../src/constants/common";
 import { useEffect, useMemo, useState } from "react";
 import { Cookies } from "react-cookie";
 import { RecoilRoot } from "recoil";
 import Head from "next/head";
-import * as gtag from "../src/lib/gtag";
+import * as gtag from "../src/libs/gtag";
 import Script from "next/script";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const theme = useMemo(() => createTheme({ palette: { mode: mode } }), [mode]);
   const subtitle = useMemo(
-    () => tabList.find(_ => _?.href === router.pathname)?.title,
+    () => TAB_LIST.find(_ => _?.href === router.pathname)?.title,
     [router.pathname]
   );
 
@@ -68,8 +68,8 @@ export default function App({ Component, pageProps }: AppProps) {
           name={"viewport"}
           content={"width=device-width,initial-scale=1"}
         />
-        <meta name={"title"} content={topTitle + " - " + subtitle} />
-        <title>{topTitle + " - " + subtitle}</title>
+        <meta name={"title"} content={MAIN_TITLE + " - " + subtitle} />
+        <title>{MAIN_TITLE + " - " + subtitle}</title>
       </Head>
       <ThemeProvider theme={theme}>
         <CssBaseline />
@@ -116,7 +116,7 @@ const Gtm = () =>
         }}
       />
       {/* GA 설정 시작 */}
-      {/* Global Site Tag (gtag.js) - Google Analytics */}
+      {/* Global Site Tag (gtag.ts) - Google Analytics */}
       <Script
         strategy="afterInteractive"
         src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}

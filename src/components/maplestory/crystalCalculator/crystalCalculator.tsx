@@ -2,12 +2,10 @@ import styled from "@emotion/styled";
 import { Character } from "./character";
 import { Box, FormControlLabel, Switch } from "@mui/material";
 import { useRecoilState } from "recoil";
-import { isRebootRecoil } from "../../../constants/recoil";
 import React, { useState } from "react";
-import { bossType, huntedBossType } from "../../../constants/types";
 import TabList from "./tabList";
-import { bossList } from "../../../../pages/crystal_calculator";
 import Summary from "./summary";
+import { isRebootRecoil } from "../../../recoils/crystal_calculator";
 
 export default function CrystalCalculator() {
   const [isReboot, setIsReboot] = useRecoilState(isRebootRecoil);
@@ -47,20 +45,3 @@ const Container = styled.div`
   width: 100%;
   height: 100%;
 `;
-
-export const findMatch = (a: huntedBossType, b: bossType) =>
-  a.difficulty === b.difficulty && a.name === b.name;
-
-export const getTotalCount = (huntedBossList: huntedBossType[]) =>
-  huntedBossList?.filter(_ => _.checked).length;
-
-export const getTotalPrice = (
-  huntedBossList: huntedBossType[],
-  isReboot: boolean
-) =>
-  huntedBossList
-    ?.filter(_ => _.checked)
-    .reduce((prev: number, _) => {
-      const boss = bossList.find(__ => findMatch(_, __));
-      return boss ? prev + Math.floor(boss.price / (_.headcount ?? 1)) : prev;
-    }, 0) * (isReboot ? 5 : 1);

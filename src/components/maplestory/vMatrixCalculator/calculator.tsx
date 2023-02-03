@@ -1,19 +1,19 @@
 import { Button, Card, Divider, Typography } from "@mui/material";
 import React, { useMemo, useState } from "react";
 import styled from "@emotion/styled";
+import { useRecoilValue } from "recoil";
+import * as gtag from "../../../libs/gtag";
+import AdWrapper from "../../adWrapper";
 import {
   CalcType,
   CoreListType,
   StackListType,
-} from "../../../constants/types";
-import { useRecoilValue } from "recoil";
+} from "../../../types/v_matrix_calculator";
 import {
   coreListRecoil,
   jobRecoil,
   stackListRecoil,
-} from "../../../constants/recoil";
-import * as gtag from "../../../lib/gtag";
-import { AdWrapper } from "../../../constants/common";
+} from "../../../recoils/v_matrix_calculator";
 
 type Props = {
   coreCount: number;

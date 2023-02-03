@@ -2,7 +2,10 @@ import NumberField from "./numberField";
 import styled from "@emotion/styled";
 import { Box, FormControlLabel, FormGroup } from "@mui/material";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { jobRecoil, stackListRecoil } from "../../../constants/recoil";
+import {
+  jobRecoil,
+  stackListRecoil,
+} from "../../../recoils/v_matrix_calculator";
 
 export default function StackList() {
   const job = useRecoilValue(jobRecoil);

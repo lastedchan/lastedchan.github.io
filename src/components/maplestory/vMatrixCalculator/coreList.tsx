@@ -1,9 +1,12 @@
 import styled from "@emotion/styled";
 import { Button, Card, Divider, Typography } from "@mui/material";
 import { useCallback, useRef } from "react";
-import { coreListRecoil, jobRecoil } from "../../../constants/recoil";
 import { useRecoilState, useRecoilValue } from "recoil";
-import * as gtag from "../../../lib/gtag";
+import * as gtag from "../../../libs/gtag";
+import {
+  coreListRecoil,
+  jobRecoil,
+} from "../../../recoils/v_matrix_calculator";
 
 export default function CoreList() {
   const job = useRecoilValue(jobRecoil);

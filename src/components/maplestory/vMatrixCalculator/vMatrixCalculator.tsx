@@ -15,10 +15,13 @@ import {
 import Calculator from "./calculator";
 import { sum } from "lodash";
 import styled from "@emotion/styled";
-import { jobRecoil, stackListRecoil } from "../../../constants/recoil";
 import { useRecoilValue } from "recoil";
 import Slider from "react-slick";
-import { AdWrapper } from "../../../constants/common";
+import AdWrapper from "../../adWrapper";
+import {
+  jobRecoil,
+  stackListRecoil,
+} from "../../../recoils/v_matrix_calculator";
 
 export default function VMatrixCalculator() {
   const slider = useRef<Slider>(null);
