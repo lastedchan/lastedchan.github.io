@@ -12,9 +12,9 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Boss from "./boss";
 import useCharacterList from "./useCharacterList";
-import { characterSelector } from "../../../recoils/crystal_calculator";
-import AdWrapper from "../../adWrapper";
-import { bossList } from "../../../constants/crystalCalculator";
+import { characterSelector } from "../../recoils/crystal_calculator";
+import AdWrapper from "../adWrapper";
+import { bossList } from "../../constants/crystalCalculator";
 
 type Props = {
   idx: number;

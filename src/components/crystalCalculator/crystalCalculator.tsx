@@ -5,7 +5,7 @@ import { useRecoilState } from "recoil";
 import React, { useState } from "react";
 import TabList from "./tabList";
 import Summary from "./summary";
-import { isRebootRecoil } from "../../../recoils/crystal_calculator";
+import { isRebootRecoil } from "../../recoils/crystal_calculator";
 
 export default function CrystalCalculator() {
   const [isReboot, setIsReboot] = useRecoilState(isRebootRecoil);

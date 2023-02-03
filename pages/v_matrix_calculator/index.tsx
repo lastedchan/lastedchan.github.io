@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import VMatrixCalculator from "../../src/components/maplestory/vMatrixCalculator/vMatrixCalculator";
+import VMatrixCalculator from "../../src/components/vMatrixCalculator/vMatrixCalculator";
 
 export default function VMatrixCalculatorIndex() {
   return (

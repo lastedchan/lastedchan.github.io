@@ -1,4 +1,4 @@
-import VMatrixCalculatorHelp from "../components/maplestory/vMatrixCalculator/vMatrixCalculatorHelp";
+import VMatrixCalculatorHelp from "../components/vMatrixCalculator/vMatrixCalculatorHelp";
 import { TabListType } from "../types";
 
 export const MAIN_TITLE = "LASTCHAN";

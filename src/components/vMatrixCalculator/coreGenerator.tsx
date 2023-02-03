@@ -4,12 +4,9 @@ import { useEffect, useMemo, useState } from "react";
 import _ from "lodash";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import * as gtag from "../../../libs/gtag";
-import {
-  coreListRecoil,
-  jobRecoil,
-} from "../../../recoils/v_matrix_calculator";
-import { jobList } from "../../../constants/v_matrix_calculator";
+import * as gtag from "../../libs/gtag";
+import { coreListRecoil, jobRecoil } from "../../recoils/v_matrix_calculator";
+import { jobList } from "../../constants/v_matrix_calculator";
 
 export default function CoreGenerator() {
   const job = useRecoilValue(jobRecoil);

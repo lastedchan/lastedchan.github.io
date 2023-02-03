@@ -3,15 +3,15 @@ import { Dispatch, Fragment, SetStateAction } from "react";
 import { Divider, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 import useCharacterList from "./useCharacterList";
-import AdWrapper from "../../adWrapper";
+import AdWrapper from "../adWrapper";
 import {
   characterListRecoil,
   isRebootRecoil,
-} from "../../../recoils/crystal_calculator";
+} from "../../recoils/crystal_calculator";
 import {
   getTotalCount,
   getTotalPrice,
-} from "../../../constants/crystalCalculator";
+} from "../../constants/crystalCalculator";
 
 type Props = {
   setTab: Dispatch<SetStateAction<number>>;

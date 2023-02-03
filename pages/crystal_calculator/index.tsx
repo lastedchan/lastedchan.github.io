@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import CrystalCalculator from "../../src/components/maplestory/crystalCalculator/crystalCalculator";
+import CrystalCalculator from "../../src/components/crystalCalculator/crystalCalculator";
 import { useRouter } from "next/router";
 
 export default function CrystalCalculatorIndex() {

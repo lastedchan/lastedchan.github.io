@@ -3,18 +3,14 @@ import NumberField from "./numberField";
 import styled from "@emotion/styled";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { useCallback } from "react";
-import * as gtag from "../../../libs/gtag";
-import { bossType } from "../../../types/crystal_calculator";
+import * as gtag from "../../libs/gtag";
+import { bossType } from "../../types/crystal_calculator";
 import {
   characterListRecoil,
   characterSelector,
   isRebootRecoil,
-} from "../../../recoils/crystal_calculator";
-import {
-  bossList,
-  colors,
-  findMatch,
-} from "../../../constants/crystalCalculator";
+} from "../../recoils/crystal_calculator";
+import { bossList, colors, findMatch } from "../../constants/crystalCalculator";
 
 type Props = {
   i: number;

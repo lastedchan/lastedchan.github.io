@@ -1,4 +1,4 @@
-import CrystalCalculator from "../src/components/maplestory/crystalCalculator/crystalCalculator";
+import CrystalCalculator from "../src/components/crystalCalculator/crystalCalculator";
 import styled from "@emotion/styled/dist/emotion-styled.cjs";
 
 export default function Home() {

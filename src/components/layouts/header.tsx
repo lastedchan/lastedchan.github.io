@@ -23,7 +23,7 @@ import TabList from "./tabList";
 import { useRouter } from "next/router";
 import { TAB_LIST } from "../../constants/common";
 import Popup from "../popup";
-import VMatrixCalculatorHelp from "../maplestory/vMatrixCalculator/vMatrixCalculatorHelp";
+import VMatrixCalculatorHelp from "../vMatrixCalculator/vMatrixCalculatorHelp";
 import HelpIcon from "@mui/icons-material/Help";
 import * as gtag from "../../libs/gtag";
 

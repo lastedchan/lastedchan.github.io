@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Typography } from "@mui/material";
 import Image from "next/image";
 import Popup from "./popup";
-import { SlotType } from "../../../types/midnight_chaser";
+import { SlotType } from "../../types/midnight_chaser";
 
 export default function MidnightChaser() {
   const [slotList, setSlotList] = useState<SlotType>([
