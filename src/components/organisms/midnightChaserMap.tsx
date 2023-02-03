@@ -1,7 +1,7 @@
 import { SlotType } from "../../types/midnight_chaser";
 import MidnightChaserItem from "../molcules/midnightChaserItem";
 import styled from "@emotion/styled";
-import useOrientation from "../../libs/useOrientation";
+import useOrientation from "../../hooks/useOrientation";
 import { OrientationType } from "../../types";
 import { Dispatch, SetStateAction } from "react";
 

@@ -1,31 +1,22 @@
-import { AppBar, Box, Drawer, FormControlLabel, IconButton, PaletteMode, Switch, Toolbar, Typography } from "@mui/material";
-import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
+import { AppBar, Box, Drawer, IconButton, Toolbar, Typography } from "@mui/material";
+import { useEffect, useMemo, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import TabList from "../organisms/tabList";
 import { useRouter } from "next/router";
 import { TAB_LIST } from "../../constants/common";
 import Popup from "../popup";
-import VMatrixCalculatorHelp from "../vMatrixCalculator/vMatrixCalculatorHelp";
 import HelpIcon from "@mui/icons-material/Help";
 import * as gtag from "../../libs/gtag";
+import DarkMode from "../atoms/darkMode";
 
-type Props = {
-  mode: "light" | "dark";
-  setMode: Dispatch<SetStateAction<PaletteMode>>;
-};
-
-export default function Header({ mode, setMode }: Props) {
+export default function Header() {
   const router = useRouter();
 
   const [open, setOpen] = useState<boolean>(false);
 
   const current = useMemo(() => TAB_LIST.find(_ => _?.href === router.pathname), [router.pathname]);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [router.pathname]);
-
-  const onModeChange = useCallback((event: ChangeEvent<HTMLInputElement>) => setMode(event.target.checked ? "dark" : "light"), [setMode]);
+  useEffect(() => setOpen(false), [router.pathname]);
 
   return (
     <>
@@ -51,14 +42,10 @@ export default function Header({ mode, setMode }: Props) {
                 </IconButton>
               }
             >
-              <VMatrixCalculatorHelp />
+              {current.help}
             </Popup>
           )}
-          <FormControlLabel
-            control={<Switch checked={mode === "dark"} onChange={onModeChange} size={"small"} />}
-            label={"다크모드"}
-            labelPlacement={"start"}
-          />
+          <DarkMode />
         </Toolbar>
         <Drawer open={open} onClose={() => setOpen(false)}>
           <TabList tabList={TAB_LIST} />

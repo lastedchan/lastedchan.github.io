@@ -1,5 +1,5 @@
 import CrystalCalculator from "../src/components/crystalCalculator/crystalCalculator";
-import styled from "@emotion/styled/dist/emotion-styled.cjs";
+import styled from "@emotion/styled";
 
 export default function Home() {
   return (

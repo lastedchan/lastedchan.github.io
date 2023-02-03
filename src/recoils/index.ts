@@ -1,5 +1,5 @@
 import { atom, AtomEffect } from "recoil";
-import { MAIN_TITLE } from "../constants/common";
+import { PaletteMode } from "@mui/material";
 
 export const localStorageEffect: <T>(key: string) => AtomEffect<T> =
   (key: string) =>
@@ -9,12 +9,11 @@ export const localStorageEffect: <T>(key: string) => AtomEffect<T> =
       setSelf(JSON.parse(savedValue));
     }
     onSet((newValue, _, isReset) => {
-      isReset
-        ? localStorage.removeItem(key)
-        : localStorage.setItem(key, JSON.stringify(newValue));
+      isReset ? localStorage.removeItem(key) : localStorage.setItem(key, JSON.stringify(newValue));
     });
   };
-export const titleRecoil = atom<string>({
-  key: "titleRecoil",
-  default: MAIN_TITLE,
+
+export const darkModeRecoil = atom<PaletteMode>({
+  key: "darkModeRecoil",
+  default: "light",
 });

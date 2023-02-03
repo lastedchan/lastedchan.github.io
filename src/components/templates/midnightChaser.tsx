@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { SlotType } from "../../types/midnight_chaser";
 import MidnightChaserMap from "../organisms/midnightChaserMap";
 import MidnightChaserSelector from "../organisms/midnightChaserSelector";
-import useOrientation from "../../libs/useOrientation";
+import useOrientation from "../../hooks/useOrientation";
 import AdWrapper from "../adWrapper";
 
 export default function MidnightChaser() {
