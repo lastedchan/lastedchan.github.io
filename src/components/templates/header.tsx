@@ -1,25 +1,7 @@
-import {
-  AppBar,
-  Box,
-  Drawer,
-  FormControlLabel,
-  IconButton,
-  PaletteMode,
-  Switch,
-  Toolbar,
-  Typography,
-} from "@mui/material";
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useMemo,
-  useState,
-} from "react";
+import { AppBar, Box, Drawer, FormControlLabel, IconButton, PaletteMode, Switch, Toolbar, Typography } from "@mui/material";
+import { ChangeEvent, Dispatch, SetStateAction, useCallback, useEffect, useMemo, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import TabList from "./tabList";
+import TabList from "../organisms/tabList";
 import { useRouter } from "next/router";
 import { TAB_LIST } from "../../constants/common";
 import Popup from "../popup";
@@ -37,20 +19,13 @@ export default function Header({ mode, setMode }: Props) {
 
   const [open, setOpen] = useState<boolean>(false);
 
-  const current = useMemo(
-    () => TAB_LIST.find(_ => _?.href === router.pathname),
-    [router.pathname]
-  );
+  const current = useMemo(() => TAB_LIST.find(_ => _?.href === router.pathname), [router.pathname]);
 
   useEffect(() => {
     setOpen(false);
   }, [router.pathname]);
 
-  const onModeChange = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) =>
-      setMode(event.target.checked ? "dark" : "light"),
-    [setMode]
-  );
+  const onModeChange = useCallback((event: ChangeEvent<HTMLInputElement>) => setMode(event.target.checked ? "dark" : "light"), [setMode]);
 
   return (
     <>
@@ -80,13 +55,7 @@ export default function Header({ mode, setMode }: Props) {
             </Popup>
           )}
           <FormControlLabel
-            control={
-              <Switch
-                checked={mode === "dark"}
-                onChange={onModeChange}
-                size={"small"}
-              />
-            }
+            control={<Switch checked={mode === "dark"} onChange={onModeChange} size={"small"} />}
             label={"다크모드"}
             labelPlacement={"start"}
           />

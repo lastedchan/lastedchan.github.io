@@ -5,3 +5,5 @@ export type TabType = {
   help?: JSX.Element;
 } | null;
 export type TabListType = TabType[];
+
+export type OrientationType = "portrait" | "landscape";
