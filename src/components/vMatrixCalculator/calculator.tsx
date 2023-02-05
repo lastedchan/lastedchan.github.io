@@ -3,17 +3,9 @@ import React, { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
 import * as gtag from "../../libs/gtag";
-import AdWrapper from "../adWrapper";
-import {
-  CalcType,
-  CoreListType,
-  StackListType,
-} from "../../types/v_matrix_calculator";
-import {
-  coreListRecoil,
-  jobRecoil,
-  stackListRecoil,
-} from "../../recoils/v_matrix_calculator";
+import AdWrapper from "../molcules/adWrapper";
+import { CalcType, CoreListType, StackListType } from "../../types/v_matrix_calculator";
+import { coreListRecoil, jobRecoil, stackListRecoil } from "../../recoils/v_matrix_calculator";
 
 type Props = {
   coreCount: number;
@@ -36,12 +28,7 @@ export default function Calculator({ coreCount }: Props) {
     [resultList]
   );
 
-  function calc(
-    stackList: StackListType,
-    coreList: CoreListType,
-    result: CoreListType = [],
-    resultList: CoreListType[] = []
-  ): CalcType {
+  function calc(stackList: StackListType, coreList: CoreListType, result: CoreListType = [], resultList: CoreListType[] = []): CalcType {
     const stackList2 = { ...stackList };
     const coreList2 = [...coreList];
     let result2 = [...result];
@@ -102,9 +89,7 @@ export default function Calculator({ coreCount }: Props) {
       </Button>
       <Typography>
         <span>코어 조합 : {resultList.length}개</span>
-        {resultList.length > 50 && (
-          <span style={{ float: "right" }}>(최대 50개까지 출력됩니다.)</span>
-        )}
+        {resultList.length > 50 && <span style={{ float: "right" }}>(최대 50개까지 출력됩니다.)</span>}
       </Typography>
       <AdWrapper>
         <ins
@@ -136,11 +121,7 @@ export default function Calculator({ coreCount }: Props) {
                   ))}
                   <ResultContent>
                     {result.map((core, i) => (
-                      <Item
-                        key={i}
-                        variant={"outlined"}
-                        sx={{ borderRadius: 2 }}
-                      >
+                      <Item key={i} variant={"outlined"} sx={{ borderRadius: 2 }}>
                         {core.map(skill => (
                           <Typography key={skill}>{skill}</Typography>
                         ))}

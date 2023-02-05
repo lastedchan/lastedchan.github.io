@@ -3,15 +3,9 @@ import { Dispatch, Fragment, SetStateAction } from "react";
 import { Divider, Typography } from "@mui/material";
 import styled from "@emotion/styled";
 import useCharacterList from "./useCharacterList";
-import AdWrapper from "../adWrapper";
-import {
-  characterListRecoil,
-  isRebootRecoil,
-} from "../../recoils/crystal_calculator";
-import {
-  getTotalCount,
-  getTotalPrice,
-} from "../../constants/crystalCalculator";
+import { characterListRecoil, isRebootRecoil } from "../../recoils/crystal_calculator";
+import { getTotalCount, getTotalPrice } from "../../constants/crystalCalculator";
+import AdWrapper from "../molcules/adWrapper";
 
 type Props = {
   setTab: Dispatch<SetStateAction<number>>;
@@ -24,17 +18,7 @@ export default function Summary({ setTab }: Props) {
 
   return (
     <Container>
-      <AdWrapper>
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block", textAlign: "center" }}
-          data-ad-layout="in-article"
-          data-ad-format="fluid"
-          data-ad-client="ca-pub-8583770780355894"
-          data-ad-slot="4169298389"
-        />
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </AdWrapper>
+      <AdWrapper />
       <Wrapper>
         <Typography textAlign={"center"}>닉네임</Typography>
         <Typography textAlign={"center"}>수량</Typography>
@@ -43,9 +27,7 @@ export default function Summary({ setTab }: Props) {
           <Fragment key={i}>
             <Typography onClick={() => setTab(i + 1)}>{item[0]}</Typography>
             <Typography role={"number"}>{getTotalCount(item[1])}</Typography>
-            <Typography role={"number"}>
-              {getTotalPrice(item[1], isReboot).toLocaleString()}
-            </Typography>
+            <Typography role={"number"}>{getTotalPrice(item[1], isReboot).toLocaleString()}</Typography>
           </Fragment>
         ))}
         <Divider sx={{ gridColumn: "1 / -1" }} />

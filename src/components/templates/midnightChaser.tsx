@@ -4,7 +4,7 @@ import { SlotType } from "../../types/midnight_chaser";
 import MidnightChaserMap from "../organisms/midnightChaserMap";
 import MidnightChaserSelector from "../organisms/midnightChaserSelector";
 import useOrientation from "../../hooks/useOrientation";
-import AdWrapper from "../adWrapper";
+import AdWrapper from "../molcules/adWrapper";
 
 export default function MidnightChaser() {
   const [slotList, setSlotList] = useState<SlotType>([-1, -1, -1, -1, -1, -1, -1, -1, -1]);
@@ -13,17 +13,7 @@ export default function MidnightChaser() {
 
   return (
     <Container isPortrait={orientation === "portrait"}>
-      <AdWrapper>
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block", textAlign: "center" }}
-          data-ad-layout="in-article"
-          data-ad-format="fluid"
-          data-ad-client="ca-pub-8583770780355894"
-          data-ad-slot="4169298389"
-        />
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </AdWrapper>
+      <AdWrapper />
       <MidnightChaserMap slotList={slotList} setSlotList={setSlotList} orientation={orientation} />
       <MidnightChaserSelector slotList={slotList} setSlotList={setSlotList} />
     </Container>
