@@ -1,20 +1,16 @@
 import { SlotType } from "../../types/midnight_chaser";
 import MidnightChaserItem from "../molcules/midnightChaserItem";
 import styled from "@emotion/styled";
-import useOrientation from "../../hooks/useOrientation";
 import { OrientationType } from "../../types";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
   slotList: SlotType;
   setSlotList: Dispatch<SetStateAction<SlotType>>;
+  orientation: OrientationType;
 };
 
-export default function MidnightChaserMap({ slotList, setSlotList }: Props) {
-  const orientation = useOrientation();
-
-  console.log(slotList);
-
+export default function MidnightChaserMap({ slotList, setSlotList, orientation }: Props) {
   return (
     <Container orientation={orientation}>
       {slotList.map((item, i) => (

@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import { largeImgList } from "../../constants/midnightChaser";
 import { Dispatch, SetStateAction } from "react";
 import { SlotType } from "../../types/midnight_chaser";
+import { useSetRecoilState } from "recoil";
+import { dropElementsRecoil } from "../../recoils";
 
 type Props = {
   idx: number;
@@ -10,31 +12,14 @@ type Props = {
 };
 
 export default function MidnightChaserItem({ idx, item, setSlotList }: Props) {
-  const onDragStart = (e: any, i: number) => e.dataTransfer.setData("data", String(i));
-  const onDragOver = (e: any) => {
-    e.preventDefault();
-    e.currentTarget.classList.add("on");
-  };
-  const onDragLeave = (e: any) => {
-    e.preventDefault();
-    e.currentTarget.classList.remove("on");
-  };
-  const onDrop = (e: any) => {
-    e.preventDefault();
-    onDragLeave(e);
-    const data = Number(e.dataTransfer.getData("data"));
-    if (!isNaN(data)) setSlotList(prev => [...prev.slice(0, idx), data, ...prev.slice(idx + 1)]);
-  };
+  const setDropElements = useSetRecoilState(dropElementsRecoil("mc"));
+
   const onClick = () => setSlotList(prev => [...prev.slice(0, idx), -1, ...prev.slice(idx + 1)]);
 
   return (
     <Item
+      ref={ref => ref && setDropElements(prev => [...prev.slice(0, idx), ref, ...prev.slice(idx + 1)])}
       src={largeImgList[item]}
-      onDragStart={e => onDragStart(e, item)}
-      onDragEnd={onClick}
-      onDragOver={onDragOver}
-      onDragLeave={onDragLeave}
-      onDrop={onDrop}
       onClick={onClick}
     />
   );

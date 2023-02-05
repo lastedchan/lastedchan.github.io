@@ -1,4 +1,4 @@
-import { atom, AtomEffect } from "recoil";
+import { atom, AtomEffect, atomFamily } from "recoil";
 import { PaletteMode } from "@mui/material";
 
 export const localStorageEffect: <T>(key: string) => AtomEffect<T> =
@@ -16,4 +16,9 @@ export const localStorageEffect: <T>(key: string) => AtomEffect<T> =
 export const darkModeRecoil = atom<PaletteMode>({
   key: "darkModeRecoil",
   default: "light",
+});
+
+export const dropElementsRecoil = atomFamily<HTMLElement[], string>({
+  key: "dropElementsRecoil",
+  default: [],
 });

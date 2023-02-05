@@ -8,10 +8,10 @@ export default function useOrientation() {
     const func = () => {
       setOrientation(window.innerWidth <= window.innerHeight - 53 ? "portrait" : "landscape");
     };
-    window.onresize = func;
+    window.addEventListener("resize", func);
     func();
     return () => {
-      window.onresize = null;
+      window.removeEventListener("resize", func);
     };
   }, []);
 

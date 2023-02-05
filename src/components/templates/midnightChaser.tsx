@@ -24,8 +24,8 @@ export default function MidnightChaser() {
         />
         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
       </AdWrapper>
-      <MidnightChaserMap slotList={slotList} setSlotList={setSlotList} />
-      <MidnightChaserSelector slotList={slotList} isPortrait={orientation === "portrait"} />
+      <MidnightChaserMap slotList={slotList} setSlotList={setSlotList} orientation={orientation} />
+      <MidnightChaserSelector slotList={slotList} setSlotList={setSlotList} />
     </Container>
   );
 }
