@@ -6,11 +6,11 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
 import { useRecoilState } from "recoil";
 import { Dispatch, SetStateAction, useCallback } from "react";
-import { reorder } from "../../libs/helpers";
-import useCharacterList from "./useCharacterList";
+import { reorder } from "../../../libs/helpers";
+import useCharacterList from "../useCharacterList";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { characterListRecoil } from "../../recoils/crystal_calculator";
+import { characterListRecoil } from "../../../recoils/crystal_calculator";
 
 type Props = {
   open: boolean;

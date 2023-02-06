@@ -1,9 +1,9 @@
 import React, { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { Tab, Tabs } from "@mui/material";
-import * as gtag from "../../libs/gtag";
-import TabContextMenu from "./tabContextMenu";
-import { characterListRecoil } from "../../recoils/crystal_calculator";
+import * as gtag from "../../../libs/gtag";
+import TabContextMenu from "../molcules/tabContextMenu";
+import { characterListRecoil } from "../../../recoils/crystal_calculator";
 
 type TabListProps = {
   tab: number;

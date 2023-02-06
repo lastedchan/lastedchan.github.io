@@ -1,4 +1,4 @@
-import CrystalCalculator from "../src/components/crystalCalculator/crystalCalculator";
+import CrystalCalculator from "../src/components/crystalCalculator/templates/crystalCalculator";
 import styled from "@emotion/styled";
 
 export default function Home() {
