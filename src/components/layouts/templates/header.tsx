@@ -4,7 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import TabList from "../organisms/tabList";
 import { useRouter } from "next/router";
 import { TAB_LIST } from "../../../constants/common";
-import Popup from "../../popup";
+import Popup from "../../common/molcules/popup";
 import HelpIcon from "@mui/icons-material/Help";
 import * as gtag from "../../../libs/gtag";
 import DarkMode from "../atoms/darkMode";
