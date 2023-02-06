@@ -1,11 +1,5 @@
 import styled from "@emotion/styled";
-import {
-  Divider,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+import { Divider, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -26,13 +20,7 @@ type Props = {
   onClose: () => void;
 };
 
-export default function TabContextMenu({
-  open,
-  idx,
-  anchorEl,
-  setTab,
-  onClose,
-}: Props) {
+export default function TabContextMenu({ open, idx, anchorEl, setTab, onClose }: Props) {
   const [characterList, setCharacterList] = useRecoilState(characterListRecoil);
 
   const { changeName, removeCharacter } = useCharacterList().character(idx);

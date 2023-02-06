@@ -15,13 +15,7 @@ export default function CrystalCalculator() {
     <Container>
       <Box display={"grid"} gridTemplateColumns={"auto 1fr"} gap={1}>
         <FormControlLabel
-          control={
-            <Switch
-              checked={isReboot}
-              onChange={(e, v) => setIsReboot(v)}
-              size={"small"}
-            />
-          }
+          control={<Switch checked={isReboot} onChange={(e, v) => setIsReboot(v)} size={"small"} />}
           label={"리부트"}
           labelPlacement={"start"}
         />

@@ -47,6 +47,7 @@ const Container = styled.div`
   width: 480px;
   max-width: 100%;
   justify-content: center;
+
   & [role="number"] {
     font-family: Consolas, sans-serif !important;
     text-align: right;

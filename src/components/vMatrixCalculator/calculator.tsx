@@ -164,6 +164,7 @@ const Item = styled(Card)`
   gap: 4px;
   padding: 4px;
   justify-content: center;
+
   & p {
     white-space: nowrap;
     text-overflow: ellipsis;

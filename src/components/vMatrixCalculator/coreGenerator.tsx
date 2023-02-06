@@ -25,18 +25,8 @@ export default function CoreGenerator() {
     [selectedCoreList]
   );
 
-  const selectCore = (item: string) =>
-    setSelectedCoreList(prev => [
-      ...prev.slice(0, idx),
-      item,
-      ...prev.slice(idx + 1),
-    ]);
-  const unselectCore = (i: number) =>
-    setSelectedCoreList(prev => [
-      ...prev.slice(0, i),
-      "",
-      ...prev.slice(i + 1),
-    ]);
+  const selectCore = (item: string) => setSelectedCoreList(prev => [...prev.slice(0, idx), item, ...prev.slice(idx + 1)]);
+  const unselectCore = (i: number) => setSelectedCoreList(prev => [...prev.slice(0, i), "", ...prev.slice(i + 1)]);
 
   const addCoreList = () => {
     if (selectedCoreList.filter(_ => _).length === 3) {
@@ -55,12 +45,7 @@ export default function CoreGenerator() {
     <Container>
       <ButtonContainer>
         {coreList?.map(item => (
-          <Button
-            key={item}
-            variant={"outlined"}
-            onClick={() => selectCore(item)}
-            disabled={!!selectedCoreList.find(_ => _ === item)}
-          >
+          <Button key={item} variant={"outlined"} onClick={() => selectCore(item)} disabled={!!selectedCoreList.find(_ => _ === item)}>
             <Typography>{item}</Typography>
           </Button>
         ))}
@@ -68,16 +53,10 @@ export default function CoreGenerator() {
       <Box display={"flex"} flexDirection={"row"} gap={1}>
         {_.range(0, 3).map(i => (
           <CoreItem key={i} elevation={i === idx ? 12 : 1}>
-            <IconButton
-              size={"small"}
-              color={"error"}
-              onClick={() => unselectCore(i)}
-            >
+            <IconButton size={"small"} color={"error"} onClick={() => unselectCore(i)}>
               <HighlightOffIcon />
             </IconButton>
-            <Typography onClick={() => setIdx(i)}>
-              {selectedCoreList[i]}
-            </Typography>
+            <Typography onClick={() => setIdx(i)}>{selectedCoreList[i]}</Typography>
           </CoreItem>
         ))}
       </Box>
@@ -100,6 +79,7 @@ const ButtonContainer = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 4px;
   overflow: auto;
+
   & p {
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -114,6 +94,7 @@ const CoreItem = styled(Paper)`
   padding: 8px 4px;
   align-items: center;
   overflow: hidden;
+
   & p {
     flex: 1;
     height: 1.5rem;

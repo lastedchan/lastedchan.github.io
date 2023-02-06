@@ -16,13 +16,7 @@ export default function StackList() {
     <Container>
       <List>
         {Object.entries(stackList).map(([i, value]) => (
-          <Item
-            key={i}
-            control={
-              <NumberField idx={i} value={value} onChange={onCoreChange} />
-            }
-            label={i}
-          />
+          <Item key={i} control={<NumberField idx={i} value={value} onChange={onCoreChange} />} label={i} />
         ))}
       </List>
     </Container>

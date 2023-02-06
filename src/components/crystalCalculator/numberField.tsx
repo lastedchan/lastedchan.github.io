@@ -8,8 +8,7 @@ type Props = {
   onChange: (idx: number, value: number) => void;
 };
 export default function NumberField({ idx, value, onChange }: Props) {
-  const change = (n: 1 | -1) =>
-    inRange(Number(value) + n, 1, 7) && onChange(idx, Number(value) + n);
+  const change = (n: 1 | -1) => inRange(Number(value) + n, 1, 7) && onChange(idx, Number(value) + n);
 
   return (
     <Container variant={"contained"}>
@@ -29,9 +28,11 @@ const Container = styled(ButtonGroup)`
   gap: 4px;
   width: 100%;
   align-items: center;
+
   & button {
     flex: 2;
   }
+
   & p {
     flex: 0 0 50px;
   }

@@ -35,11 +35,7 @@ export default function CoreList() {
                 <Typography key={i}>{skill}</Typography>
               ))}
               <Divider />
-              <Button
-                size={"small"}
-                color={"error"}
-                onClick={() => deleteMyCore(i)}
-              >
+              <Button size={"small"} color={"error"} onClick={() => deleteMyCore(i)}>
                 삭제
               </Button>
             </Item>
@@ -75,6 +71,7 @@ const Item = styled(Card)`
   gap: 4px;
   padding: 4px;
   justify-content: center;
+
   & p {
     white-space: nowrap;
     text-overflow: ellipsis;
