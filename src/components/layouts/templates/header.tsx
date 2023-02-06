@@ -3,10 +3,10 @@ import { useEffect, useMemo, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import TabList from "../organisms/tabList";
 import { useRouter } from "next/router";
-import { TAB_LIST } from "../../constants/common";
-import Popup from "../popup";
+import { TAB_LIST } from "../../../constants/common";
+import Popup from "../../popup";
 import HelpIcon from "@mui/icons-material/Help";
-import * as gtag from "../../libs/gtag";
+import * as gtag from "../../../libs/gtag";
 import DarkMode from "../atoms/darkMode";
 
 export default function Header() {
@@ -48,7 +48,7 @@ export default function Header() {
           <DarkMode />
         </Toolbar>
         <Drawer open={open} onClose={() => setOpen(false)}>
-          <TabList tabList={TAB_LIST} />
+          <TabList />
         </Drawer>
       </AppBar>
     </>

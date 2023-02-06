@@ -3,7 +3,7 @@ import React, { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
 import * as gtag from "../../libs/gtag";
-import AdWrapper from "../molcules/adWrapper";
+import AdWrapper from "../common/molcules/adWrapper";
 import { CalcType, CoreListType, StackListType } from "../../types/v_matrix_calculator";
 import { coreListRecoil, jobRecoil, stackListRecoil } from "../../recoils/v_matrix_calculator";
 

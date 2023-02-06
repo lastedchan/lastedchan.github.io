@@ -8,7 +8,7 @@ import Boss from "./boss";
 import useCharacterList from "./useCharacterList";
 import { characterSelector } from "../../recoils/crystal_calculator";
 import { bossList } from "../../constants/crystalCalculator";
-import AdWrapper from "../molcules/adWrapper";
+import AdWrapper from "../common/molcules/adWrapper";
 
 type Props = {
   idx: number;

@@ -1,5 +1,5 @@
 import { ChangeEvent, useCallback } from "react";
-import useDarkMode from "../../hooks/useDarkMode";
+import useDarkMode from "../../../hooks/useDarkMode";
 import { FormControlLabel, Switch } from "@mui/material";
 
 export default function DarkMode() {

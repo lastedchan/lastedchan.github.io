@@ -3,7 +3,7 @@ export type TabType = {
   show: boolean;
   href?: string;
   help?: JSX.Element;
-} | null;
-export type TabListType = TabType[];
+};
+export type TabListType = (TabType | null)[];
 
 export type OrientationType = "portrait" | "landscape";

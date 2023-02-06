@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import useCharacterList from "./useCharacterList";
 import { characterListRecoil, isRebootRecoil } from "../../recoils/crystal_calculator";
 import { getTotalCount, getTotalPrice } from "../../constants/crystalCalculator";
-import AdWrapper from "../molcules/adWrapper";
+import AdWrapper from "../common/molcules/adWrapper";
 
 type Props = {
   setTab: Dispatch<SetStateAction<number>>;

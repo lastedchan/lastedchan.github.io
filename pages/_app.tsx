@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { useEffect, useMemo } from "react";
 import { RecoilRoot } from "recoil";
 import * as gtag from "../src/libs/gtag";
-import App_ from "../src/components/app";
+import App_ from "../src/components/layouts/app";
 import Gtm from "../src/libs/gtm";
 import Script from "next/script";
 import Head from "next/head";

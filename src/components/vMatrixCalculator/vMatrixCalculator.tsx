@@ -9,7 +9,7 @@ import { sum } from "lodash";
 import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
 import Slider from "react-slick";
-import AdWrapper from "../molcules/adWrapper";
+import AdWrapper from "../common/molcules/adWrapper";
 import { jobRecoil, stackListRecoil } from "../../recoils/v_matrix_calculator";
 
 export default function VMatrixCalculator() {

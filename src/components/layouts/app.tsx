@@ -1,14 +1,14 @@
 import { Box, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Header from "./templates/header";
 import { useMemo } from "react";
-import useDarkMode from "../hooks/useDarkMode";
+import useDarkMode from "../../hooks/useDarkMode";
 import styled from "@emotion/styled";
 import { AppProps } from "next/app";
 
 export default function App_({ Component, pageProps }: AppProps) {
   const { mode, loaded } = useDarkMode();
 
-  const theme = useMemo(() => createTheme({ palette: { mode: mode } }), [mode]);
+  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
 
   if (!loaded) return null;
 
