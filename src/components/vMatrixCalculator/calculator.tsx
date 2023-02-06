@@ -91,17 +91,7 @@ export default function Calculator({ coreCount }: Props) {
         <span>코어 조합 : {resultList.length}개</span>
         {resultList.length > 50 && <span style={{ float: "right" }}>(최대 50개까지 출력됩니다.)</span>}
       </Typography>
-      <AdWrapper>
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block", textAlign: "center" }}
-          data-ad-layout="in-article"
-          data-ad-format="fluid"
-          data-ad-client="ca-pub-8583770780355894"
-          data-ad-slot="4169298389"
-        />
-        <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-      </AdWrapper>
+      <AdWrapper />
       <Container>
         {resultList.length
           ? resultList.slice(0, 50).map((result, i) => (
