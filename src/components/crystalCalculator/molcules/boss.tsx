@@ -44,7 +44,12 @@ export default function Boss({ i, idx, item }: Props) {
         if (same) {
           arr = changeValue(arr, idx, [arr[idx][0], changeValue(arr[idx][1], idx3, { ...arr[idx][1][idx3], checked: false })]);
         }
-        return changeValue(arr, idx, [arr[idx][0], changeValue(arr[idx][1], idx2, { ...arr[idx][1][idx2], ...v })]);
+        arr = changeValue(arr, idx, [
+          arr[idx][0],
+          changeValue(arr[idx][1], idx2, { ...{ difficulty: bossList[i].difficulty, name: bossList[i].name }, ...arr[idx][1][idx2], ...v }),
+        ]);
+        console.log(arr);
+        return arr;
       });
     },
     [character, idx, setCharacterList]
