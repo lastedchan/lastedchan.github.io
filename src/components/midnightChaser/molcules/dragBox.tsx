@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { smallImgList } from "../../../constants/midnightChaser";
-import { DropCoordinatesType } from "../../../types/midnight_chaser";
+import { DropCoordinatesType } from "../../../types/midnightChaser";
 import DragItem from "../atoms/dragItem";
 import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";

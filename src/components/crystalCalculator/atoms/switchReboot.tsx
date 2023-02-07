@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil";
-import { isRebootRecoil } from "../../../recoils/crystal_calculator";
+import { isRebootRecoil } from "../../../recoils/crystalCalculator";
 import { FormControlLabel, Switch } from "@mui/material";
 import React from "react";
 

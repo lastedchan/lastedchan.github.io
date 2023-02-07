@@ -1,12 +1,13 @@
 import { useRecoilState, useRecoilValue } from "recoil";
 import { useCallback, useMemo } from "react";
-import * as gtag from "../../libs/gtag";
-import { characterListRecoil, isRebootRecoil } from "../../recoils/crystal_calculator";
-import { getTotalCount, getTotalPrice } from "../../constants/crystalCalculator";
+import * as gtag from "../libs/gtag";
+import { characterListRecoil, isRebootRecoil } from "../recoils/crystalCalculator";
+import { getTotalCount, getTotalPrice } from "../constants/crystalCalculator";
 
 export default function useCharacterList() {
   const isReboot = useRecoilValue(isRebootRecoil);
   const [characterList, setCharacterList] = useRecoilState(characterListRecoil);
+
   const character = (idx: number) => {
     const character_ = characterList[idx];
 

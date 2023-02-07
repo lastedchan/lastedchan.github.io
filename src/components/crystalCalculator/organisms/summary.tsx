@@ -2,10 +2,10 @@ import { useRecoilValue } from "recoil";
 import { Dispatch, Fragment, SetStateAction } from "react";
 import { Divider, Typography } from "@mui/material";
 import styled from "@emotion/styled";
-import useCharacterList from "./useCharacterList";
-import { characterListRecoil, isRebootRecoil } from "../../recoils/crystal_calculator";
-import { getTotalCount, getTotalPrice } from "../../constants/crystalCalculator";
-import AdWrapper from "../common/molcules/adWrapper";
+import useCharacterList from "../../../hooks/useCharacterList";
+import { characterListRecoil, isRebootRecoil } from "../../../recoils/crystalCalculator";
+import { getTotalCount, getTotalPrice } from "../../../constants/crystalCalculator";
+import AdWrapper from "../../common/molcules/adWrapper";
 
 type Props = {
   setTab: Dispatch<SetStateAction<number>>;

@@ -9,14 +9,14 @@ export const pageview = (url: string) => {
   }
 };
 
-type eventProps = {
+type EventProps = {
   action: string;
   category?: string;
   label?: string;
-  value?: string;
+  value?: any;
 };
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
-export const event = ({ action, category, label, value }: eventProps) => {
+export const event = ({ action, category, label, value }: EventProps) => {
   if (process.env.NODE_ENV !== "development") {
     window.gtag("event", action, {
       event_category: category,

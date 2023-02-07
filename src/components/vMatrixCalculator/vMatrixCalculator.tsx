@@ -10,7 +10,7 @@ import styled from "@emotion/styled";
 import { useRecoilValue } from "recoil";
 import Slider from "react-slick";
 import AdWrapper from "../common/molcules/adWrapper";
-import { jobRecoil, stackListRecoil } from "../../recoils/v_matrix_calculator";
+import { jobRecoil, stackListRecoil } from "../../recoils/vMatrixCalculator";
 
 export default function VMatrixCalculator() {
   const slider = useRef<Slider>(null);

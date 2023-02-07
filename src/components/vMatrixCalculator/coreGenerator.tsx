@@ -5,8 +5,8 @@ import _ from "lodash";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import * as gtag from "../../libs/gtag";
-import { coreListRecoil, jobRecoil } from "../../recoils/v_matrix_calculator";
-import { jobList } from "../../constants/v_matrix_calculator";
+import { coreListRecoil, jobRecoil } from "../../recoils/vMatrixCalculator";
+import { jobList } from "../../constants/vMatrixCalculator";
 
 export default function CoreGenerator() {
   const job = useRecoilValue(jobRecoil);

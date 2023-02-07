@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { Divider, ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
 import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
@@ -7,10 +6,10 @@ import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArro
 import { useRecoilState } from "recoil";
 import { Dispatch, SetStateAction, useCallback } from "react";
 import { reorder } from "../../../libs/helpers";
-import useCharacterList from "../useCharacterList";
+import useCharacterList from "../../../hooks/useCharacterList";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { characterListRecoil } from "../../../recoils/crystal_calculator";
+import { characterListRecoil } from "../../../recoils/crystalCalculator";
 
 type Props = {
   open: boolean;
@@ -47,58 +46,54 @@ export default function TabContextMenu({ open, idx, anchorEl, setTab, onClose }:
   }, [characterList.length, idx, onClose, setCharacterList, setTab]);
 
   return (
-    <Container role={"tab-context-menu"}>
-      <Menu open={open} anchorEl={anchorEl} onClose={onClose}>
-        <MenuItem
-          onClick={() => {
-            onClose();
-            setTimeout(changeName, 1);
-          }}
-        >
-          <ListItemIcon>
-            <EditIcon />
-          </ListItemIcon>
-          <ListItemText primary={"이름 변경"} />
-        </MenuItem>
-        <MenuItem
-          onClick={() => {
-            onClose();
-            setTimeout(removeCharacter, 1);
-          }}
-        >
-          <ListItemIcon>
-            <DeleteIcon color={"error"} />
-          </ListItemIcon>
-          <ListItemText primary={"삭제"} />
-        </MenuItem>
-        <Divider />
-        <MenuItem onClick={goFirst} disabled={idx <= 0}>
-          <ListItemIcon>
-            <KeyboardDoubleArrowLeftIcon />
-          </ListItemIcon>
-          <ListItemText primary={"맨 앞으로"} />
-        </MenuItem>
-        <MenuItem onClick={goLeft} disabled={idx <= 0}>
-          <ListItemIcon>
-            <KeyboardArrowLeftIcon />
-          </ListItemIcon>
-          <ListItemText primary={"한 칸 앞으로"} />
-        </MenuItem>
-        <MenuItem onClick={goRight} disabled={idx >= characterList.length - 1}>
-          <ListItemIcon>
-            <KeyboardArrowRightIcon />
-          </ListItemIcon>
-          <ListItemText primary={"한 칸 뒤로"} />
-        </MenuItem>
-        <MenuItem onClick={goLast} disabled={idx >= characterList.length - 1}>
-          <ListItemIcon>
-            <KeyboardDoubleArrowRightIcon />
-          </ListItemIcon>
-          <ListItemText primary={"맨 뒤로"} />
-        </MenuItem>
-      </Menu>
-    </Container>
+    <Menu open={open} anchorEl={anchorEl} onClose={onClose}>
+      <MenuItem
+        onClick={() => {
+          onClose();
+          setTimeout(changeName, 0);
+        }}
+      >
+        <ListItemIcon>
+          <EditIcon />
+        </ListItemIcon>
+        <ListItemText primary={"이름 변경"} />
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          onClose();
+          setTimeout(removeCharacter, 1);
+        }}
+      >
+        <ListItemIcon>
+          <DeleteIcon color={"error"} />
+        </ListItemIcon>
+        <ListItemText primary={"삭제"} />
+      </MenuItem>
+      <Divider />
+      <MenuItem onClick={goFirst} disabled={idx <= 0}>
+        <ListItemIcon>
+          <KeyboardDoubleArrowLeftIcon />
+        </ListItemIcon>
+        <ListItemText primary={"맨 앞으로"} />
+      </MenuItem>
+      <MenuItem onClick={goLeft} disabled={idx <= 0}>
+        <ListItemIcon>
+          <KeyboardArrowLeftIcon />
+        </ListItemIcon>
+        <ListItemText primary={"한 칸 앞으로"} />
+      </MenuItem>
+      <MenuItem onClick={goRight} disabled={idx >= characterList.length - 1}>
+        <ListItemIcon>
+          <KeyboardArrowRightIcon />
+        </ListItemIcon>
+        <ListItemText primary={"한 칸 뒤로"} />
+      </MenuItem>
+      <MenuItem onClick={goLast} disabled={idx >= characterList.length - 1}>
+        <ListItemIcon>
+          <KeyboardDoubleArrowRightIcon />
+        </ListItemIcon>
+        <ListItemText primary={"맨 뒤로"} />
+      </MenuItem>
+    </Menu>
   );
 }
-
-const Container = styled.div``;

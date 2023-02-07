@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
-import { Character } from "../character";
+import { Character } from "../organisms/character";
 import { Box } from "@mui/material";
 import React, { useState } from "react";
 import TabList from "../organisms/tabList";
-import Summary from "../summary";
+import Summary from "../organisms/summary";
 import SwitchReboot from "../atoms/switchReboot";
 
 export default function CrystalCalculator() {
@@ -15,13 +15,9 @@ export default function CrystalCalculator() {
         <SwitchReboot />
         <TabList tab={tab} setTab={setTab} />
       </Box>
-      {tab === 0 ? (
-        <Summary setTab={setTab} />
-      ) : (
-        <Box flex={"1"} overflow={"hidden"}>
-          <Character idx={tab - 1} />
-        </Box>
-      )}
+      <Box flex={"1"} overflow={"hidden"}>
+        {tab === 0 ? <Summary setTab={setTab} /> : <Character idx={tab - 1} />}
+      </Box>
     </Container>
   );
 }

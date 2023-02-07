@@ -1,19 +1,11 @@
-import {
-  bossListType,
-  bossType,
-  huntedBossType,
-} from "../types/crystal_calculator";
+import { BossListType, BossType, HuntedBossType } from "../types/crystalCalculator";
 
-export const findMatch = (huntedBoss: huntedBossType, boss: bossType) =>
+export const findMatch = (huntedBoss: HuntedBossType, boss: BossType) =>
   huntedBoss.difficulty === boss.difficulty && huntedBoss.name === boss.name;
 
-export const getTotalCount = (huntedBossList: huntedBossType[]) =>
-  huntedBossList?.filter(_ => _.checked).length;
+export const getTotalCount = (huntedBossList: HuntedBossType[]) => huntedBossList?.filter(_ => _.checked).length;
 
-export const getTotalPrice = (
-  huntedBossList: huntedBossType[],
-  isReboot: boolean
-) =>
+export const getTotalPrice = (huntedBossList: HuntedBossType[], isReboot: boolean) =>
   huntedBossList
     ?.filter(_ => _.checked)
     .reduce((prev: number, _) => {
@@ -21,7 +13,7 @@ export const getTotalPrice = (
       return boss ? prev + Math.floor(boss.price / (_.headcount ?? 1)) : prev;
     }, 0) * (isReboot ? 5 : 1);
 
-export const bossList: bossListType = [
+export const bossList: BossListType = [
   // { type: "일일", difficulty: "이지", name: "자쿰", price: 119835 },
   // { type: "일일", difficulty: "노멀", name: "자쿰", price: 366997 },
   // { type: "일일", difficulty: "이지", name: "파풀라투스", price: 410135 },

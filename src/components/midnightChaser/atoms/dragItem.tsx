@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { inRange } from "lodash";
-import { DropCoordinatesType } from "../../../types/midnight_chaser";
+import { DropCoordinatesType } from "../../../types/midnightChaser";
 import styled from "@emotion/styled";
 import { useSetRecoilState } from "recoil";
 import { slotListRecoil } from "../../../recoils/midnightChaser";

@@ -3,7 +3,7 @@ import { Button, Card, Divider, Typography } from "@mui/material";
 import { useCallback, useRef } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import * as gtag from "../../libs/gtag";
-import { coreListRecoil, jobRecoil } from "../../recoils/v_matrix_calculator";
+import { coreListRecoil, jobRecoil } from "../../recoils/vMatrixCalculator";
 
 export default function CoreList() {
   const job = useRecoilValue(jobRecoil);
