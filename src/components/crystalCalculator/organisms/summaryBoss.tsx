@@ -36,7 +36,7 @@ export default function SummaryBoss() {
                 </TableCell>
                 {characterList.map((_, j) => (
                   <TableCell key={j} align={"center"}>
-                    {_[1].find(__ => findMatch(__, item)) && "O"}
+                    {_[1].find(__ => __.checked && findMatch(__, item)) && "O"}
                   </TableCell>
                 ))}
               </TableRow>
