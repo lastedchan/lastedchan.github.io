@@ -1,17 +1,7 @@
-import { BossListType, BossType, HuntedBossType } from "../types/crystalCalculator";
+import { BossListType, BossType, ColorPrefersType, HuntedBossType } from "../types/crystalCalculator";
 
 export const findMatch = (huntedBoss: HuntedBossType, boss: BossType) =>
   huntedBoss.difficulty === boss.difficulty && huntedBoss.name === boss.name;
-
-export const getTotalCount = (huntedBossList: HuntedBossType[]) => huntedBossList?.filter(_ => _.checked).length;
-
-export const getTotalPrice = (huntedBossList: HuntedBossType[], isReboot: boolean) =>
-  huntedBossList
-    ?.filter(_ => _.checked)
-    .reduce((prev: number, _) => {
-      const boss = bossList.find(__ => findMatch(_, __));
-      return boss ? prev + Math.floor(boss.price / (_.headcount ?? 1)) : prev;
-    }, 0) * (isReboot ? 5 : 1);
 
 export const bossList: BossListType = [
   // { type: "일일", difficulty: "이지", name: "자쿰", price: 119835 },
@@ -48,12 +38,7 @@ export const bossList: BossListType = [
   { type: "주간", difficulty: "카오스", name: "파풀라투스", price: 26725937 },
   { type: "주간", difficulty: "노멀", name: "스우", price: 33942566 },
   { type: "주간", difficulty: "노멀", name: "데미안", price: 35517853 },
-  {
-    type: "주간",
-    difficulty: "노멀",
-    name: "가디언 엔젤 슬라임",
-    price: 46935874,
-  },
+  { type: "주간", difficulty: "노멀", name: "가디언 엔젤 슬라임", price: 46935874 },
   { type: "주간", difficulty: "이지", name: "루시드", price: 48058319 },
   { type: "주간", difficulty: "이지", name: "윌", price: 52139127 },
   { type: "주간", difficulty: "노멀", name: "루시드", price: 57505626 },
@@ -65,39 +50,19 @@ export const bossList: BossListType = [
   { type: "주간", difficulty: "하드", name: "루시드", price: 131095655 },
   { type: "주간", difficulty: "하드", name: "윌", price: 145038483 },
   { type: "주간", difficulty: "노멀", name: "진 힐라", price: 148112376 },
-  {
-    type: "주간",
-    difficulty: "카오스",
-    name: "가디언 엔젤 슬라임",
-    price: 155492141,
-  },
+  { type: "주간", difficulty: "카오스", name: "가디언 엔젤 슬라임", price: 155492141 },
   { type: "주간", difficulty: "카오스", name: "더스크", price: 160173752 },
   { type: "주간", difficulty: "하드", name: "듄켈", price: 168609280 },
   { type: "주간", difficulty: "하드", name: "진 힐라", price: 190159452 },
   { type: "주간", difficulty: "노멀", name: "선택받은 세렌", price: 196904752 },
   { type: "주간", difficulty: "하드", name: "선택받은 세렌", price: 267825621 },
-  {
-    type: "주간",
-    difficulty: "카오스",
-    name: "감시자 칼로스",
-    price: 300000000,
-  },
-  {
-    type: "주간",
-    difficulty: "익스트림",
-    name: "선택받은 세렌",
-    price: 1071302484,
-  },
+  { type: "주간", difficulty: "카오스", name: "감시자 칼로스", price: 300000000 },
+  { type: "주간", difficulty: "익스트림", name: "선택받은 세렌", price: 1071302484 },
   // { type: "월간", difficulty: "하드", name: "검은 마법사", price: 1418809857 },
-  /*{
-    type: "월간",
-    difficulty: "익스트림",
-    name: "검은 마법사",
-    price: 5675239428,
-  },*/
+  // { type: "월간", difficulty: "익스트림", name: "검은 마법사", price: 5675239428 },
 ];
 
-export const colors = [
+export const colorPrefers: ColorPrefersType = [
   { str: "일일", bgcolor: "#ffffff", color: "#000000" },
   { str: "주간", bgcolor: "#ffffff", color: "#000000" },
   { str: "월간", bgcolor: "#ffffff", color: "#000000" },

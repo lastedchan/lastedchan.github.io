@@ -1,5 +1,5 @@
 import { BossType } from "../../../types/crystalCalculator";
-import { colors } from "../../../constants/crystalCalculator";
+import { colorPrefers } from "../../../constants/crystalCalculator";
 import { Typography } from "@mui/material";
 
 type Props = {
@@ -11,8 +11,8 @@ export default function BossName({ item }: Props) {
     <Typography
       p={0.5}
       textAlign={"center"}
-      bgcolor={colors.find(_ => _.str === item.difficulty)?.bgcolor}
-      color={colors.find(_ => _.str === item.difficulty)?.color}
+      bgcolor={colorPrefers.find(_ => _.str === item.difficulty)?.bgcolor}
+      color={colorPrefers.find(_ => _.str === item.difficulty)?.color}
     >
       {item.difficulty} {item.name}
     </Typography>

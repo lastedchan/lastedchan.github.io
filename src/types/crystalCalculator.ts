@@ -1,4 +1,7 @@
 //#region crystalCalculator
+import { Property } from "csstype";
+import Color = Property.Color;
+
 export type DifficultyType = "이지" | "노멀" | "하드" | "카오스" | "익스트림";
 export type BossType = {
   type: "일일" | "주간" | "월간";
@@ -15,3 +18,5 @@ export type HuntedBossType = {
 };
 export type CharacterType = [string, HuntedBossType[]];
 export type CharacterListType = CharacterType[];
+
+export type ColorPrefersType = { str: DifficultyType | "일일" | "주간" | "월간"; bgcolor: Color; color: Color }[];
