@@ -27,13 +27,13 @@ export default function CharacterList({ tab, setTab }: TabListProps) {
   }, []);
 
   useEffect(() => {
-    tab > characterList.length && setTab(characterList.length - 1);
+    tab >= characterList.length && setTab(characterList.length - 1);
   }, [characterList, setTab, tab]);
 
   return (
     <Tabs orientation={"vertical"} variant={"scrollable"} value={tab} onChange={(e, v) => setTab(v)}>
-      {characterList.map(([idx], i) => (
-        <Tab key={i + idx} label={idx} onContextMenu={e => onContextMenu(e, i)} />
+      {characterList.map((item, i) => (
+        <Tab key={i + item[0]} label={item[0]} onContextMenu={e => onContextMenu(e, i)} />
       ))}
       <Tab label={"+"} onClick={addCharacter} />
       <TabContextMenu

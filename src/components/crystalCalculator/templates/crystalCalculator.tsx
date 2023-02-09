@@ -12,6 +12,11 @@ export default function CrystalCalculator() {
   const [tab, setTab] = useState<number>(0);
   const [characterTab, setCharacterTab] = useState<number>(0);
 
+  const goCharacter = (idx: number) => {
+    setTab(0);
+    setCharacterTab(idx);
+  };
+
   return (
     <Container>
       <Box display={"grid"} gridTemplateColumns={"auto 1fr"} gap={1}>
@@ -25,7 +30,7 @@ export default function CrystalCalculator() {
             <Character idx={characterTab} />
           </Box>
         ) : tab === 1 ? (
-          <SummaryCharacter setTab={setCharacterTab} />
+          <SummaryCharacter goCharacter={goCharacter} />
         ) : (
           <SummaryBoss />
         )}

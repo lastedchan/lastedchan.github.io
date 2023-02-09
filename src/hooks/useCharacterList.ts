@@ -3,6 +3,7 @@ import { useCallback, useMemo } from "react";
 import * as gtag from "../libs/gtag";
 import { characterListRecoil, isRebootRecoil } from "../recoils/crystalCalculator";
 import { bossList, findMatch } from "../constants/crystalCalculator";
+import { changeValue } from "../libs/helpers";
 
 export default function useCharacterList() {
   const isReboot = useRecoilValue(isRebootRecoil);
@@ -14,24 +15,14 @@ export default function useCharacterList() {
 
       const characterName = character_?.[0];
 
-      const totalCount = character_?.[1]?.filter(_ => _.checked).length;
-      const totalPrice =
-        character_?.[1]
-          ?.filter(_ => _.checked)
-          .reduce((prev: number, _) => {
-            const boss = bossList.find(__ => findMatch(_, __));
-            return boss ? prev + Math.floor(boss.price / (_.headcount ?? 1)) : prev;
-          }, 0) * (isReboot ? 5 : 1);
-
       const changeName = () => {
         const value = prompt(`캐릭터명을 입력해주세요.\n변경 전 : ${characterName}`);
         if (value) {
           gtag.event({
             action: "cc_change_name",
-            label: characterName,
             value: value,
           });
-          setCharacterList(prev => [...prev.slice(0, idx), [value, character_[1]], ...prev.slice(idx + 1)]);
+          setCharacterList(prev => changeValue(prev, idx, [value, prev[idx][1]]));
         }
       };
 
@@ -39,7 +30,6 @@ export default function useCharacterList() {
         if (confirm(`캐릭터를 복사하시겠습니까?\n복사할 캐릭터 : ${characterName}`)) {
           gtag.event({
             action: "cc_copy_character",
-            value: characterName,
           });
           setCharacterList(prev => [...prev, character_]);
         }
@@ -49,20 +39,36 @@ export default function useCharacterList() {
         if (confirm(`정말로 삭제하시겠습니까?\n삭제될 캐릭터 : ${characterName}`)) {
           gtag.event({
             action: "cc_remove_character",
-            value: characterName,
           });
-          setCharacterList(prev => [...prev.slice(0, idx), ...prev.slice(idx + 1)]);
+          setCharacterList(prev => changeValue(prev, idx));
         }
       };
+
+      const setBossHunted = (v: boolean, i?: number) => {
+        typeof i === "number"
+          ? setCharacterList(prev =>
+              changeValue(prev, idx, [prev[idx][0], changeValue(prev[idx][1], i, { ...prev[idx][1][i], hunted: v })])
+            )
+          : setCharacterList(prev => changeValue(prev, idx, [prev[idx][0], prev[idx][1].map(item => ({ ...item, hunted: v }))]));
+      };
+
+      const totalCount = character_?.[1]?.filter(_ => _.checked).length;
+      const totalPrice = character_?.[1]
+        ?.filter(_ => _.checked)
+        .reduce((prev: number, _) => {
+          const boss = bossList.find(__ => findMatch(_, __));
+          return boss ? prev + Math.floor((boss.price * (isReboot ? 5 : 1)) / (_.headcount ?? 1)) : prev;
+        }, 0);
 
       return {
         character: character_,
         characterName,
-        totalPrice,
-        totalCount,
         changeName,
         copyCharacter,
         removeCharacter,
+        setBossHunted,
+        totalPrice,
+        totalCount,
       };
     },
     [characterList, isReboot, setCharacterList]
@@ -78,11 +84,6 @@ export default function useCharacterList() {
 
   const totalCount = useMemo(() => characterList.reduce((prev, _, i) => prev + character(i).totalCount, 0), [character, characterList]);
   const totalPrice = useMemo(() => characterList.reduce((prev, _, i) => prev + character(i).totalPrice, 0), [character, characterList]);
-  const totalHuntedBosses = useMemo(
-    () =>
-      characterList.reduce<string[]>((prev, character) => [...prev, ...character[1].map(item => item.difficulty + " " + item.name)], []),
-    [characterList]
-  );
 
-  return { characterList, character, addCharacter, totalPrice, totalCount, totalHuntedBosses };
+  return { characterList, character, addCharacter, totalPrice, totalCount };
 }

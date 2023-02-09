@@ -15,6 +15,7 @@ export type HuntedBossType = {
   name: string;
   checked?: boolean;
   headcount?: number;
+  hunted?: boolean;
 };
 export type CharacterType = [string, HuntedBossType[]];
 export type CharacterListType = CharacterType[];

@@ -4,6 +4,7 @@ export function reorder<T>(arr: T[], from: number, to: number) {
   return arr2;
 }
 
-export function changeValue<T>(arr: T[], key: number, value: any): T[] {
-  return key >= 0 ? [...arr.slice(0, key), value, ...arr.slice(key + 1)] : [...arr, value];
+export function changeValue<T>(arr: T[], key: number, value?: T): T[] {
+  if (key < 0) key = arr.length;
+  return value ? [...arr.slice(0, key), value, ...arr.slice(key + 1)] : [...arr.slice(0, key), ...arr.slice(key + 1)];
 }
