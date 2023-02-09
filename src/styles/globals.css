@@ -17,7 +17,19 @@
 }
 
 ::-webkit-scrollbar {
-    /*display: none;*/
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-button {
+    display: none;
+}
+::-webkit-scrollbar-thumb {
+    height: 20%;
+    border-radius: 4px;
+    background-color: #999;
+}
+::-webkit-scrollbar-corner {
+    display: none;
 }
 
 html, body, #__next {
