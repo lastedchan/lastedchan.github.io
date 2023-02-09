@@ -90,7 +90,7 @@ export default function SummaryCharacter({ goCharacter }: Props) {
           </Fragment>
         ))}
         <Row stickyfooter sx={{ bgcolor: "background.default", borderTop: "1px solid", borderColor: "divider" }}>
-          <Cell gridColumn={"1/ 3"} />
+          <Cell gridColumn={"1 / 4"} />
           <Cell role={"number"}>{totalCount}</Cell>
           <Cell role={"number"}>
             <p style={{ margin: 0, textDecoration: sum(balanceList) !== totalPrice ? "line-through" : "" }} role={"number"}>
