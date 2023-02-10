@@ -8,7 +8,16 @@ import { AppProps } from "next/app";
 export default function App_({ Component, pageProps }: AppProps) {
   const { mode, loaded } = useDarkMode();
 
-  const theme = useMemo(() => createTheme({ palette: { mode } }), [mode]);
+  const theme = useMemo(
+    () =>
+      createTheme({
+        palette: {
+          mode,
+          ...(mode === "light" ? {} : { background: { paper: "#222" } }),
+        },
+      }),
+    [mode]
+  );
 
   if (!loaded) return null;
 

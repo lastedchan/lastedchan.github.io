@@ -9,7 +9,7 @@ export default function SummaryBoss() {
   return (
     <Container>
       <TableContainer sx={{ height: "100%", overflow: "auto" }}>
-        <Table stickyHeader sx={{ m: "auto", p: "0 8px", width: "auto" }}>
+        <Table stickyHeader sx={{ width: "auto" }}>
           <TableHead>
             <TableRow sx={{ whiteSpace: "nowrap" }}>
               <TableCell align={"center"} sx={{ maxWidth: 180 }}></TableCell>

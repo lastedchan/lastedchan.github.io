@@ -4,6 +4,7 @@ import { Tab, Tabs } from "@mui/material";
 import TabContextMenu from "../molcules/tabContextMenu";
 import { characterListRecoil } from "../../../recoils/crystalCalculator";
 import useCharacterList from "../../../hooks/useCharacterList";
+import CharacterName from "../atoms/characterName";
 
 type TabListProps = {
   tab: number;
@@ -33,7 +34,7 @@ export default function CharacterList({ tab, setTab }: TabListProps) {
   return (
     <Tabs orientation={"vertical"} variant={"scrollable"} value={tab} onChange={(e, v) => setTab(v)}>
       {characterList.map((item, i) => (
-        <Tab key={i + item[0]} label={item[0]} onContextMenu={e => onContextMenu(e, i)} />
+        <Tab key={i} label={<CharacterName idx={i} />} onContextMenu={e => onContextMenu(e, i)} />
       ))}
       <Tab label={"+"} onClick={addCharacter} />
       <TabContextMenu

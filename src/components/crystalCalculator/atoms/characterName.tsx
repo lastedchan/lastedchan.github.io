@@ -4,5 +4,9 @@ import { Props } from "../organisms/character";
 
 export default function CharacterName({ idx }: Props) {
   const { characterName } = useCharacterList().character(idx);
-  return <Typography pr={1}>{characterName}</Typography>;
+  return (
+    <Typography fontSize={"inherit"} whiteSpace={"nowrap"} textOverflow={"ellipsis"} overflow={"hidden"}>
+      {characterName}
+    </Typography>
+  );
 }
