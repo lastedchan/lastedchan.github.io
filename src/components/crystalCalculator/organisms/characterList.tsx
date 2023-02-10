@@ -28,7 +28,7 @@ export default function CharacterList({ tab, setTab }: TabListProps) {
   }, []);
 
   useEffect(() => {
-    tab >= characterList.length && setTab(characterList.length - 1);
+    tab < 0 && tab >= characterList.length && setTab(characterList.length - 1);
   }, [characterList, setTab, tab]);
 
   return (
