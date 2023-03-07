@@ -33,11 +33,12 @@ export default function Calculator({ coreCount }: Props) {
     const coreList2 = [...coreList];
     let result2 = [...result];
 
+    let res: CalcType;
+
     const core = coreList2.shift();
     if (core) {
       result2.push(core);
       core.forEach(_ => (stackList2[_] -= 1));
-      let res: CalcType = false;
       if (!Object.values(stackList2).some(_ => _ > 0)) {
         res = [...resultList, result2];
       } else if (result.length < coreCount - 1) {
@@ -45,7 +46,7 @@ export default function Calculator({ coreCount }: Props) {
         let res2: CoreListType[] = [];
         do {
           res = calc(stackList2, coreList3, result2, resultList);
-          if (res) res2 = res2.concat(res);
+          if (res) res2 = [...res2, ...res];
           coreList3.shift();
         } while (res !== null);
         res = res2;
@@ -54,10 +55,10 @@ export default function Calculator({ coreCount }: Props) {
         coreList.shift();
         res = false;
       }
-      return res;
     } else {
-      return null;
+      res = null;
     }
+    return res;
   }
 
   return (
@@ -67,7 +68,14 @@ export default function Calculator({ coreCount }: Props) {
         color={"secondary"}
         sx={{ flex: 0 }}
         onClick={() => {
-          const res = calc(stackList, coreList);
+          // const res = calc(stackList, coreList);
+          let res: CalcType = [];
+          const coreList2 = [...coreList];
+          do {
+            const res2 = calc(stackList, coreList2);
+            if (res2) res = [...res, ...res2];
+          } while (coreList2.shift());
+
           gtag.event({
             action: "vmc_calculate",
             category: job,
