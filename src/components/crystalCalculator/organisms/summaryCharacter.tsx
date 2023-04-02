@@ -22,6 +22,7 @@ export default function SummaryCharacter({ goCharacter }: Props) {
   const [openCharacter, setOpenCharacter] = useState<boolean[]>(characterList.map(() => false));
 
   const allHunted = (item: HuntedBossType[]) => !item.find(_ => _.checked && !_.hunted);
+  const balanceCount = useMemo(() => sum(characterList.map(_ => _[1].filter(_ => _.checked && !_.hunted).length)), [characterList]);
   const balanceList = useMemo(
     () =>
       characterList.map(
@@ -97,7 +98,12 @@ export default function SummaryCharacter({ goCharacter }: Props) {
         ))}
         <Row footer sx={{ bgcolor: "background.default", borderTop: "1px solid", borderColor: "divider" }}>
           <Cell gridColumn={"1 / 3"} />
-          <Cell role={"number"}>{totalCount}</Cell>
+          <Cell role={"number"}>
+            <p style={{ margin: 0, textDecoration: balanceCount !== totalPrice ? "line-through" : "" }} role={"number"}>
+              {totalCount.toLocaleString()}
+            </p>
+            {balanceCount !== totalPrice && balanceCount.toLocaleString()}
+          </Cell>
           <Cell role={"number"}>
             <p style={{ margin: 0, textDecoration: sum(balanceList) !== totalPrice ? "line-through" : "" }} role={"number"}>
               {totalPrice.toLocaleString()}
